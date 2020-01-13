@@ -1,17 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jkauppi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/13 11:08:19 by jkauppi          ###   ########.fr       */
+/*   Created: 2019/10/18 11:45:04 by jkauppi           #+#    #+#             */
+/*   Updated: 2019/10/26 18:47:57 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include <stdlib.h>
-# include "libft.h"
-#endif
+#include "libft.h"
+
+char	*ft_strncpy(char *dst, const char *src, size_t len)
+{
+	char		*ptr;
+
+	if ((ptr = ft_memccpy(dst, src, '\0', len)))
+	{
+		while ((size_t)(ptr - dst) < len)
+		{
+			*ptr = '\0';
+			ptr++;
+		}
+	}
+	return (dst);
+}

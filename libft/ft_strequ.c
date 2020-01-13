@@ -1,17 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jkauppi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/13 11:08:19 by jkauppi          ###   ########.fr       */
+/*   Created: 2019/10/21 13:44:45 by jkauppi           #+#    #+#             */
+/*   Updated: 2019/10/30 18:01:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include <stdlib.h>
-# include "libft.h"
-#endif
+#include "libft.h"
+
+int		ft_strequ(char const *s1, char const *s2)
+{
+	if (ft_strcmp(s1, s2))
+		return (0);
+	else
+		return (1);
+}

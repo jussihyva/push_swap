@@ -1,0 +1,5 @@
+checker
+push_swap
+*.dSYM
+*.o
+*.a

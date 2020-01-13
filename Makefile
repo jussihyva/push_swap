@@ -6,36 +6,44 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/01/12 18:01:12 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/01/13 11:24:30 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME1			=	checker
-NAME2			=	push_swap
+NAME1				=	checker
+NAME2				=	push_swap
 
-HEADER_FILE1	=	checker.h
-HEADER_FILE2	=	push_swap.h
+HEADER_FILE1		=	checker.h
+HEADER_FILE2		=	push_swap.h
 
-CC				=	clang
+CC					=	clang
 
-SRC_FOLDER		=	src
-HEADER_FOLDER	=	./
-OBJ_FOLDER		=	obj
-TEST_FOLDER		=	basic_test
-SRC_FILES_NAME	=	
-OBJ_FILES		=	$(addprefix $(OBJ_FOLDER)/, $(patsubst ".c", ".o", $(SRC_FILES_NAME)))
+LIBFT				=	ft
+LIBFT_FOLDER		=	libft
+LIBFT_FILES_NAME	=	ft_atoi.o
+LIBFT_OBJ_FILES		=	$(addprefix $(OBJ_FOLDER)/, $(patsubst ".c", ".o", $(SRC_FILES_NAME)))
+
+I_FLAGS				=	-I $(HEADER_FOLDER) -I $(LIBFT_FOLDER)
+CC_FLAGS			=	-g -Wall -Werror -Wextra
+
+SRC_FOLDER			=	src
+HEADER_FOLDER		=	./
+OBJ_FOLDER			=	obj
+TEST_FOLDER			=	basic_test
+SRC_FILES_NAME		=	
+OBJ_FILES			=	$(addprefix $(OBJ_FOLDER)/, $(patsubst ".c", ".o", $(SRC_FILES_NAME)))
 
 
-all: $(NAME1) $(NAME2)
+all: libft $(NAME1) $(NAME2)
 
-$(NAME1): $(OBJ_FILES)
-	$(CC) -I $(HEADER_FOLDER) -o $@	$@.c $(OBJ_FILES)
+$(NAME1): $(OBJ_FILES) $(NAME1).c
+	$(CC) $(CC_FLAGS) $(I_FLAGS) -o $@ $@.c $(OBJ_FILES) -L $(LIBFT_FOLDER) -l $(LIBFT)
 
-$(NAME2): $(OBJ_FILES)
-	$(CC) -I $(HEADER_FOLDER) -o $@	$@.c $(OBJ_FILES)
+$(NAME2): $(OBJ_FILES) $(NAME2).c
+	$(CC) $(CC_FLAGS) $(I_FLAGS) -o $@ $@.c $(OBJ_FILES) -L $(LIBFT_FOLDER) -l $(LIBFT)
 
-$(OBJ_FILES): $(OBJ_FOLDER)/%.o: $(SRC_FOLDER)/%.c $(HEADER_FILE1) $(HEADER_FILE2) | $(OBJ_FOLDER) $(SRC_FOLDER)
-	$(CC) -c -o $@ $<
+$(OBJ_FILES): $(OBJ_FOLDER)/%.o: $(SRC_FOLDER)/%.c $(HEADER_FILE1) $(HEADER_FILE2) $(LIBFT_FOLDER) | $(OBJ_FOLDER) $(SRC_FOLDER)
+	$(CC) $(CC_FLAGS) -c -o $@ $<
 
 $(SRC_FOLDER):
 	@mkdir $(SRC_FOLDER)
@@ -46,6 +54,9 @@ $(TEST_FOLDER):
 $(OBJ_FOLDER):
 	@mkdir $(OBJ_FOLDER)
 
+libft:
+	@make -C $(LIBFT_FOLDER)
+
 clean:
 	@\rm -f $(OBJ_FOLDER)/*.o
 
@@ -55,7 +66,10 @@ fclean: clean
 
 re: fclean all
 
-test: | $(TEST_FOLDER)
-	ls -1
+norm:
+	norminette ./*.[ch] $(SRC_FOLDER)/*.[ch]
 
-.PHONY: all test clean fclean re
+test: | $(TEST_FOLDER)
+	./push_swap 1 2 8 4 -5
+
+.PHONY: all test clean fclean re libft norm

@@ -6,9 +6,12 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:53 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/12 17:57:27 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/13 11:09:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECER_H
+#ifndef CHECKER_H
+# define CHECKER_H
+# include <stdlib.h>
+# include "libft.h"
 #endif
