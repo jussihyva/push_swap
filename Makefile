@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/01/13 11:24:30 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/01/13 13:54:19 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,6 @@ CC					=	clang
 
 LIBFT				=	ft
 LIBFT_FOLDER		=	libft
-LIBFT_FILES_NAME	=	ft_atoi.o
-LIBFT_OBJ_FILES		=	$(addprefix $(OBJ_FOLDER)/, $(patsubst ".c", ".o", $(SRC_FILES_NAME)))
 
 I_FLAGS				=	-I $(HEADER_FOLDER) -I $(LIBFT_FOLDER)
 CC_FLAGS			=	-g -Wall -Werror -Wextra
@@ -30,8 +28,12 @@ SRC_FOLDER			=	src
 HEADER_FOLDER		=	./
 OBJ_FOLDER			=	obj
 TEST_FOLDER			=	basic_test
-SRC_FILES_NAME		=	
-OBJ_FILES			=	$(addprefix $(OBJ_FOLDER)/, $(patsubst ".c", ".o", $(SRC_FILES_NAME)))
+SRC_FILES_NAME		=	bubble_sort.c
+
+
+OBJ_FILES			=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(SRC_FILES_NAME)))
+
+TEST_ARG			=	`ruby -e "puts (1..10000).to_a.shuffle.join(' ')"`
 
 
 all: libft $(NAME1) $(NAME2)
@@ -43,7 +45,7 @@ $(NAME2): $(OBJ_FILES) $(NAME2).c
 	$(CC) $(CC_FLAGS) $(I_FLAGS) -o $@ $@.c $(OBJ_FILES) -L $(LIBFT_FOLDER) -l $(LIBFT)
 
 $(OBJ_FILES): $(OBJ_FOLDER)/%.o: $(SRC_FOLDER)/%.c $(HEADER_FILE1) $(HEADER_FILE2) $(LIBFT_FOLDER) | $(OBJ_FOLDER) $(SRC_FOLDER)
-	$(CC) $(CC_FLAGS) -c -o $@ $<
+	$(CC) $(CC_FLAGS) $(I_FLAGS) -c -o $@ $<
 
 $(SRC_FOLDER):
 	@mkdir $(SRC_FOLDER)
@@ -70,6 +72,7 @@ norm:
 	norminette ./*.[ch] $(SRC_FOLDER)/*.[ch]
 
 test: | $(TEST_FOLDER)
+#	./push_swap $(TEST_ARG)
 	./push_swap 1 2 8 4 -5
 
 .PHONY: all test clean fclean re libft norm

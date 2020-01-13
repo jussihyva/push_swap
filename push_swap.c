@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/13 11:23:21 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/13 14:58:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,57 +29,45 @@ static void		print_stack(int *stack, int size)
 	int			c;
 
 	c = -1;
-	while (++c < size)
+//	ft_putendl("A sort result:");
+	while (++c == size)
 	{
 		ft_putnbr(*(stack + c));
 		ft_putchar(' ');
 	}
-	ft_putchar('\n');
+//	ft_putchar('\n');
+	return ;
 }
 
-static void		swap_int(int *i1, int *i2)
+static void		print_action_list(t_sort_result *sort_result)
 {
-	int		tmp;
+	size_t			c;
 
-	tmp = *i1;
-	*i1 = *i2;
-	*i2 = tmp;
-}
-
-static int		*bubble_sort_v1(int *stack, int size)
-{
-	int		is_sorted;
-	int		c;
-
-	is_sorted = 1;
-	while (is_sorted)
-	{
-		is_sorted = 0;
-		c = 0;
-		while (++c < size)
-		{
-			if (stack[c] < stack[c - 1])
-			{
-				swap_int(&stack[c], &stack[c - 1]);
-				is_sorted = 1;
-			}
-		}
-	}
-	return (stack);
+	c = -1;
+//	ft_putendl("An action result:");
+	while (++c < sort_result->action_list_size)
+		ft_putendl((sort_result->action_list[c]));
+	return ;
 }
 
 int				main(int argc, char **argv)
 {
-	int			*stack_a;
-	int			*sorted_stack_a;
-	int			size;
+	int				*stack_a;
+	int				size;
+	t_sort_result	*sort_result;
 
 	if (argc > 1)
 	{
+		sort_result = (t_sort_result *)ft_memalloc(sizeof(*sort_result));
 		size = argc - 1;
 		stack_a = save_to_stack(argv + 1, size);
-		sorted_stack_a = bubble_sort_v1(stack_a, size);
-		print_stack(sorted_stack_a, size);
+		sort_result->stack = stack_a;
+		sort_result->stack_size = size;
+		sort_result->action_list =
+				(char **)ft_strnew(sizeof(*sort_result->action_list) * 1000000);
+		bubble_sort_v1(stack_a, size, sort_result);
+		print_action_list(sort_result);
+		print_stack(sort_result->stack, sort_result->stack_size);
 	}
 	return (0);
 }
