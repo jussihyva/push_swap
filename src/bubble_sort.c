@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:21:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/13 14:55:17 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/13 15:34:47 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ static void		swap_int(int *i1, int *i2)
 	*i2 = tmp;
 }
 
-static void		add_action(int **top_ptr, t_sort_result *sort_result,
-															char *action_string)
+static void		add_action(t_sort_result *sort_result, char *action_string)
 {
-	(*top_ptr)++;
 	sort_result->action_list[sort_result->action_list_size] =
 													ft_strdup(action_string);
 	sort_result->action_list_size++;
@@ -47,11 +45,13 @@ void			bubble_sort_v1(int *stack, int size, t_sort_result *sort_result)
 			if (*top_ptr > *(top_ptr + 1))
 			{
 				swap_int(top_ptr, top_ptr + 1);
-				add_action(&top_ptr, sort_result, "sa");
+				add_action(sort_result, "sa");
 				is_sorted = 1;
 			}
-			add_action(&top_ptr, sort_result, "ra");
+			add_action(sort_result, "ra");
+			top_ptr++;
 		}
+		add_action(sort_result, "ra");
 		top_ptr = stack;
 	}
 	return ;
