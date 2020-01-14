@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/13 14:58:56 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/14 10:14:27 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static int		*save_to_stack(char **array, int size)
 {
 	int			*stack;
-	int			c;
+	int			i;
 
+	i = size;
 	stack = (int *)malloc(sizeof(*stack) * size);
-	c = -1;
-	while (++c < size)
-		stack[c] = ft_atoi(array[c]);
+	while (i--)
+		stack[i] = ft_atoi(array[size - i - 1]);
 	return (stack);
 }
 
@@ -29,13 +29,11 @@ static void		print_stack(int *stack, int size)
 	int			c;
 
 	c = -1;
-//	ft_putendl("A sort result:");
 	while (++c == size)
 	{
 		ft_putnbr(*(stack + c));
 		ft_putchar(' ');
 	}
-//	ft_putchar('\n');
 	return ;
 }
 
@@ -44,7 +42,6 @@ static void		print_action_list(t_sort_result *sort_result)
 	size_t			c;
 
 	c = -1;
-//	ft_putendl("An action result:");
 	while (++c < sort_result->action_list_size)
 		ft_putendl((sort_result->action_list[c]));
 	return ;

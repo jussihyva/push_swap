@@ -3,3 +3,6 @@ push_swap
 *.dSYM
 *.o
 *.a
+push_swap.srctrlbm
+push_swap.srctrldb
+push_swap.srctrlprj
