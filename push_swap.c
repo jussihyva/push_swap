@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/14 10:36:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/14 11:35:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int				main(int argc, char **argv)
 		sort_result->stack = stack_a;
 		sort_result->stack_size = size;
 		sort_result->action_list =
-				(char **)ft_strnew(sizeof(*sort_result->action_list) * 1000000);
+				(char **)ft_strnew(sizeof(*sort_result->action_list) * 100000000);
 		bubble_sort_v1(stack_a, size, sort_result);
 		print_action_list(sort_result);
 		print_stack(sort_result->stack, sort_result->stack_size);
