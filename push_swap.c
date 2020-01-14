@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/14 10:14:27 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/14 10:36:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int				main(int argc, char **argv)
 		sort_result = (t_sort_result *)ft_memalloc(sizeof(*sort_result));
 		size = argc - 1;
 		stack_a = save_to_stack(argv + 1, size);
+		sort_result->seq_action_counter = 0;
 		sort_result->stack = stack_a;
 		sort_result->stack_size = size;
 		sort_result->action_list =
