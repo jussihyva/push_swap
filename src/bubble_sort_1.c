@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bubble_sort.c                                      :+:      :+:    :+:   */
+/*   bubble_sort_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:21:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/14 11:28:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/14 13:02:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void		swap_int(int *i1, int *i2)
+void			swap_int(int *i1, int *i2)
 {
 	int		tmp;
 
@@ -21,7 +21,7 @@ static void		swap_int(int *i1, int *i2)
 	*i2 = tmp;
 }
 
-static void		minimize_last_actions(t_sort_result *sort_result)
+void			minimize_last_actions(t_sort_result *sort_result)
 {
 	size_t		c;
 
@@ -38,7 +38,7 @@ static void		minimize_last_actions(t_sort_result *sort_result)
 	}
 }
 
-static void		add_action(t_sort_result *sort_result, char *action_string)
+void			add_action(t_sort_result *sort_result, char *action_string)
 {
 	if (sort_result->seq_action_counter)
 		if (ft_strequ(sort_result->last_action, action_string))
