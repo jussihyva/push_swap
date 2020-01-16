@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/01/15 15:17:06 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/01/16 09:40:44 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC_FOLDER			=	src
 HEADER_FOLDER		=	./
 OBJ_FOLDER			=	obj
 TEST_FOLDER			=	basic_test
-SRC_FILES_NAME		=	bubble_sort_1.c bubble_sort_2.c print_result.c
+SRC_FILES_NAME		=	bubble_sort_1.c bubble_sort_2.c print_result.c ft_int_swap.c
 
 
 OBJ_FILES			=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(SRC_FILES_NAME)))

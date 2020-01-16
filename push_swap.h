@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/15 16:46:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/16 09:40:08 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 struct		s_sort_result
 {
 	int		*stack;
-	int		stack_size;
+	size_t	stack_size;
 	int		average;
+	int		median;
 	char	**action_list;
 	size_t	action_list_size;
 	size_t	seq_action_counter;
@@ -38,5 +39,6 @@ void		add_action(t_sort_result *sort_result, char *action_string);
 void		swap_int(int *i1, int *i2);
 void		print_stack(int *stack, int size);
 void		print_action_list(t_sort_result *sort_result);
+void		ft_int_swap(int *ptr1, int *ptr2);
 
 #endif
