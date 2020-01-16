@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/16 09:39:34 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/16 12:32:35 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,7 @@ static int				count_median(int *array, size_t size)
 			}
 		}
 	}
-	c = -1;
-	while (++c < size)
-		ft_printf("%10i\n", array[c]);
 	median = array[(size + 1) / 2 - 1];
-	ft_printf("Median: %10i\n", median);
 	return (median);
 }
 
@@ -77,6 +73,7 @@ static t_sort_result	*init_sort_result(void)
 	sort_result->seq_action_counter = 0;
 	sort_result->stack_size = 0;
 	sort_result->average = 0;
+	sort_result->action_list_size = 0;
 	sort_result->action_list =
 			(char **)ft_strnew(sizeof(*sort_result->action_list) * 10000000);
 	return (sort_result);
@@ -120,13 +117,17 @@ int						main(int argc, char **argv)
 		sort_result = init_sort_result();
 		size = argc - 1;
 		s = merge_args(argv + 1, size);
+		ft_printf("%10s\n", s);
 		sort_result->stack = save_to_stack(s, sort_result);
+		// c = -1;
+		// while (++c < sort_result->stack_size)
+		// 	ft_printf("%10i\n", sort_result->stack[c]);
 		tmp_array = (int *)ft_memalloc(sizeof(*tmp_array) *
 													sort_result->stack_size);
 		c = -1;
 		while (++c < sort_result->stack_size)
 			tmp_array[size - c - 1] = sort_result->stack[c];
-		count_median(tmp_array, sort_result->stack_size);
+		sort_result->median = count_median(tmp_array, sort_result->stack_size);
 		bubble_sort_v1(sort_result);
 		print_action_list(sort_result);
 		print_stack(sort_result->stack, sort_result->stack_size);
