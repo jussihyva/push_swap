@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:21:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/16 11:51:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/16 14:30:35 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			minimize_last_actions(t_sort_result *sort_result)
 {
 	size_t		c;
 
-	if (sort_result->seq_action_counter > 100 * (size_t)sort_result->stack_size / 2)
+	if (sort_result->seq_action_counter > (size_t)sort_result->stack_size / 2)
 	{
 		c = 0;
 		sort_result->action_list_size -= sort_result->seq_action_counter;
@@ -81,7 +81,7 @@ void			bubble_sort_v1(t_sort_result *sort_result)
 	{
 		is_sorted = 1;
 		current_i = top_i;
-		while (current_i > (top_i - sort_result->stack_size + 1) %
+		while (current_i != (top_i - sort_result->stack_size + 1) %
 													sort_result->stack_size)
 		{
 			if (*(stack_a + current_i) > *(stack_a + current_i - 1))
