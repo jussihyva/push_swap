@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 12:39:52 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/16 14:34:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/16 14:50:42 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void			bubble_sort_v2(t_sort_result *sort_result)
 
 	stack_a = sort_result->stack;
 	top_i = sort_result->stack_size - 1;
+	add_action(sort_result, "ra");
+	top_i--;
 	sort_result->action_list_size = 0;
 	is_sorted = 0;
 	while (!is_sorted)
@@ -30,14 +32,15 @@ void			bubble_sort_v2(t_sort_result *sort_result)
 		while (current_i != (top_i - sort_result->stack_size + 1) %
 													sort_result->stack_size)
 		{
-			if (*(stack_a + current_i) > *(stack_a + current_i - 1))
+			if (*(stack_a + current_i) > *(stack_a + ((current_i - 1) % sort_result->stack_size)))
 			{
-				swap_int(stack_a + current_i, stack_a + current_i - 1);
+				swap_int(stack_a + current_i, stack_a + ((current_i - 1) % sort_result->stack_size));
 				add_action(sort_result, "sa");
 				is_sorted = 0;
 			}
 			add_action(sort_result, "ra");
 			current_i--;
+			current_i %= sort_result->stack_size;
 		}
 		add_action(sort_result, "ra");
 	}
