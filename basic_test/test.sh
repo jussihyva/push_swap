@@ -12,3 +12,18 @@ ARG=`echo "3 2 1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
 ARG=`echo "2 3 4 1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
 ARG=`ruby -e "puts (1..3).to_a.shuffle.join(' ')"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
 ARG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
+
+
+ARG=`echo "1 2 3"` ; time ./push_swap $ARG | ../42-push_swap/checker $ARG
+ARG=`echo "1 3 2"` ; time ./push_swap $ARG | ../42-push_swap/checker $ARG
+ARG=`echo "2 1 3"` ; time ./push_swap $ARG | ../42-push_swap/checker $ARG
+ARG=`echo "2 3 1"` ; time ./push_swap $ARG | ../42-push_swap/checker $ARG
+ARG=`echo "3 1 2"` ; time ./push_swap $ARG | ../42-push_swap/checker $ARG
+ARG=`echo "3 2 1"` ; time ./push_swap $ARG | ../42-push_swap/checker $ARG
+
+
+Fix these test cases:
+ARG=`echo "1 3 2"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
+ARG=`echo "2 3 1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
+
+

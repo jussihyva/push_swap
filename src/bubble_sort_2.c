@@ -6,43 +6,61 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 12:39:52 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/16 14:50:42 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/17 10:10:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static int		loop_if_swap(t_sort_result *sort_result, size_t top_i)
+{
+	int			is_sorted;
+	size_t		current;
+	size_t		current_1;
+	int			*stack;
+
+	stack = sort_result->stack;
+	current = top_i;
+	current_1 = current ? current - 1 : sort_result->stack_size - 1;
+	is_sorted = 1;
+	while (current_1 != top_i)
+	{
+		if (*(stack + current) > *(stack + current_1))
+		{
+			swap_int(stack + current, stack + current_1);
+			add_action(sort_result, "sa");
+			is_sorted = 0;
+		}
+		add_action(sort_result, "ra");
+		current = current ? current - 1 : sort_result->stack_size - 1;
+		current_1 = current ? current - 1 : sort_result->stack_size - 1;
+	}
+	add_action(sort_result, "ra");
+	return (is_sorted);
+}
+
 void			bubble_sort_v2(t_sort_result *sort_result)
 {
 	int			is_sorted;
 	size_t		top_i;
-	size_t		current_i;
-	int			*stack_a;
 
-	stack_a = sort_result->stack;
 	top_i = sort_result->stack_size - 1;
-	add_action(sort_result, "ra");
-	top_i--;
-	sort_result->action_list_size = 0;
+	if (sort_result->stack[top_i] > sort_result->median)
+	{
+		sort_result->action_list_size = 0;
+		add_action(sort_result, "ra");
+		top_i--;
+	}
+	else if (sort_result->stack[0] <= sort_result->median)
+	{
+		sort_result->action_list_size = 0;
+		add_action(sort_result, "rra");
+		top_i = 0;
+	}
 	is_sorted = 0;
 	while (!is_sorted)
 	{
-		is_sorted = 1;
-		current_i = top_i;
-		while (current_i != (top_i - sort_result->stack_size + 1) %
-													sort_result->stack_size)
-		{
-			if (*(stack_a + current_i) > *(stack_a + ((current_i - 1) % sort_result->stack_size)))
-			{
-				swap_int(stack_a + current_i, stack_a + ((current_i - 1) % sort_result->stack_size));
-				add_action(sort_result, "sa");
-				is_sorted = 0;
-			}
-			add_action(sort_result, "ra");
-			current_i--;
-			current_i %= sort_result->stack_size;
-		}
-		add_action(sort_result, "ra");
+		is_sorted = loop_if_swap(sort_result, top_i);
 	}
 	return ;
 }
