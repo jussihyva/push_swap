@@ -6,20 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/17 10:56:24 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/17 12:04:35 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void			swap_int(int *i1, int *i2)
-{
-	int		tmp;
-
-	tmp = *i1;
-	*i1 = *i2;
-	*i2 = tmp;
-}
 
 void			minimize_last_actions(t_sort_result *sort_result)
 {

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/17 11:03:34 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/17 12:04:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ struct		s_sort_result
 	int		*stack;
 	size_t	stack_size;
 	size_t	top_ptr;
+	int		min;
+	int		max;
 	int		average;
 	int		median;
 	char	**action_list;
@@ -35,9 +37,9 @@ typedef struct s_sort_result	t_sort_result;
 int			ft_printf(const char *format, ...);
 void		bubble_sort_v1(t_sort_result *sort_result);
 void		bubble_sort_v2(t_sort_result *sort_result);
+void		bubble_sort_v3(t_sort_result *sort_result);
 void		minimize_last_actions(t_sort_result *sort_result);
 void		add_action(t_sort_result *sort_result, char *action_string);
-void		swap_int(int *i1, int *i2);
 void		print_stack(int *stack, int size);
 void		print_action_list(t_sort_result *sort_result);
 void		ft_int_swap(int *ptr1, int *ptr2);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_bubble_v2.c                                   :+:      :+:    :+:   */
+/*   sort_bubble_v3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/14 12:39:52 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/17 12:10:06 by jkauppi          ###   ########.fr       */
+/*   Created: 2020/01/17 11:21:02 by jkauppi           #+#    #+#             */
+/*   Updated: 2020/01/17 12:42:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int		loop_if_swap(t_sort_result *sort_result)
 	return (is_sorted);
 }
 
-void			bubble_sort_v2(t_sort_result *sort_result)
+void			bubble_sort_v3(t_sort_result *sort_result)
 {
 	int			is_sorted;
 

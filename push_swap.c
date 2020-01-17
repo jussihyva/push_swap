@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/17 10:20:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/17 12:06:20 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static int				*save_to_stack(char *s, t_sort_result *sort_result)
 		}
 		sort_result->average = (max - min) / 2;
 	}
+	sort_result->min = min;
+	sort_result->max = max;
 	return (stack);
 }
 
@@ -124,7 +126,7 @@ int						main(int argc, char **argv)
 		sort_result->median = count_median(tmp_array, sort_result->stack_size);
 		free(tmp_array);
 		tmp_array = NULL;
-		bubble_sort_v2(sort_result);
+		bubble_sort_v3(sort_result);
 		print_action_list(sort_result);
 		print_stack(sort_result->stack, sort_result->stack_size);
 	}
