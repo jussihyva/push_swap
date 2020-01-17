@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 11:21:02 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/17 12:42:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/17 13:26:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,31 @@ static int		loop_down_if_swap(t_sort_result *sort_result)
 			ft_int_swap(stack + current, stack + current_1);
 			add_action(sort_result, "sa");
 			is_sorted = 0;
+			add_action(sort_result, "ra");
+			current = current ? current - 1 : sort_result->stack_size - 1;
+			current_1 = current ? current - 1 : sort_result->stack_size - 1;
 		}
-		add_action(sort_result, "ra");
-		current = current ? current - 1 : sort_result->stack_size - 1;
-		current_1 = current ? current - 1 : sort_result->stack_size - 1;
+		else
+		{
+			add_action(sort_result, "ra");
+			current = current ? current - 1 : sort_result->stack_size - 1;
+			current_1 = current ? current - 1 : sort_result->stack_size - 1;
+			if (!is_sorted)
+			{
+				while (*(stack + current_1) == sort_result->max)
+				{
+					add_action(sort_result, "ra");
+					current = current ? current - 1 : sort_result->stack_size - 1;
+					current_1 = current ? current - 1 : sort_result->stack_size - 1;
+				}
+				sort_result->top_ptr = current_1;
+				break ;
+			}
+		}
 	}
 	add_action(sort_result, "ra");
+	current = current ? current - 1 : sort_result->stack_size - 1;
+	current_1 = current ? current - 1 : sort_result->stack_size - 1;
 	return (is_sorted);
 }
 
@@ -69,5 +88,6 @@ void			bubble_sort_v3(t_sort_result *sort_result)
 	{
 		is_sorted = loop_if_swap(sort_result);
 	}
+	minimize_last_actions(sort_result);
 	return ;
 }

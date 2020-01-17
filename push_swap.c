@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/17 12:06:20 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/17 13:21:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static t_sort_result	*init_sort_result(void)
 	sort_result->average = 0;
 	sort_result->action_list_size = 0;
 	sort_result->action_list =
-			(char **)ft_strnew(sizeof(*sort_result->action_list) * 10000000);
+			(char **)ft_strnew(sizeof(*sort_result->action_list) * 100000000);
 	return (sort_result);
 }
 
