@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bubble_sort_2.c                                    :+:      :+:    :+:   */
+/*   bubble_sort_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/14 12:39:52 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/17 10:10:56 by jkauppi          ###   ########.fr       */
+/*   Created: 2020/01/13 13:21:32 by jkauppi           #+#    #+#             */
+/*   Updated: 2020/01/17 10:55:40 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,13 @@ static int		loop_if_swap(t_sort_result *sort_result, size_t top_i)
 	return (is_sorted);
 }
 
-void			bubble_sort_v2(t_sort_result *sort_result)
+void			bubble_sort_v1(t_sort_result *sort_result)
 {
 	int			is_sorted;
 	size_t		top_i;
 
 	top_i = sort_result->stack_size - 1;
-	if (sort_result->stack[top_i] > sort_result->median)
-	{
-		sort_result->action_list_size = 0;
-		add_action(sort_result, "ra");
-		top_i--;
-	}
-	else if (sort_result->stack[0] <= sort_result->median)
-	{
-		sort_result->action_list_size = 0;
-		add_action(sort_result, "rra");
-		top_i = 0;
-	}
+	sort_result->action_list_size = 0;
 	is_sorted = 0;
 	while (!is_sorted)
 	{

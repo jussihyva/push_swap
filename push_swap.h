@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/16 14:36:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/17 11:03:34 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ struct		s_sort_result
 {
 	int		*stack;
 	size_t	stack_size;
+	size_t	top_ptr;
 	int		average;
 	int		median;
 	char	**action_list;
