@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/17 12:04:35 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/17 14:50:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@ void			minimize_last_actions(t_sort_result *sort_result)
 		while (c++ < (size_t)sort_result->stack_size -
 												sort_result->seq_action_counter)
 		{
-			sort_result->action_list[sort_result->action_list_size] =
+			if (ft_strequ(sort_result->last_action, "ra"))
+				sort_result->action_list[sort_result->action_list_size] =
 													ft_strdup("rra");
+			else
+				sort_result->action_list[sort_result->action_list_size] =
+													ft_strdup("ra");
 			sort_result->action_list_size++;
 		}
 	}
