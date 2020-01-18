@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/18 10:18:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/18 15:19:44 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			ft_printf(const char *format, ...);
 void		bubble_sort_v1(t_sort_result *sort_result);
 void		bubble_sort_v2(t_sort_result *sort_result);
 void		bubble_sort_v3(t_sort_result *sort_result);
-void		minimize_last_actions(t_sort_result *sort_result);
+void		optimize_last_actions(t_sort_result *sort_result);
 void		add_action(t_sort_result *sort_result, char *action_string);
 void		print_stack(int *stack, int size);
 void		print_action_list(t_sort_result *sort_result);

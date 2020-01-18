@@ -21,7 +21,7 @@ clear ; ARG=`echo "2 1 3"` ; time ./push_swap $ARG | ../42-push_swap/checker $AR
 clear ; ARG=`echo "2 3 1"` ; time ./push_swap $ARG | ../42-push_swap/checker $ARG
 clear ; ARG=`echo "3 1 2"` ; time ./push_swap $ARG | ../42-push_swap/checker $ARG
 clear ; ARG=`echo "3 2 1"` ; time ./push_swap $ARG | ../42-push_swap/checker $ARG
-
+clear ; ARG=`echo "1 0 3 2 -1"` ; time ./push_swap $ARG | ../42-push_swap/checker $ARG
 
 Fix these test cases:
 clear ; ARG=`echo "1 3 2"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
@@ -30,4 +30,11 @@ clear ; ARG=`echo "1 3 2 4"` ; time ./push_swap $ARG | ../42-push_swap/checker -
 clear ; ARG=`echo "1 4 3 2"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
 clear ; ARG=`echo "7 6 9 8"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
 
+clear ; ARG=`echo "1 0 3 2 -1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
+clear ; ARG=`echo "2 3 0 1 -1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
+clear ; ARG=`echo "3 -1 0 1 2"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
+clear ; ARG=`echo "0 3 2 -1 1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
+clear ; ARG=`echo "0 -1 3 2 1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
+clear ; ARG=`echo "2 1 0 -1 3"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
 
+clear ; ARG=`echo "3 2 1 0 -1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
