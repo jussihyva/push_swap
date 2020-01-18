@@ -12,6 +12,7 @@ clear ; ARG=`echo "3 2 1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vc
 clear ; ARG=`echo "2 3 4 1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
 clear ; ARG=`ruby -e "puts (1..3).to_a.shuffle.join(' ')"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG ; echo $ARG
 clear ; ARG=`ruby -e "puts (1..20).to_a.shuffle.join(' ')"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG ; echo $ARG
+clear ; ARG=`ruby -e "puts (-1..3).to_a.shuffle.join(' ')"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG ; echo $ARG
 
 
 clear ; ARG=`echo "1 2 3"` ; time ./push_swap $ARG | ../42-push_swap/checker $ARG

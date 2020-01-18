@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/17 15:54:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/18 11:43:12 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,27 @@ static int				*save_to_stack(char *s, t_sort_result *sort_result)
 {
 	int			*stack;
 	size_t		i;
-	int			min;
-	int			max;
 	char		**string_array;
 
 	stack = NULL;
-	min = INT_MAX;
-	max = INT_MIN;
-	string_array = ft_strsplit(s, ' ');
-	while (string_array[sort_result->stack_size])
-		sort_result->stack_size++;
-	if (string_array)
+	sort_result->min = INT_MAX;
+	sort_result->max = INT_MIN;
+	if ((string_array = ft_strsplit(s, ' ')))
 	{
+		while (string_array[sort_result->stack_size])
+			sort_result->stack_size++;
 		i = sort_result->stack_size;
 		stack = (int *)ft_memalloc(sizeof(*stack) * sort_result->stack_size);
 		while (i--)
 		{
 			stack[i] = ft_atoi(string_array[sort_result->stack_size - i - 1]);
-			max = (stack[i] > max) ? stack[i] : max;
-			min = (stack[i] < min) ? stack[i] : min;
+			sort_result->max = (stack[i] > sort_result->max) ? stack[i] :
+															sort_result->max;
+			sort_result->min = (stack[i] < sort_result->min) ? stack[i] :
+															sort_result->min;
 		}
-		sort_result->average = (max - min) / 2;
+		sort_result->average = (sort_result->max - sort_result->min) / 2;
 	}
-	sort_result->min = min;
-	sort_result->max = max;
 	return (stack);
 }
 
