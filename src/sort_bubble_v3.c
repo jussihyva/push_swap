@@ -6,110 +6,92 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 11:21:02 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/17 17:35:56 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/18 11:17:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static void		execute_action(t_sort_result *sort_result, int *stack,
+								t_stack_index *stack_index, char *action_string)
+{
+	add_action(sort_result, action_string);
+	if (ft_strequ(action_string, "sa"))
+		ft_int_swap(stack + stack_index->top, stack + stack_index->next);
+	else if (ft_strequ(action_string, "ra"))
+	{
+		stack_index->top = stack_index->top ? stack_index->top - 1 :
+													sort_result->stack_size - 1;
+		stack_index->next = stack_index->top ? stack_index->top - 1 :
+													sort_result->stack_size - 1;
+		stack_index->bottom = (stack_index->top + 1) % sort_result->stack_size;
+	}
+	else if (ft_strequ(action_string, "rra"))
+	{
+		stack_index->top = (stack_index->top + 1) % sort_result->stack_size;
+		stack_index->next = stack_index->top ? stack_index->top - 1 :
+													sort_result->stack_size - 1;
+		stack_index->bottom = (stack_index->top + 1) % sort_result->stack_size;
+
+	}
+}
+
 static int		loop_down_if_swap(t_sort_result *sort_result)
 {
-	int			is_sorted;
-	size_t		current;
-	size_t		next;
-	size_t		previous;
-	int			*stack;
+	int				is_sorted;
+	int				*stack;
+	t_stack_index	stack_index;
 
 	stack = sort_result->stack;
-	current = sort_result->top_ptr;
-	next = current ? current - 1 : sort_result->stack_size - 1;
-	previous = (current + 1) % sort_result->stack_size;
+	stack_index.top = sort_result->top_ptr;
+	stack_index.next = stack_index.top ? stack_index.top - 1 : sort_result->stack_size - 1;
+	stack_index.bottom = (stack_index.top + 1) % sort_result->stack_size;
 	is_sorted = 1;
-	while (next != sort_result->top_ptr)
+	while (*(stack + stack_index.top) != sort_result->max)
 	{
-		if (*(stack + current) > *(stack + next) &&
-				*(stack + current) <= sort_result->median)
+		if (*(stack + stack_index.top) > *(stack + stack_index.next))
 		{
-			ft_int_swap(stack + current, stack + next);
-			add_action(sort_result, "sa");
+			execute_action(sort_result, stack, &stack_index, "sa");
 			is_sorted = 0;
-			add_action(sort_result, "ra");
-			current = current ? current - 1 : sort_result->stack_size - 1;
-			next = current ? current - 1 : sort_result->stack_size - 1;
-			previous = (current + 1) % sort_result->stack_size;
+			execute_action(sort_result, stack, &stack_index, "ra");
 		}
 		else
 		{
-			if (!is_sorted && *(stack + previous) <= sort_result->median)
-			{
-				add_action(sort_result, "rra");
-				add_action(sort_result, "rra");
-				add_action(sort_result, "rra");
-				sort_result->top_ptr = previous;
+			if (!is_sorted && *(stack + stack_index.bottom) <= sort_result->median)
 				break ;
-			}
-			add_action(sort_result, "ra");
-			current = current ? current - 1 : sort_result->stack_size - 1;
-			next = current ? current - 1 : sort_result->stack_size - 1;
-			previous = (current + 1) % sort_result->stack_size;
+			execute_action(sort_result, stack, &stack_index, "ra");
 		}
 	}
-	add_action(sort_result, "ra");
-	current = current ? current - 1 : sort_result->stack_size - 1;
-	next = current ? current - 1 : sort_result->stack_size - 1;
-	previous = (current + 1) % sort_result->stack_size;
+	sort_result->top_ptr = stack_index.top;
 	return (is_sorted);
 }
 
 static int		loop_up_if_swap(t_sort_result *sort_result)
 {
-	int			is_sorted;
-	size_t		current;
-	size_t		next;
-	size_t		previous;
-	int			*stack;
+	int				is_sorted;
+	int				*stack;
+	t_stack_index	stack_index;
 
 	stack = sort_result->stack;
-	current = sort_result->top_ptr;
-	next = (current + 1) % sort_result->stack_size;
-	previous = current ? current - 1 : sort_result->stack_size - 1;
-	is_sorted = 1;
-	while (next != sort_result->top_ptr)
+	stack_index.top = sort_result->top_ptr;
+	stack_index.next = stack_index.top ? stack_index.top - 1 : sort_result->stack_size - 1;
+	stack_index.bottom = (stack_index.top + 1) % sort_result->stack_size;
+	is_sorted = 0;
+	while (*(stack + stack_index.top) != sort_result->max)
 	{
-		if (*(stack + current) < *(stack + next) &&
-				*(stack + current) > sort_result->median)
+		if (*(stack + stack_index.next) < *(stack + stack_index.top))
 		{
-			ft_int_swap(stack + current, stack + next);
-			add_action(sort_result, "sa");
-			is_sorted = 0;
-			add_action(sort_result, "rra");
-			current = (current + 1) % sort_result->stack_size;
-			next = (current + 1) % sort_result->stack_size;
-			previous = current ? current - 1 : sort_result->stack_size - 1;
+			execute_action(sort_result, stack, &stack_index, "sa");
+			execute_action(sort_result, stack, &stack_index, "rra");
 		}
 		else
 		{
-			if (!is_sorted && *(stack + next) <= sort_result->median)
-			{
-				while (*(stack + next) == sort_result->max)
-				{
-					add_action(sort_result, "ra");
-					add_action(sort_result, "ra");
-					current = (current + 1) % sort_result->stack_size;
-					next = (current + 1) % sort_result->stack_size;
-				}
-				sort_result->top_ptr = next;
+			if (!is_sorted && *(stack + stack_index.next) <= sort_result->median)
 				break ;
-			}
-			add_action(sort_result, "rra");
-			current = (current + 1) % sort_result->stack_size;
-			next = (current + 1) % sort_result->stack_size;
-			previous = current ? current - 1 : sort_result->stack_size - 1;
+			execute_action(sort_result, stack, &stack_index, "rra");
 		}
 	}
-	add_action(sort_result, "rra");
-	current = (current + 1) % sort_result->stack_size;
-	next = (current + 1) % sort_result->stack_size;
+	sort_result->top_ptr = stack_index.top;
 	return (is_sorted);
 }
 

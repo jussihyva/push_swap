@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/17 12:04:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/18 10:18:30 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 # include <limits.h>
 # include "libft.h"
 # include "ft_printf.h"
+
+struct		s_stack_index
+{
+	size_t	top;
+	size_t	next;
+	size_t	bottom;
+};
+
+typedef struct s_stack_index	t_stack_index;
 
 struct		s_sort_result
 {
