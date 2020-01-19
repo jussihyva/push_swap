@@ -1,0 +1,3 @@
+[submodule "PublicTester"]
+	path = PublicTester
+	url = https://github.com/fbouquet42/PublicTester.git
