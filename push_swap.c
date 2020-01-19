@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/19 12:33:10 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/19 15:40:07 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,16 @@ static t_sort_result	*init_sort_result(void)
 	return (sort_result);
 }
 
+static void				refresh_result(t_sort_result *sort_result)
+{
+	sort_result->seq_action_counter = 0;
+	sort_result->action_list_size = 0;
+	sort_result->action_list =
+			(char **)ft_strnew(sizeof(*sort_result->action_list) * 10000000);
+	sort_result->last_action = ft_strdup("");
+	return ;
+}
+
 static char				*merge_args(char **array, int size)
 {
 	char		*s;
@@ -110,6 +120,8 @@ int						main(int argc, char **argv)
 	char			*s;
 	int				*array;
 	size_t			c;
+	char			**action_list_1;
+	size_t			action_list_1_size;
 
 	if (argc > 1)
 	{
@@ -126,7 +138,21 @@ int						main(int argc, char **argv)
 		sort_result->stack_ptr.top =
 								sort_result->stack + sort_result->stack_size;
 		step_prt_down(sort_result);
+		bubble_sort_v2(sort_result);
+		print_stack(sort_result->stack, sort_result->stack_size);
+		action_list_1 = sort_result->action_list;
+		action_list_1_size = sort_result->action_list_size;
+		refresh_result(sort_result);
+		sort_result->stack = save_to_stack(s, sort_result);
+		sort_result->stack_ptr.top =
+								sort_result->stack + sort_result->stack_size;
+		step_prt_down(sort_result);
 		bubble_sort_v3(sort_result);
+		if (action_list_1_size < sort_result->action_list_size)
+		{
+			sort_result->action_list = action_list_1;
+			sort_result->action_list_size = action_list_1_size;
+		}
 		print_action_list(sort_result);
 		print_stack(sort_result->stack, sort_result->stack_size);
 	}

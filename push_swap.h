@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/19 12:25:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/19 14:32:30 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void		optimize_last_actions(t_sort_result *sort_result);
 void		add_action(t_sort_result *sort_result, char *action_string);
 void		print_stack(int *stack, int size);
 void		print_action_list(t_sort_result *sort_result);
+void		print_num_of_actions(t_sort_result *sort_result);
 void		ft_int_swap(int *ptr1, int *ptr2);
 void		execute_action(t_sort_result *sort_result, char *action_string);
 void		step_prt_down(t_sort_result *sort_result);
