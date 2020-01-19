@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/19 10:56:38 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/19 12:33:10 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int						main(int argc, char **argv)
 {
 	t_sort_result	*sort_result;
 	char			*s;
-	int				*tmp_array;
+	int				*array;
 	size_t			c;
 
 	if (argc > 1)
@@ -116,19 +116,16 @@ int						main(int argc, char **argv)
 		sort_result = init_sort_result();
 		s = merge_args(argv + 1, argc - 1);
 		sort_result->stack = save_to_stack(s, sort_result);
-		tmp_array = (int *)ft_memalloc(sizeof(*tmp_array) *
-													sort_result->stack_size);
+		array = (int *)ft_memalloc(sizeof(*array) * sort_result->stack_size);
 		c = -1;
 		while (++c < sort_result->stack_size)
-			tmp_array[sort_result->stack_size - c - 1] = sort_result->stack[c];
-		sort_result->median = count_median(tmp_array, sort_result->stack_size);
-		free(tmp_array);
-		tmp_array = NULL;
-		sort_result->stack_index.top = sort_result->stack_size - 1;
-		sort_result->stack_index.next = sort_result->stack_index.top ?
-				sort_result->stack_index.top - 1 : sort_result->stack_size - 1;
-		sort_result->stack_index.bottom =
-				(sort_result->stack_index.top + 1) % sort_result->stack_size;
+			array[sort_result->stack_size - c - 1] = sort_result->stack[c];
+		sort_result->median = count_median(array, sort_result->stack_size);
+		free(array);
+		array = NULL;
+		sort_result->stack_ptr.top =
+								sort_result->stack + sort_result->stack_size;
+		step_prt_down(sort_result);
 		bubble_sort_v3(sort_result);
 		print_action_list(sort_result);
 		print_stack(sort_result->stack, sort_result->stack_size);

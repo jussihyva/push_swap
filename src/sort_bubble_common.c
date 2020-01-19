@@ -6,11 +6,46 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/18 16:15:08 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/19 12:29:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static void		step_prt_up(t_sort_result *sort_result)
+{
+	int				*stack;
+	t_stack_ptr		*stack_ptr;
+
+	stack = sort_result->stack;
+	stack_ptr = &sort_result->stack_ptr;
+	stack_ptr->top =
+				stack_ptr->top == stack + sort_result->stack_size - 1 ?
+				stack : stack_ptr->top + 1;
+	stack_ptr->next = stack_ptr->top == stack ?
+				stack + sort_result->stack_size - 1 : stack_ptr->top - 1;
+	stack_ptr->bottom =
+				stack_ptr->top == stack + sort_result->stack_size - 1 ?
+				stack : stack_ptr->top + 1;
+	return ;
+}
+
+void			step_prt_down(t_sort_result *sort_result)
+{
+	int				*stack;
+	t_stack_ptr		*stack_ptr;
+
+	stack = sort_result->stack;
+	stack_ptr = &sort_result->stack_ptr;
+	stack_ptr->top = stack_ptr->top == stack ?
+				stack + sort_result->stack_size - 1 : stack_ptr->top - 1;
+	stack_ptr->next = stack_ptr->top == stack ?
+				stack + sort_result->stack_size - 1 : stack_ptr->top - 1;
+	stack_ptr->bottom =
+				stack_ptr->top == stack + sort_result->stack_size - 1 ?
+				stack : stack_ptr->top + 1;
+	return ;
+}
 
 static void		count_num_of_consecutive(t_sort_result *sort_result)
 {
@@ -99,4 +134,18 @@ void			add_action(t_sort_result *sort_result, char *action_string)
 		count_num_of_consecutive(sort_result);
 	}
 	return ;
+}
+
+void			execute_action(t_sort_result *sort_result, char *action_string)
+{
+	t_stack_ptr		*stack_ptr;
+
+	stack_ptr = &sort_result->stack_ptr;
+	add_action(sort_result, action_string);
+	if (ft_strequ(action_string, "sa"))
+		ft_int_swap(stack_ptr->top, stack_ptr->next);
+	else if (ft_strequ(action_string, "ra"))
+		step_prt_down(sort_result);
+	else if (ft_strequ(action_string, "rra"))
+		step_prt_up(sort_result);
 }

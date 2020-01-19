@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/19 10:46:22 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/19 12:25:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 # include "libft.h"
 # include "ft_printf.h"
 
-struct		s_stack_index
+struct		s_stack_ptr
 {
-	size_t	top;
-	size_t	next;
-	size_t	bottom;
+	int		*top;
+	int		*next;
+	int		*bottom;
 };
 
-typedef struct s_stack_index	t_stack_index;
+typedef struct s_stack_ptr		t_stack_ptr;
 
 struct		s_sort_result
 {
@@ -38,7 +38,7 @@ struct		s_sort_result
 	size_t			action_list_size;
 	size_t			seq_action_counter;
 	char			*last_action;
-	t_stack_index	stack_index;
+	t_stack_ptr		stack_ptr;
 };
 
 typedef struct s_sort_result	t_sort_result;
@@ -52,5 +52,7 @@ void		add_action(t_sort_result *sort_result, char *action_string);
 void		print_stack(int *stack, int size);
 void		print_action_list(t_sort_result *sort_result);
 void		ft_int_swap(int *ptr1, int *ptr2);
+void		execute_action(t_sort_result *sort_result, char *action_string);
+void		step_prt_down(t_sort_result *sort_result);
 
 #endif
