@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/18 16:17:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/19 10:56:38 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,11 @@ int						main(int argc, char **argv)
 		sort_result->median = count_median(tmp_array, sort_result->stack_size);
 		free(tmp_array);
 		tmp_array = NULL;
+		sort_result->stack_index.top = sort_result->stack_size - 1;
+		sort_result->stack_index.next = sort_result->stack_index.top ?
+				sort_result->stack_index.top - 1 : sort_result->stack_size - 1;
+		sort_result->stack_index.bottom =
+				(sort_result->stack_index.top + 1) % sort_result->stack_size;
 		bubble_sort_v3(sort_result);
 		print_action_list(sort_result);
 		print_stack(sort_result->stack, sort_result->stack_size);

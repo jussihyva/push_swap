@@ -38,3 +38,6 @@ clear ; ARG=`echo "0 -1 3 2 1"` ; time ./push_swap $ARG | ../42-push_swap/checke
 clear ; ARG=`echo "2 1 0 -1 3"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
 
 clear ; ARG=`echo "3 2 1 0 -1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
+
+clear ; ARG=`echo "2 4 3 1"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
+clear ; ARG=`echo "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 22 21"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG

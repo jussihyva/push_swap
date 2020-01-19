@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/18 15:19:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/19 10:46:22 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ typedef struct s_stack_index	t_stack_index;
 
 struct		s_sort_result
 {
-	int		*stack;
-	size_t	stack_size;
-	size_t	top_ptr;
-	int		min;
-	int		max;
-	int		average;
-	int		median;
-	char	**action_list;
-	size_t	action_list_size;
-	size_t	seq_action_counter;
-	char	*last_action;
+	int				*stack;
+	size_t			stack_size;
+	int				min;
+	int				max;
+	int				average;
+	int				median;
+	char			**action_list;
+	size_t			action_list_size;
+	size_t			seq_action_counter;
+	char			*last_action;
+	t_stack_index	stack_index;
 };
 
 typedef struct s_sort_result	t_sort_result;
