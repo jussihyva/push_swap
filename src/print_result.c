@@ -6,11 +6,17 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:31:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/19 14:39:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/20 10:36:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void		save_result(t_sort_result *sort_result)
+{
+	(void)sort_result;
+	return ;
+}
 
 void		print_stack(int *stack, int size)
 {

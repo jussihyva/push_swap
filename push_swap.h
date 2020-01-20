@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/19 14:32:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/20 11:57:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@ struct		s_stack_ptr
 };
 
 typedef struct s_stack_ptr		t_stack_ptr;
+
+struct		s_input_data
+{
+	int		argc;
+	char	**argv;
+	int		*int_array;
+	size_t	int_array_size;
+	int		min;
+	int		max;
+	int		average;
+	int		median;
+};
+
+typedef struct s_input_data		t_input_data;
 
 struct		s_sort_result
 {
@@ -55,5 +69,6 @@ void		print_num_of_actions(t_sort_result *sort_result);
 void		ft_int_swap(int *ptr1, int *ptr2);
 void		execute_action(t_sort_result *sort_result, char *action_string);
 void		step_prt_down(t_sort_result *sort_result);
+void		save_result(t_sort_result *sort_result);
 
 #endif
