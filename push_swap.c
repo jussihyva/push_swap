@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 14:44:17 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/20 15:43:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,37 +157,23 @@ int						main(int argc, char **argv)
 	t_input_data	*input_data;
 	t_sort_result	*sort_result;
 	void			*sort_function;
-//	t_list			**result_array;
+	t_list			**result_array;
+	t_list			*new_elem;
 
 	if (argc > 1)
 	{
+		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		input_data = prepare_input_data(argc, argv);
 		sort_function = bubble_sort_v2;
 		sort_result = stack_sort(input_data, sort_function);
-		print_stack(sort_result->stack, sort_result->stack_size);
-		print_action_list(sort_result);
-		print_stack(sort_result->stack, sort_result->stack_size);
+		new_elem = ft_lstnew(sort_result, sizeof(*sort_result));
+		ft_lstadd_e(result_array, new_elem);
 		sort_function = bubble_sort_v3;
 		sort_result = stack_sort(input_data, sort_function);
+		new_elem = ft_lstnew(sort_result, sizeof(*sort_result));
+		ft_lstadd_e(result_array, new_elem);
+		print_action_list(result_array);
 		print_stack(sort_result->stack, sort_result->stack_size);
-
-
-//	action_list_1 = sort_result->action_list;
-//	action_list_1_size = sort_result->action_list_size;
-//	refresh_result(sort_result);
-//	sort_result->stack = string_to_array(s, sort_result);
-//	sort_result->stack_ptr.top =
-//							sort_result->stack + sort_result->stack_size;
-//	step_prt_down(sort_result);
-//	bubble_sort_v3(sort_result);
-//	if (action_list_1_size < sort_result->action_list_size)
-//	{
-//		sort_result->action_list = action_list_1;
-//		sort_result->action_list_size = action_list_1_size;
-//	}
-		print_action_list(sort_result);
-		print_stack(sort_result->stack, sort_result->stack_size);
-
 	}
 	return (0);
 }
