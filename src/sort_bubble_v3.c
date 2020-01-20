@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 11:21:02 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 18:46:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/20 19:56:23 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int		loop_down_if_swap(t_sort_result *sort_result,
 
 	is_sorted = 1;
 	loop_cnt = 0;
-	while (*(stack_ptr->top) != *sort_result->max_ptr)
+	while (*(stack_ptr->top) != sort_result->max)
 	{
 		loop_cnt++;
 		if (*stack_ptr->top > *stack_ptr->next)
@@ -47,7 +47,7 @@ static int		loop_up_if_swap(t_sort_result *sort_result,
 	int				is_sorted;
 
 	is_sorted = 0;
-	while (*stack_ptr->top != *sort_result->max_ptr)
+	while (*stack_ptr->top != sort_result->max)
 	{
 		if (*stack_ptr->next < *stack_ptr->top)
 		{
@@ -90,7 +90,7 @@ void			bubble_sort_v3(t_sort_result *sort_result)
 	is_sorted = 0;
 	while (!is_sorted)
 		is_sorted = loop_if_swap(sort_result);
-	while (*stack_ptr->top != *sort_result->min_ptr)
+	while (*stack_ptr->top != sort_result->min)
 		execute_action(sort_result, "rra");
 	return ;
 }

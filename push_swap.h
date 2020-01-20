@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 18:44:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/20 19:56:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ struct		s_input_data
 	char	**argv;
 	int		*int_array;
 	size_t	int_array_size;
-	int		*min_ptr;
-	int		*max_ptr;
+	int		min;
+	int		max;
 	int		average;
 	int		median;
 };
@@ -54,8 +54,8 @@ struct		s_sort_result
 {
 	int				*stack;
 	size_t			stack_size;
-	int				*min_ptr;
-	int				*max_ptr;
+	int				min;
+	int				max;
 	int				average;
 	int				median;
 	char			**action_list;

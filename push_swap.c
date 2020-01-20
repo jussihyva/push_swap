@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 18:50:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/20 20:37:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,39 +46,15 @@ static int				*sort_int(int *array, size_t size)
 	return (sorted_array);
 }
 
-static int				save_min(int *ptr, int min, int **min_ptr)
-{
-	if (min > *ptr)
-	{
-		min = *ptr;
-		*min_ptr = ptr;
-	}
-	return (min);
-}
-
-static int				save_max(int *ptr, int max, int **max_ptr)
-{
-	if (max > *ptr)
-	{
-		max = *ptr;
-		*max_ptr = ptr;
-	}
-	return (max);
-}
-
 static void				string_to_array(char *s, t_input_data *input_data)
 {
 	int			*stack;
 	size_t		i;
 	char		**str_array;
-	int			min;
-	int			max;
 
-	input_data->min_ptr = NULL;
-	input_data->max_ptr = NULL;
+	input_data->min = INT_MAX;
+	input_data->max = INT_MIN;
 	stack = NULL;
-	min = INT_MAX;
-	max = INT_MIN;
 	if ((str_array = ft_strsplit(s, ' ')))
 	{
 		while (*(str_array + input_data->int_array_size))
@@ -88,10 +64,12 @@ static void				string_to_array(char *s, t_input_data *input_data)
 		while (i--)
 		{
 			stack[i] = ft_atoi(str_array[input_data->int_array_size - i - 1]);
-			min = save_min(stack + i, min, &input_data->min_ptr);
-			max = save_max(stack + i, max, &input_data->max_ptr);
+			input_data->min = input_data->min > stack[i] ? stack[i] :
+																input_data->min;
+			input_data->max = input_data->max < stack[i] ? stack[i] :
+																input_data->max;
 		}
-		input_data->average = (max - min) / 2;
+		input_data->average = (input_data->max - input_data->min) / 2;
 	}
 	input_data->int_array = stack;
 	return ;
@@ -107,7 +85,7 @@ static t_sort_result	*init_sort_result(void)
 	sort_result->average = 0;
 	sort_result->action_list_size = 0;
 	sort_result->action_list =
-			(char **)ft_strnew(sizeof(*sort_result->action_list) * 100000);
+			(char **)ft_memalloc(sizeof(*sort_result->action_list) * 200000);
 	sort_result->last_action = ft_strdup("");
 	return (sort_result);
 }
@@ -159,17 +137,26 @@ static t_sort_result	*stack_sort(t_input_data *input_data,
 							void *sort_function(t_sort_result *sort_result))
 {
 	t_sort_result	*sort_result;
+	size_t			i;
 
 	sort_result = init_sort_result();
 	sort_result->stack = ft_intcpy(input_data->int_array,
 													input_data->int_array_size);
 	sort_result->stack_size = input_data->int_array_size;
 	sort_result->median = input_data->median;
-	sort_result->min_ptr = input_data->min_ptr;
-	sort_result->max_ptr = input_data->max_ptr;
+	sort_result->min = input_data->min;
+	sort_result->max = input_data->max;
 	sort_result->average = input_data->average;
 	sort_result->stack_ptr.top = sort_result->stack + sort_result->stack_size;
-	sort_result->stack_ptr.smallest_int = input_data->min_ptr;
+	i = -1;
+	while (++i < sort_result->stack_size)
+	{
+		if (*(sort_result->stack + i) == input_data->min)
+		{
+			sort_result->stack_ptr.smallest_int = sort_result->stack + i;
+			break ;
+		}
+	}
 	step_prt_down(sort_result);
 	sort_function(sort_result);
 	return (sort_result);

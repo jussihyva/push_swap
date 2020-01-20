@@ -6,22 +6,25 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:10:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 19:04:04 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/20 20:41:12 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int		check_order(int **array, t_stack_ptr stack_ptr, size_t size)
+static int		check_order(int *array, t_stack_ptr stack_ptr, size_t size)
 {
 	int		*ptr;
 	int		previous;
 
 	ptr = stack_ptr.smallest_int;
 	previous = *ptr;
-	ptr = ptr == (*array + size - 1) ? *array : ptr++;
-	while (ptr != stack_ptr.smallest_int && previous < *ptr)
-		ptr = ptr == *array + size - 1 ? *array : ptr++;
+	ptr = ptr == (array + size - 1) ? array : ++ptr;
+	while (ptr != stack_ptr.smallest_int && previous > *ptr)
+	{
+		previous = *ptr;
+		ptr = ptr == array + size - 1 ? array : ++ptr;
+	}
 	return (ptr == stack_ptr.smallest_int);
 }
 
@@ -34,8 +37,8 @@ static int		do_next_action(t_sort_result *sort_result,
 
 	array = sort_result->stack;
 	stack_ptr = sort_result->stack_ptr;
-	is_sorted = check_order(&sort_result->stack, stack_ptr, sort_result->stack_size);
-	if (sort_result->action_list_size < 100000)
+	is_sorted = check_order(sort_result->stack, stack_ptr, sort_result->stack_size);
+	if (sort_result->action_list_size < 70000)
 	{
 		if (!is_sorted && (valid_actions & sa))
 		{
@@ -56,6 +59,8 @@ static int		do_next_action(t_sort_result *sort_result,
 			is_sorted = do_next_action(sort_result, valid_actions);
 		}
 	}
+	else
+		is_sorted = 1;
 	return (is_sorted);
 }
 
@@ -78,7 +83,7 @@ void			random_sort_v1(t_sort_result *sort_result)
 	is_sorted = 0;
 	while (!is_sorted)
 		is_sorted = loop_if_swap(sort_result);
-	while (*stack_ptr->top != *sort_result->min_ptr)
+	while (*stack_ptr->top != sort_result->min)
 		execute_action(sort_result, "rra");
 	return ;
 }
