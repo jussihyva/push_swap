@@ -6,61 +6,78 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:10:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 20:41:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/20 22:47:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int		check_order(int *array, t_stack_ptr stack_ptr, size_t size)
+static int		check_order(int *array, size_t size)
 {
 	int		*ptr;
-	int		previous;
+	int		*previous;
 
-	ptr = stack_ptr.smallest_int;
-	previous = *ptr;
+	ptr = array;
+	previous = ptr;
 	ptr = ptr == (array + size - 1) ? array : ++ptr;
-	while (ptr != stack_ptr.smallest_int && previous > *ptr)
+	while (ptr != array && *previous > *ptr)
 	{
-		previous = *ptr;
+		previous = ptr;
 		ptr = ptr == array + size - 1 ? array : ++ptr;
 	}
-	return (ptr == stack_ptr.smallest_int);
+	if (ptr != array)
+	{
+		previous = ptr;
+		ptr = ptr == (array + size - 1) ? array : ++ptr;
+		while (previous != array && *previous > *ptr)
+		{
+			previous = ptr;
+			ptr = ptr == array + size - 1 ? array : ++ptr;
+		}
+		return (previous == array);
+	}
+	return (ptr == array);
 }
 
 static int		do_next_action(t_sort_result *sort_result,
 													t_move_action valid_actions)
 {
-	int				*array;
 	t_stack_ptr		stack_ptr;
 	int				is_sorted;
+	t_move_action	new_valid_actions;
 
-	array = sort_result->stack;
+	new_valid_actions = 0;
 	stack_ptr = sort_result->stack_ptr;
-	is_sorted = check_order(sort_result->stack, stack_ptr, sort_result->stack_size);
-	if (sort_result->action_list_size < 70000)
+	is_sorted = check_order(sort_result->stack, sort_result->stack_size);
+	if (is_sorted || sort_result->action_list_size < 7000)
 	{
 		if (!is_sorted && (valid_actions & sa))
 		{
 			execute_action(sort_result, "sa");
-			valid_actions = ra | rra;
-			is_sorted = do_next_action(sort_result, valid_actions);
+			new_valid_actions = ra | rra;
+			is_sorted = do_next_action(sort_result, new_valid_actions);
+			if (!is_sorted)
+				execute_action(sort_result, "sa");
 		}
 		if (!is_sorted && (valid_actions & ra))
 		{
 			execute_action(sort_result, "ra");
-			valid_actions = sa | ra;
-			is_sorted = do_next_action(sort_result, valid_actions);
+			new_valid_actions = sa | ra;
+			is_sorted = do_next_action(sort_result, new_valid_actions);
+			if (!is_sorted)
+				execute_action(sort_result, "rra");
 		}
 		if (!is_sorted && (valid_actions & rra))
 		{
 			execute_action(sort_result, "rra");
-			valid_actions = sa | rra;
-			is_sorted = do_next_action(sort_result, valid_actions);
+			new_valid_actions = sa | rra;
+			is_sorted = do_next_action(sort_result, new_valid_actions);
+			if (!is_sorted)
+				execute_action(sort_result, "ra");
 		}
 	}
 	else
-		is_sorted = 1;
+		is_sorted = 0;
 	return (is_sorted);
 }
 
@@ -81,8 +98,7 @@ void			random_sort_v1(t_sort_result *sort_result)
 
 	stack_ptr = &sort_result->stack_ptr;
 	is_sorted = 0;
-	while (!is_sorted)
-		is_sorted = loop_if_swap(sort_result);
+	is_sorted = loop_if_swap(sort_result);
 	while (*stack_ptr->top != sort_result->min)
 		execute_action(sort_result, "rra");
 	return ;

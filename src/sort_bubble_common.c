@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/19 12:29:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/20 22:04:06 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,9 @@ void			add_action(t_sort_result *sort_result, char *action_string)
 	if ((ft_strequ(sort_result->last_action, "ra") &&
 											ft_strequ(action_string, "rra")) ||
 		(ft_strequ(sort_result->last_action, "rra") &&
-												ft_strequ(action_string, "ra")))
+											ft_strequ(action_string, "ra")) ||
+		(ft_strequ(sort_result->last_action, "sa") &&
+												ft_strequ(action_string, "sa")))
 	{
 		sort_result->action_list_size--;
 		if (sort_result->action_list_size)
