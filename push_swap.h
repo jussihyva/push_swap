@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 15:28:19 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/20 18:44:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,21 @@
 # include "libft.h"
 # include "ft_printf.h"
 
+enum		e_move_action
+{
+	sa = 0x01,
+	ra = 0x02,
+	rra = 0x04
+};
+
+typedef enum e_move_action		t_move_action;
+
 struct		s_stack_ptr
 {
 	int		*top;
 	int		*next;
 	int		*bottom;
+	int		*smallest_int;
 };
 
 typedef struct s_stack_ptr		t_stack_ptr;
@@ -32,8 +42,8 @@ struct		s_input_data
 	char	**argv;
 	int		*int_array;
 	size_t	int_array_size;
-	int		min;
-	int		max;
+	int		*min_ptr;
+	int		*max_ptr;
 	int		average;
 	int		median;
 };
@@ -44,8 +54,8 @@ struct		s_sort_result
 {
 	int				*stack;
 	size_t			stack_size;
-	int				min;
-	int				max;
+	int				*min_ptr;
+	int				*max_ptr;
 	int				average;
 	int				median;
 	char			**action_list;
@@ -61,6 +71,8 @@ int			ft_printf(const char *format, ...);
 void		bubble_sort_v1(t_sort_result *sort_result);
 void		bubble_sort_v2(t_sort_result *sort_result);
 void		bubble_sort_v3(t_sort_result *sort_result);
+void		insertion_sort_v1(t_sort_result *sort_result);
+void		random_sort_v1(t_sort_result *sort_result);
 void		optimize_last_actions(t_sort_result *sort_result);
 void		add_action(t_sort_result *sort_result, char *action_string);
 void		print_stack(int *stack, int size);
