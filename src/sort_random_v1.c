@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:10:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 22:47:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/21 10:26:54 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,16 @@ static int		check_order(int *array, size_t size)
 		previous = ptr;
 		ptr = ptr == array + size - 1 ? array : ++ptr;
 	}
-	if (ptr != array)
+	if (ptr == array)
+		return (1);
+	previous = ptr;
+	ptr = ptr == (array + size - 1) ? array : ++ptr;
+	while (previous != array && *previous > *ptr)
 	{
 		previous = ptr;
-		ptr = ptr == (array + size - 1) ? array : ++ptr;
-		while (previous != array && *previous > *ptr)
-		{
-			previous = ptr;
-			ptr = ptr == array + size - 1 ? array : ++ptr;
-		}
-		return (previous == array);
+		ptr = ptr == array + size - 1 ? array : ++ptr;
 	}
-	return (ptr == array);
+	return (previous == array);
 }
 
 static int		do_next_action(t_sort_result *sort_result,
@@ -49,7 +47,9 @@ static int		do_next_action(t_sort_result *sort_result,
 	new_valid_actions = 0;
 	stack_ptr = sort_result->stack_ptr;
 	is_sorted = check_order(sort_result->stack, sort_result->stack_size);
-	if (is_sorted || sort_result->action_list_size < 7000)
+	if (is_sorted && sort_result->action_list_size > 90)
+		is_sorted = 0;
+	if (is_sorted || sort_result->action_list_size < 100)
 	{
 		if (!is_sorted && (valid_actions & sa))
 		{
