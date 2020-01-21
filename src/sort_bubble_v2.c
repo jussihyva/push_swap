@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 12:39:52 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/19 12:19:42 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/21 14:28:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ static int		loop_if_swap(t_sort_result *sort_result)
 	return (is_sorted);
 }
 
-void			bubble_sort_v2(t_sort_result *sort_result)
+void			bubble_sort_v2(t_sort_result *sort_result,
+														t_list **result_array)
 {
 	int				is_sorted;
 	t_stack_ptr		*stack_ptr;
 
+	(void)result_array;
 	stack_ptr = &sort_result->stack_ptr;
 	if (*stack_ptr->top > sort_result->median)
 	{

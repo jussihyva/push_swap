@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:21:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/18 15:20:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/21 14:27:44 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ static int		loop_if_swap(t_sort_result *sort_result, size_t top_i)
 	return (is_sorted);
 }
 
-void			bubble_sort_v1(t_sort_result *sort_result)
+void			bubble_sort_v1(t_sort_result *sort_result,
+														t_list **result_array)
 {
 	int			is_sorted;
 	size_t		top_i;
 
+	(void)result_array;
 	top_i = sort_result->stack_size - 1;
 	sort_result->action_list_size = 0;
 	is_sorted = 0;

@@ -6,20 +6,22 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 20:37:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/21 17:05:08 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int				*ft_intcpy(int const *array, size_t size)
+static	void			ft_arraydel(char **array)
 {
-	int			*new_array;
+	size_t		i;
 
-	new_array = (int *)ft_memalloc(sizeof(*new_array) * size);
-	while (size--)
-		new_array[size] = array[size];
-	return (new_array);
+	i = -1;
+	while (*(array + ++i))
+		ft_strdel(array + i);
+	free(array);
+	array = 0;
+	return ;
 }
 
 static int				*sort_int(int *array, size_t size)
@@ -70,24 +72,10 @@ static void				string_to_array(char *s, t_input_data *input_data)
 																input_data->max;
 		}
 		input_data->average = (input_data->max - input_data->min) / 2;
+		ft_arraydel(str_array);
 	}
 	input_data->int_array = stack;
 	return ;
-}
-
-static t_sort_result	*init_sort_result(void)
-{
-	t_sort_result	*sort_result;
-
-	sort_result = (t_sort_result *)ft_memalloc(sizeof(*sort_result));
-	sort_result->seq_action_counter = 0;
-	sort_result->stack_size = 0;
-	sort_result->average = 0;
-	sort_result->action_list_size = 0;
-	sort_result->action_list =
-			(char **)ft_memalloc(sizeof(*sort_result->action_list) * 200000);
-	sort_result->last_action = ft_strdup("");
-	return (sort_result);
 }
 
 static char				*merge_args(char **array, int size)
@@ -125,6 +113,7 @@ static t_input_data		*prepare_input_data(int argc, char **argv)
 	s = merge_args(argv + 1, argc - 1);
 	input_data->int_array_size = 0;
 	string_to_array(s, input_data);
+	ft_strdel(&s);
 	sorted_array = sort_int(input_data->int_array, input_data->int_array_size);
 	input_data->median =
 				sorted_array[(input_data->int_array_size + 1) / 2 - 1];
@@ -134,12 +123,15 @@ static t_input_data		*prepare_input_data(int argc, char **argv)
 }
 
 static t_sort_result	*stack_sort(t_input_data *input_data,
-							void *sort_function(t_sort_result *sort_result))
+		void *sort_function(t_sort_result *sort_result, t_list **result_array),
+														t_list **result_array)
 {
 	t_sort_result	*sort_result;
 	size_t			i;
 
 	sort_result = init_sort_result();
+	sort_result->action_list =
+			(char **)ft_memalloc(sizeof(*sort_result->action_list) * 200000);
 	sort_result->stack = ft_intcpy(input_data->int_array,
 													input_data->int_array_size);
 	sort_result->stack_size = input_data->int_array_size;
@@ -158,7 +150,7 @@ static t_sort_result	*stack_sort(t_input_data *input_data,
 		}
 	}
 	step_prt_down(sort_result);
-	sort_function(sort_result);
+	sort_function(sort_result, result_array);
 	return (sort_result);
 }
 
@@ -179,13 +171,14 @@ int						main(int argc, char **argv)
 		sort_function_array[0] = random_sort_v1;
 		sort_function_array[1] = 0;
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
+		*result_array = NULL;
 		input_data = prepare_input_data(argc, argv);
 		i = -1;
 		while (sort_function_array[++i])
 		{
-			sort_result = stack_sort(input_data, sort_function_array[i]);
-			ft_lstadd_e(result_array,
-								ft_lstnew(sort_result, sizeof(*sort_result)));
+			sort_result = stack_sort(input_data, sort_function_array[i], result_array);
+//			ft_lstadd_e(result_array,
+//								ft_lstnew(sort_result, sizeof(*sort_result)));
 		}
 		print_action_list(result_array);
 		print_stack(sort_result->stack, sort_result->stack_size);

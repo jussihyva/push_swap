@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 21:23:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/21 14:42:34 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,23 @@ struct		s_sort_result
 
 typedef struct s_sort_result	t_sort_result;
 
-int			ft_printf(const char *format, ...);
-void		bubble_sort_v1(t_sort_result *sort_result);
-void		bubble_sort_v2(t_sort_result *sort_result);
-void		bubble_sort_v3(t_sort_result *sort_result);
-void		insertion_sort_v1(t_sort_result *sort_result);
-void		random_sort_v1(t_sort_result *sort_result);
-void		optimize_last_actions(t_sort_result *sort_result);
-void		add_action(t_sort_result *sort_result, char *action_string);
-void		print_stack(int *stack, int size);
-void		print_action_list(t_list **result_array);
-void		print_num_of_actions(t_sort_result *sort_result);
-void		ft_int_swap(int *ptr1, int *ptr2);
-void		execute_action(t_sort_result *sort_result, char *action_string);
-void		step_prt_down(t_sort_result *sort_result);
-void		save_result(t_sort_result *sort_result);
+int				ft_printf(const char *format, ...);
+void			bubble_sort_v1(t_sort_result *sort_result, t_list **result_array);
+void			bubble_sort_v2(t_sort_result *sort_result, t_list **result_array);
+void			bubble_sort_v3(t_sort_result *sort_result, t_list **result_array);
+void			insertion_sort_v1(t_sort_result *sort_result, t_list **result_array);
+void			random_sort_v1(t_sort_result *sort_result, t_list **result_array);
+void			optimize_last_actions(t_sort_result *sort_result);
+void			add_action(t_sort_result *sort_result, char *action_string);
+void			print_stack(int *stack, int size);
+void			print_action_list(t_list **result_array);
+void			print_num_of_actions(t_sort_result *sort_result);
+void			ft_int_swap(int *ptr1, int *ptr2);
+void			execute_action(t_sort_result *sort_result, char *action_string);
+void			step_prt_down(t_sort_result *sort_result);
+void			save_result(t_sort_result *sort_result);
+t_sort_result	*init_sort_result(void);
+int				*ft_intcpy(int const *array, size_t size);
+char			**ft_str_array_dup(char **array, size_t size);
 
 #endif

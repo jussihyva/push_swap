@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 22:04:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/21 12:56:50 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,16 @@ void			optimize_last_actions(t_sort_result *sort_result)
 
 void			add_action(t_sort_result *sort_result, char *action_string)
 {
-	if ((ft_strequ(sort_result->last_action, "ra") &&
+	if (sort_result->last_action &&
+		((ft_strequ(sort_result->last_action, "ra") &&
 											ft_strequ(action_string, "rra")) ||
 		(ft_strequ(sort_result->last_action, "rra") &&
 											ft_strequ(action_string, "ra")) ||
 		(ft_strequ(sort_result->last_action, "sa") &&
-												ft_strequ(action_string, "sa")))
+											ft_strequ(action_string, "sa"))))
 	{
 		sort_result->action_list_size--;
+		ft_strdel(&(sort_result->action_list[sort_result->action_list_size]));
 		if (sort_result->action_list_size)
 			sort_result->last_action =
 					sort_result->action_list[sort_result->action_list_size - 1];
@@ -111,18 +113,18 @@ void			add_action(t_sort_result *sort_result, char *action_string)
 		{
 			optimize_last_actions(sort_result);
 			sort_result->seq_action_counter = 1;
-			sort_result->last_action = action_string;
 		}
+		sort_result->last_action = ft_strdup(action_string);
 		sort_result->action_list[sort_result->action_list_size] =
-													ft_strdup(action_string);
+													sort_result->last_action;
 		sort_result->action_list_size++;
 	}
 	else
 	{
 		sort_result->seq_action_counter = 1;
-		sort_result->last_action = action_string;
+		sort_result->last_action = ft_strdup(action_string);
 		sort_result->action_list[sort_result->action_list_size] =
-													ft_strdup(action_string);
+													sort_result->last_action;
 		sort_result->action_list_size++;
 	}
 	if (sort_result->seq_action_counter == (size_t)sort_result->stack_size)
