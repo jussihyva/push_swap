@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/22 11:35:07 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/22 14:51:42 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,15 @@ char			**ft_str_array_dup(char **array, size_t size)
 	return (new_array);
 }
 
-t_sort_result	*init_sort_result(void)
+void			init_sort_result(t_sort_result *sort_result)
 {
-	t_sort_result	*sort_result;
-
-	sort_result = (t_sort_result *)ft_memalloc(sizeof(*sort_result));
 	sort_result->seq_action_counter = 0;
 	sort_result->stack_size = 0;
 	sort_result->average = 0;
 	sort_result->action_list_size = 0;
 	sort_result->action_list = NULL;
 	sort_result->last_action = NULL;
-	return (sort_result);
+	return ;
 }
 
 void			execute_action(t_sort_result *sort_result, char *action_string)

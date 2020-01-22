@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/22 12:40:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/22 14:51:16 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void			execute_action(t_sort_result *sort_result, char *action_string);
 void			step_prt_down(t_sort_result *sort_result);
 void			step_prt_up(t_sort_result *sort_result);
 void			save_result(t_sort_result *sort_result);
-t_sort_result	*init_sort_result(void);
+void			init_sort_result(t_sort_result *sort_result);
 int				*ft_intcpy(int const *array, size_t size);
 char			**ft_str_array_dup(char **array, size_t size);
 void			ft_intswap(int *ptr1, int *ptr2);

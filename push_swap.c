@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/22 12:46:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/22 14:55:48 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,36 +83,36 @@ static t_input_data		*prepare_input_data(int argc, char **argv)
 	return (input);
 }
 
-static t_sort_result	*stack_sort(t_input_data *input,
+static void				stack_sort(t_input_data *input,
 		void *sort_function(t_sort_result *sort_result, t_list **result_array,
 							size_t *max_actions),
 							t_list **result_array, size_t *max_actions)
 {
-	t_sort_result	*sort_result;
+	t_sort_result	sort_result;
 	size_t			i;
 
-	sort_result = init_sort_result();
-	sort_result->action_list =
-			(char **)ft_memalloc(sizeof(*sort_result->action_list) * 200000);
-	sort_result->stack = ft_intcpy(input->int_array, input->int_array_size);
-	sort_result->stack_size = input->int_array_size;
-	sort_result->median = input->median;
-	sort_result->min = input->min;
-	sort_result->max = input->max;
-	sort_result->average = input->average;
-	sort_result->stack_ptr.top = sort_result->stack + sort_result->stack_size;
+	init_sort_result(&sort_result);
+	sort_result.action_list =
+			(char **)ft_memalloc(sizeof(*sort_result.action_list) * 200000);
+	sort_result.stack = ft_intcpy(input->int_array, input->int_array_size);
+	sort_result.stack_size = input->int_array_size;
+	sort_result.median = input->median;
+	sort_result.min = input->min;
+	sort_result.max = input->max;
+	sort_result.average = input->average;
+	sort_result.stack_ptr.top = sort_result.stack + sort_result.stack_size;
 	i = -1;
-	while (++i < sort_result->stack_size)
+	while (++i < sort_result.stack_size)
 	{
-		if (*(sort_result->stack + i) == input->min)
+		if (*(sort_result.stack + i) == input->min)
 		{
-			sort_result->stack_ptr.smallest_int = sort_result->stack + i;
+			sort_result.stack_ptr.smallest_int = sort_result.stack + i;
 			break ;
 		}
 	}
-	step_prt_down(sort_result);
-	sort_function(sort_result, result_array, max_actions);
-	return (sort_result);
+	step_prt_down(&sort_result);
+	sort_function(&sort_result, result_array, max_actions);
+	return ;
 }
 
 int						main(int argc, char **argv)
