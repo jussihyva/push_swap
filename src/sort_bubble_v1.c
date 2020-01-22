@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:21:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/22 11:35:29 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/22 13:13:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ static int		loop_if_swap(t_sort_result *sort_result, size_t top_i)
 }
 
 void			bubble_sort_v1(t_sort_result *sort_result,
-														t_list **result_array)
+									t_list **result_array, size_t *max_actions)
 {
 	int			is_sorted;
 	size_t		top_i;
 
-	(void)result_array;
 	top_i = sort_result->stack_size - 1;
 	sort_result->action_list_size = 0;
 	is_sorted = 0;
@@ -54,5 +53,8 @@ void			bubble_sort_v1(t_sort_result *sort_result,
 		is_sorted = loop_if_swap(sort_result, top_i);
 	}
 	optimize_last_actions(sort_result);
+	ft_lstadd_e(result_array, ft_lstnew(sort_result, sizeof(*sort_result)));
+	*max_actions = (*max_actions > sort_result->action_list_size) ?
+				sort_result->action_list_size : *max_actions;
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/22 11:37:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/22 12:46:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ static t_input_data		*prepare_input_data(int argc, char **argv)
 }
 
 static t_sort_result	*stack_sort(t_input_data *input,
-		void *sort_function(t_sort_result *sort_result, t_list **result_array),
-														t_list **result_array)
+		void *sort_function(t_sort_result *sort_result, t_list **result_array,
+							size_t *max_actions),
+							t_list **result_array, size_t *max_actions)
 {
 	t_sort_result	*sort_result;
 	size_t			i;
@@ -110,39 +111,35 @@ static t_sort_result	*stack_sort(t_input_data *input,
 		}
 	}
 	step_prt_down(sort_result);
-	sort_function(sort_result, result_array);
+	sort_function(sort_result, result_array, max_actions);
 	return (sort_result);
 }
 
 int						main(int argc, char **argv)
 {
 	t_input_data	*input;
-	t_sort_result	*sort_result;
 	size_t			i;
 	t_list			**result_array;
 	static void		*sort_function_array[6];
+	size_t			max_actions;
 
 	if (argc > 1)
 	{
-//		sort_function_array[0] = bubble_sort_v1;
-//		sort_function_array[1] = bubble_sort_v2;
-//		sort_function_array[2] = bubble_sort_v3;
-//		sort_function_array[0] = insertion_sort_v1;
-		sort_function_array[0] = random_sort_v1;
-		sort_function_array[1] = 0;
+		max_actions = -1;
+		sort_function_array[0] = bubble_sort_v1;
+		sort_function_array[1] = bubble_sort_v2;
+		sort_function_array[2] = bubble_sort_v3;
+		sort_function_array[3] = insertion_sort_v1;
+		sort_function_array[4] = random_sort_v1;
+		sort_function_array[5] = 0;
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		*result_array = NULL;
 		input = prepare_input_data(argc, argv);
 		i = -1;
 		while (sort_function_array[++i])
-		{
-			sort_result = stack_sort(input, sort_function_array[i],
-																result_array);
-//			ft_lstadd_e(result_array,
-//								ft_lstnew(sort_result, sizeof(*sort_result)));
-		}
+			stack_sort(input, sort_function_array[i],
+													result_array, &max_actions);
 		print_action_list(result_array);
-		print_stack(sort_result->stack, sort_result->stack_size);
 	}
 	return (0);
 }

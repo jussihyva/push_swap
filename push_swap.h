@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/22 11:37:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/22 12:40:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ typedef struct	s_sort_result
 
 int				ft_printf(const char *format, ...);
 void			bubble_sort_v1(t_sort_result *sort_result,
-														t_list **result_array);
+									t_list **result_array, size_t *max_actions);
 void			bubble_sort_v2(t_sort_result *sort_result,
-														t_list **result_array);
+									t_list **result_array, size_t *max_actions);
 void			bubble_sort_v3(t_sort_result *sort_result,
-														t_list **result_array);
+									t_list **result_array, size_t *max_actions);
 void			insertion_sort_v1(t_sort_result *sort_result,
-														t_list **result_array);
+									t_list **result_array, size_t *max_actions);
 void			random_sort_v1(t_sort_result *sort_result,
-														t_list **result_array);
+									t_list **result_array, size_t *max_actions);
 void			optimize_last_actions(t_sort_result *sort_result);
 void			add_action(t_sort_result *sort_result, char *action_string);
 void			print_stack(int *stack, int size);

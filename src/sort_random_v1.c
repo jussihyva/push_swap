@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:10:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/21 17:50:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/22 12:56:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,20 +117,24 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 	return (is_sorted);
 }
 
-void		random_sort_v1(t_sort_result *sort_result, t_list **result_array)
+void		random_sort_v1(t_sort_result *sort_result, t_list **result_array,
+															size_t *max_actions)
 {
 	int				is_sorted;
 	t_stack_ptr		*stack_ptr;
-	size_t			max_actions;
+	int				result_required;
 
 	stack_ptr = &sort_result->stack_ptr;
-	max_actions = 10;
-	while (!(*result_array))
+	result_required = (*max_actions == (size_t)-1) ? 1 : 0;
+	if (result_required)
+		*max_actions = 10;
+	while (!(*result_array) || !result_required)
 	{
-		is_sorted = loop_if_swap(sort_result, result_array, &max_actions);
-		max_actions += 5;
+		is_sorted = loop_if_swap(sort_result, result_array, max_actions);
+		if (result_required)
+			*max_actions += 5;
+		else
+			break ;
 	}
-	while (*stack_ptr->top != sort_result->min)
-		execute_action(sort_result, "rra");
 	return ;
 }

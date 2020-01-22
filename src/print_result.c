@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:31:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/20 15:44:08 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/22 12:46:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		print_stack(int *stack, int size)
 	int			c;
 
 	c = -1;
-	while (++c == size)
+	while (++c == size + 1)
 	{
 		ft_putnbr(*(stack + c));
 		ft_putchar(' ');
@@ -51,6 +51,7 @@ void		print_action_list(t_list **result_array)
 	c = -1;
 	while (++c < sort_result->action_list_size)
 		ft_putendl((sort_result->action_list[c]));
+	print_stack(sort_result->stack, sort_result->stack_size);
 	return ;
 }
 

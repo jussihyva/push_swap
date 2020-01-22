@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 16:39:09 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/21 14:27:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/22 13:14:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,19 @@ static int		loop_if_swap(t_sort_result *sort_result)
 }
 
 void			insertion_sort_v1(t_sort_result *sort_result,
-														t_list **result_array)
+									t_list **result_array, size_t *max_actions)
 {
 	int				is_sorted;
 	t_stack_ptr		*stack_ptr;
 
-	(void)result_array;
 	stack_ptr = &sort_result->stack_ptr;
 	is_sorted = 0;
 	while (!is_sorted)
 		is_sorted = loop_if_swap(sort_result);
 	while (*stack_ptr->top != sort_result->min)
 		execute_action(sort_result, "rra");
+	ft_lstadd_e(result_array, ft_lstnew(sort_result, sizeof(*sort_result)));
+	*max_actions = (*max_actions > sort_result->action_list_size) ?
+				sort_result->action_list_size : *max_actions;
 	return ;
 }
