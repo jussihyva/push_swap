@@ -6,13 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/21 12:56:50 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/22 11:16:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void		step_prt_up(t_sort_result *sort_result)
+void			step_prt_up(t_sort_result *sort_result)
 {
 	int				*stack;
 	t_stack_ptr		*stack_ptr;
@@ -102,7 +102,7 @@ void			add_action(t_sort_result *sort_result, char *action_string)
 			sort_result->last_action =
 					sort_result->action_list[sort_result->action_list_size - 1];
 		else
-			sort_result->last_action = ft_strdup("");
+			sort_result->last_action = NULL;
 		count_num_of_consecutive(sort_result);
 	}
 	else if (sort_result->seq_action_counter)
@@ -134,22 +134,8 @@ void			add_action(t_sort_result *sort_result, char *action_string)
 			sort_result->last_action =
 					sort_result->action_list[sort_result->action_list_size - 1];
 		else
-			sort_result->last_action = ft_strdup("");
+			sort_result->last_action = NULL;
 		count_num_of_consecutive(sort_result);
 	}
 	return ;
-}
-
-void			execute_action(t_sort_result *sort_result, char *action_string)
-{
-	t_stack_ptr		*stack_ptr;
-
-	stack_ptr = &sort_result->stack_ptr;
-	add_action(sort_result, action_string);
-	if (ft_strequ(action_string, "sa"))
-		ft_int_swap(stack_ptr->top, stack_ptr->next);
-	else if (ft_strequ(action_string, "ra"))
-		step_prt_down(sort_result);
-	else if (ft_strequ(action_string, "rra"))
-		step_prt_up(sort_result);
 }

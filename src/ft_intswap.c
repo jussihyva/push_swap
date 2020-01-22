@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_int_swap.c                                      :+:      :+:    :+:   */
+/*   ft_intswap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 09:33:28 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/16 09:41:11 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/22 11:32:06 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void				ft_int_swap(int *ptr1, int *ptr2)
+void	ft_intswap(int *ptr1, int *ptr2)
 {
-	int			tmp;
+	int		tmp;
 
 	tmp = *ptr1;
 	*ptr1 = *ptr2;
