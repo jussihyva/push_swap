@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/23 12:16:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/23 14:32:44 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	do_next_action(t_sort_result *sort_result,
 {
 	t_stack_ptr		stack_ptr;
 	int				is_sorted;
-	t_move_action	new_valid_actions[3];
+	t_move_action	new_valid_actions[4];
 	t_sort_result	save_result;
 	size_t			c;
 
@@ -67,7 +67,7 @@ static int	do_next_action(t_sort_result *sort_result,
 		while (c--)
 			execute_action(sort_result, ra);
 	}
-	c = -1;
+	c = 0;
 	while (!is_sorted && sort_result->action_list_size < *max_actions &&
 															valid_actions[c])
 	{
@@ -84,6 +84,7 @@ static int	do_next_action(t_sort_result *sort_result,
 			else if (valid_actions[c] == rra)
 				execute_action(sort_result, ra);
 		}
+		c++;
 	}
 	return (is_sorted);
 }
@@ -92,7 +93,7 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 															size_t *max_actions)
 {
 	int				is_sorted;
-	t_move_action	valid_actions[3];
+	t_move_action	valid_actions[4];
 
 	create_action_order(sort_result, valid_actions, (t_move_action)null);
 	is_sorted = do_next_action(sort_result, valid_actions, result_array,
