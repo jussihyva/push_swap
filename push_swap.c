@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/22 14:55:48 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/23 12:17:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void				stack_sort(t_input_data *input,
 
 	init_sort_result(&sort_result);
 	sort_result.action_list =
-			(char **)ft_memalloc(sizeof(*sort_result.action_list) * 200000);
+			(t_move_action *)ft_memalloc(sizeof(*sort_result.action_list) * 200000);
 	sort_result.stack = ft_intcpy(input->int_array, input->int_array_size);
 	sort_result.stack_size = input->int_array_size;
 	sort_result.median = input->median;
@@ -130,7 +130,8 @@ int						main(int argc, char **argv)
 		sort_function_array[1] = bubble_sort_v2;
 		sort_function_array[2] = bubble_sort_v3;
 		sort_function_array[3] = insertion_sort_v1;
-		sort_function_array[4] = random_sort_v1;
+//		sort_function_array[4] = random_sort_v1;
+		sort_function_array[4] = random_sort_v2;
 		sort_function_array[5] = 0;
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		*result_array = NULL;

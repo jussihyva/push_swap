@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_random_v1.c                                   :+:      :+:    :+:   */
+/*   sort_random_v2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/20 17:10:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/23 11:58:10 by jkauppi          ###   ########.fr       */
+/*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
+/*   Updated: 2020/01/23 12:16:06 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,14 @@ static int	check_order(int *array, size_t size)
 }
 
 static int	do_next_action(t_sort_result *sort_result,
-		t_move_action valid_actions, t_list **result_array, size_t *max_actions)
+		t_move_action *valid_actions, t_list **result_array, size_t *max_actions)
 {
 	t_stack_ptr		stack_ptr;
 	int				is_sorted;
-	t_move_action	new_valid_actions;
+	t_move_action	new_valid_actions[3];
 	t_sort_result	save_result;
 	size_t			c;
 
-	new_valid_actions = 0;
 	stack_ptr = sort_result->stack_ptr;
 	is_sorted = check_order(sort_result->stack, sort_result->stack_size);
 	if (is_sorted)
@@ -68,38 +67,24 @@ static int	do_next_action(t_sort_result *sort_result,
 		while (c--)
 			execute_action(sort_result, ra);
 	}
-	if (is_sorted || sort_result->action_list_size < *max_actions)
+	c = -1;
+	while (!is_sorted && sort_result->action_list_size < *max_actions &&
+															valid_actions[c])
 	{
-		if (!is_sorted && (valid_actions & sa))
-		{
-			execute_action(sort_result, sa);
-			new_valid_actions = ra | rra;
-			is_sorted = do_next_action(sort_result, new_valid_actions,
+		execute_action(sort_result, valid_actions[c]);
+		create_action_order(sort_result, new_valid_actions, valid_actions[c]);
+		is_sorted = do_next_action(sort_result, new_valid_actions,
 													result_array, max_actions);
-			if (!is_sorted)
+		if (!is_sorted)
+		{
+			if (valid_actions[c] == sa)
 				execute_action(sort_result, sa);
-		}
-		if (!is_sorted && (valid_actions & ra))
-		{
-			execute_action(sort_result, ra);
-			new_valid_actions = sa | ra;
-			is_sorted = do_next_action(sort_result, new_valid_actions,
-													result_array, max_actions);
-			if (!is_sorted)
+			else if (valid_actions[c] == ra)
 				execute_action(sort_result, rra);
-		}
-		if (!is_sorted && (valid_actions & rra))
-		{
-			execute_action(sort_result, rra);
-			new_valid_actions = sa | rra;
-			is_sorted = do_next_action(sort_result, new_valid_actions,
-													result_array, max_actions);
-			if (!is_sorted)
+			else if (valid_actions[c] == rra)
 				execute_action(sort_result, ra);
 		}
 	}
-	else
-		is_sorted = 0;
 	return (is_sorted);
 }
 
@@ -107,15 +92,15 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 															size_t *max_actions)
 {
 	int				is_sorted;
-	t_move_action	valid_actions;
+	t_move_action	valid_actions[3];
 
-	valid_actions = sa | ra | rra;
+	create_action_order(sort_result, valid_actions, (t_move_action)null);
 	is_sorted = do_next_action(sort_result, valid_actions, result_array,
 																max_actions);
 	return (is_sorted);
 }
 
-void		random_sort_v1(t_sort_result *sort_result, t_list **result_array,
+void		random_sort_v2(t_sort_result *sort_result, t_list **result_array,
 															size_t *max_actions)
 {
 	int				is_sorted;

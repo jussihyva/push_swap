@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/22 14:51:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/23 12:10:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ typedef struct	s_sort_result
 	int				max;
 	int				average;
 	int				median;
-	char			**action_list;
+	t_move_action	*action_list;
 	size_t			action_list_size;
 	size_t			seq_action_counter;
-	char			*last_action;
+	t_move_action	last_action;
 	t_stack_ptr		stack_ptr;
 }				t_sort_result;
 
@@ -71,21 +71,25 @@ void			insertion_sort_v1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			random_sort_v1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
+void			random_sort_v2(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
 void			optimize_last_actions(t_sort_result *sort_result);
-void			add_action(t_sort_result *sort_result, char *action_string);
+void			add_action(t_sort_result *sort_result, t_move_action action);
 void			print_stack(int *stack, int size);
 void			print_action_list(t_list **result_array);
 void			print_num_of_actions(t_sort_result *sort_result);
 void			ft_int_swap(int *ptr1, int *ptr2);
-void			execute_action(t_sort_result *sort_result, char *action_string);
+void			execute_action(t_sort_result *sort_result, t_move_action action);
 void			step_prt_down(t_sort_result *sort_result);
 void			step_prt_up(t_sort_result *sort_result);
 void			save_result(t_sort_result *sort_result);
 void			init_sort_result(t_sort_result *sort_result);
 int				*ft_intcpy(int const *array, size_t size);
-char			**ft_str_array_dup(char **array, size_t size);
+t_move_action	*ft_int_array_dup(t_move_action *array, size_t size);
 void			ft_intswap(int *ptr1, int *ptr2);
 void			ft_arraydel(char **array);
 int				*ft_intsort(int const *array, size_t size);
+void			create_action_order(t_sort_result *sort_result,
+						t_move_action *valid_actions, t_move_action last_action);
 
 #endif

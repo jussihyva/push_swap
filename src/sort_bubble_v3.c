@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 11:21:02 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/22 13:13:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/23 11:51:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ static int		loop_down_if_swap(t_sort_result *sort_result,
 		loop_cnt++;
 		if (*stack_ptr->top > *stack_ptr->next)
 		{
-			execute_action(sort_result, "sa");
+			execute_action(sort_result, sa);
 			is_sorted = 0;
-			execute_action(sort_result, "ra");
+			execute_action(sort_result, ra);
 		}
 		else
 		{
 			if (!is_sorted && *stack_ptr->bottom <= sort_result->median)
 				break ;
-			execute_action(sort_result, "ra");
+			execute_action(sort_result, ra);
 		}
 	}
 	if (loop_cnt != sort_result->stack_size - 1)
@@ -51,13 +51,13 @@ static int		loop_up_if_swap(t_sort_result *sort_result,
 	{
 		if (*stack_ptr->next < *stack_ptr->top)
 		{
-			execute_action(sort_result, "sa");
-			execute_action(sort_result, "rra");
+			execute_action(sort_result, sa);
+			execute_action(sort_result, rra);
 		}
 		else
-			execute_action(sort_result, "rra");
+			execute_action(sort_result, rra);
 	}
-	execute_action(sort_result, "ra");
+	execute_action(sort_result, ra);
 	return (is_sorted);
 }
 
@@ -84,15 +84,15 @@ void			bubble_sort_v3(t_sort_result *sort_result,
 				*stack_ptr->next > sort_result->median)
 	{
 		if (*stack_ptr->top > *stack_ptr->next)
-			execute_action(sort_result, "sa");
-		execute_action(sort_result, "ra");
-		execute_action(sort_result, "ra");
+			execute_action(sort_result, sa);
+		execute_action(sort_result, ra);
+		execute_action(sort_result, ra);
 	}
 	is_sorted = 0;
 	while (!is_sorted)
 		is_sorted = loop_if_swap(sort_result);
 	while (*stack_ptr->top != sort_result->min)
-		execute_action(sort_result, "rra");
+		execute_action(sort_result, rra);
 	ft_lstadd_e(result_array, ft_lstnew(sort_result, sizeof(*sort_result)));
 	*max_actions = (*max_actions > sort_result->action_list_size) ?
 				sort_result->action_list_size : *max_actions;

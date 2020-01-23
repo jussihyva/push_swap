@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:21:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/22 13:13:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/23 11:49:54 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ static int		loop_if_swap(t_sort_result *sort_result, size_t top_i)
 		if (*(stack + current) > *(stack + current_1))
 		{
 			ft_intswap(stack + current, stack + current_1);
-			add_action(sort_result, "sa");
+			add_action(sort_result, sa);
 			is_sorted = 0;
 		}
-		add_action(sort_result, "ra");
+		add_action(sort_result, ra);
 		current = current ? current - 1 : sort_result->stack_size - 1;
 		current_1 = current ? current - 1 : sort_result->stack_size - 1;
 	}
-	add_action(sort_result, "ra");
+	add_action(sort_result, ra);
 	return (is_sorted);
 }
 

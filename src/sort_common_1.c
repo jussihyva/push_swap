@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/22 14:51:42 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/23 12:02:38 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int				*ft_intcpy(int const *array, size_t size)
 	return (new_array);
 }
 
-char			**ft_str_array_dup(char **array, size_t size)
+t_move_action	*ft_int_array_dup(t_move_action *array, size_t size)
 {
-	char		**new_array;
+	t_move_action	*new_array;
 
-	new_array = (char **)ft_memalloc(sizeof(*new_array) * size);
+	new_array = (t_move_action *)ft_memalloc(sizeof(*new_array) * size);
 	while (size--)
-		new_array[size] = ft_strdup(array[size]);
+		new_array[size] = array[size];
 	return (new_array);
 }
 
@@ -39,20 +39,20 @@ void			init_sort_result(t_sort_result *sort_result)
 	sort_result->average = 0;
 	sort_result->action_list_size = 0;
 	sort_result->action_list = NULL;
-	sort_result->last_action = NULL;
+	sort_result->last_action = null;
 	return ;
 }
 
-void			execute_action(t_sort_result *sort_result, char *action_string)
+void			execute_action(t_sort_result *sort_result, t_move_action action)
 {
 	t_stack_ptr		*stack_ptr;
 
 	stack_ptr = &sort_result->stack_ptr;
-	add_action(sort_result, action_string);
-	if (ft_strequ(action_string, "sa"))
+	add_action(sort_result, action);
+	if (action == sa)
 		ft_intswap(stack_ptr->top, stack_ptr->next);
-	else if (ft_strequ(action_string, "ra"))
+	else if (action == ra)
 		step_prt_down(sort_result);
-	else if (ft_strequ(action_string, "rra"))
+	else if (action == rra)
 		step_prt_up(sort_result);
 }
