@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/24 11:13:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/24 20:22:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ typedef enum	e_move_action
 	null = 0,
 	sa = 0x01,
 	ra = 0x02,
-	rra = 0x04
+	rra = 0x04,
+	v0 = 0x08,
+	v1 = 0x10,
+	v2 = 0x20
 }				t_move_action;
 
 typedef struct	s_stack_ptr
@@ -80,7 +83,8 @@ void			print_stack(int *stack, int size);
 void			print_action_list(t_list **result_array);
 void			print_num_of_actions(t_sort_result *sort_result);
 void			ft_int_swap(int *ptr1, int *ptr2);
-void			execute_action(t_sort_result *sort_result, t_move_action action);
+void			execute_action(t_sort_result *sort_result,
+														t_move_action action);
 void			step_prt_down(t_sort_result *sort_result);
 void			step_prt_up(t_sort_result *sort_result);
 void			save_result(t_sort_result *sort_result);
@@ -91,6 +95,7 @@ void			ft_intswap(int *ptr1, int *ptr2);
 void			ft_arraydel(char **array);
 int				*ft_intsort(int const *array, size_t size);
 void			create_action_order(t_sort_result *sort_result,
-						t_move_action *valid_actions, t_move_action last_action);
+						t_move_action *valid_actions, t_move_action last_action,
+															t_move_action rule);
 
 #endif

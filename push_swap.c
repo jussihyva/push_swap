@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/24 14:03:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/24 21:17:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,18 +128,21 @@ int						main(int argc, char **argv)
 		max_actions = -1;
 		sort_function_array[0] = bubble_sort_v1;
 		sort_function_array[1] = bubble_sort_v2;
-//		sort_function_array[2] = bubble_sort_v3;
-//		sort_function_array[3] = insertion_sort_v1;
+		sort_function_array[2] = bubble_sort_v3;
+		sort_function_array[3] = insertion_sort_v1;
 //		sort_function_array[4] = random_sort_v1;
-		sort_function_array[2] = random_sort_v2;
-		sort_function_array[3] = 0;
+		sort_function_array[4] = random_sort_v2;
+		sort_function_array[5] = 0;
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		*result_array = NULL;
 		input = prepare_input_data(argc, argv);
 		i = -1;
 		while (sort_function_array[++i])
+		{
 			stack_sort(input, sort_function_array[i],
 													result_array, &max_actions);
+//			ft_printf("MAX: %5d\n", max_actions);
+		}
 		print_action_list(result_array);
 	}
 	return (0);

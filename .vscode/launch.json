@@ -12,6 +12,7 @@
 //		"args": ["17 8 2 5 12 1 6 4 7 11 10 16 15 3 20 13 9 19 14 18"],
 //		"args": ["10 9 8 7 6 5 4 3 2 1"],
 		"args": ["9 3 8 1 6 4 7 2 5"],
+//		"args": ["4 1 6 10 7 8 9 5 2 3"],
 		"stopAtEntry": false,
 		"cwd": "${workspaceFolder}",
 		"environment": [],

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/24 17:24:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/24 21:09:22 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,23 @@ static int	check_order_high(int *array, size_t size, int median, int max)
 	int		*previous;
 
 	ptr = array;
-	while (*ptr != median)
+	while (*ptr != max)
 		ptr = ptr == (array + size - 1) ? array : ++ptr;
 	previous = ptr;
 	ptr = ptr == (array + size - 1) ? array : ++ptr;
-	while (*previous != max && *previous > *ptr)
+	while (*previous != median && *previous > *ptr)
 	{
 		previous = ptr;
 		ptr = ptr == array + size - 1 ? array : ++ptr;
 	}
-	return (*previous == max);
+	previous = ptr;
+	ptr = ptr == array + size - 1 ? array : ++ptr;
+	while (*ptr != max && *previous < median)
+	{
+		previous = ptr;
+		ptr = ptr == array + size - 1 ? array : ++ptr;
+	}
+	return (*previous < median);
 }
 
 static int	check_order(int *array, size_t size)
@@ -56,7 +63,8 @@ static int	check_order(int *array, size_t size)
 }
 
 static int	do_next_action(t_sort_result *sort_result,
-		t_move_action *valid_actions, t_list **result_array, size_t *max_actions)
+		t_move_action *valid_actions, t_move_action rule, t_list **result_array,
+		size_t *max_actions)
 {
 	int						is_sorted;
 	static t_move_action	new_valid_actions[4];
@@ -80,7 +88,7 @@ static int	do_next_action(t_sort_result *sort_result,
 		save_result->action_list = ft_int_array_dup(sort_result->action_list,
 												sort_result->action_list_size);
 		save_result->action_list_size = sort_result->action_list_size;
-		ft_lstadd_e(result_array, ft_lstnew(&save_result, sizeof(save_result)));
+		ft_lstadd_e(result_array, ft_lstnew(save_result, sizeof(*save_result)));
 		if (*max_actions > save_result->action_list_size)
 			*max_actions = save_result->action_list_size;
 		free(save_result);
@@ -92,12 +100,16 @@ static int	do_next_action(t_sort_result *sort_result,
 	{
 		c = 0;
 		while (!is_sorted && sort_result->action_list_size < *max_actions &&
-																valid_actions[c])
+															valid_actions[c])
 		{
-			execute_action(sort_result, valid_actions[c]);
-			create_action_order(sort_result, new_valid_actions, valid_actions[c]);
-			is_sorted = do_next_action(sort_result, new_valid_actions,
-														result_array, max_actions);
+			if (valid_actions[c] & (v0 | v1 | v2))
+				rule = valid_actions[c];
+			else
+				execute_action(sort_result, valid_actions[c]);
+			create_action_order(sort_result, new_valid_actions,
+														valid_actions[c], rule);
+			is_sorted = do_next_action(sort_result, new_valid_actions, rule,
+													result_array, max_actions);
 			if (!is_sorted)
 			{
 				if (valid_actions[c] == sa)
@@ -118,10 +130,12 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 {
 	int				is_sorted;
 	t_move_action	valid_actions[4];
+	t_move_action	rule;
 
-	create_action_order(sort_result, valid_actions, (t_move_action)null);
-	is_sorted = do_next_action(sort_result, valid_actions, result_array,
-																max_actions);
+	rule = v1;
+	create_action_order(sort_result, valid_actions, null, rule);
+	is_sorted = do_next_action(sort_result, valid_actions, rule, result_array,
+															max_actions);
 	return (is_sorted);
 }
 
