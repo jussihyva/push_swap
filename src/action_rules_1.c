@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:56:26 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/24 10:57:10 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/24 14:54:07 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,23 @@ void	create_action_order(t_sort_result *sort_result,
 	t_stack_ptr		stack_ptr;
 
 	stack_ptr = sort_result->stack_ptr;
-	if (last_action == null)
+	if (*stack_ptr.top > *stack_ptr.next && last_action != sa &&
+		((*stack_ptr.top >= sort_result->median && *stack_ptr.next >= sort_result->median) ||
+		(*stack_ptr.top <= sort_result->median && *stack_ptr.next <= sort_result->median)))
 	{
 		valid_actions[0] = sa;
-		valid_actions[1] = ra;
-		valid_actions[2] = rra;
+		valid_actions[1] = null;
+		valid_actions[2] = null;
 		valid_actions[3] = null;
 	}
-	else if (*stack_ptr.top > *stack_ptr.next && last_action != sa &&
-											*stack_ptr.top != sort_result->max)
+	else if (*stack_ptr.top > sort_result->median)
+	{
+		valid_actions[0] = ra;
+		valid_actions[1] = null;
+		valid_actions[2] = null;
+		valid_actions[3] = null;
+	}
+	else if (last_action == null)
 	{
 		valid_actions[0] = sa;
 		valid_actions[1] = ra;
@@ -42,15 +50,15 @@ void	create_action_order(t_sort_result *sort_result,
 	}
 	else if (last_action == ra)
 	{
-		valid_actions[0] = sa;
-		valid_actions[1] = ra;
+		valid_actions[0] = ra;
+		valid_actions[1] = sa;
 		valid_actions[2] = null;
 		valid_actions[3] = null;
 	}
 	else if (last_action == rra)
 	{
-		valid_actions[0] = sa;
-		valid_actions[1] = rra;
+		valid_actions[0] = rra;
+		valid_actions[1] = sa;
 		valid_actions[2] = null;
 		valid_actions[3] = null;
 	}
