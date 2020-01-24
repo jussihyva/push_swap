@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/23 12:10:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/24 11:13:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct	s_sort_result
 	size_t			action_list_size;
 	size_t			seq_action_counter;
 	t_move_action	last_action;
+	size_t			total_num_of_actions;
 	t_stack_ptr		stack_ptr;
 }				t_sort_result;
 
