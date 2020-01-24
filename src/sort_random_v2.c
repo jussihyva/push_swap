@@ -6,11 +6,29 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/24 14:53:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/24 17:24:16 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static int	check_order_high(int *array, size_t size, int median, int max)
+{
+	int		*ptr;
+	int		*previous;
+
+	ptr = array;
+	while (*ptr != median)
+		ptr = ptr == (array + size - 1) ? array : ++ptr;
+	previous = ptr;
+	ptr = ptr == (array + size - 1) ? array : ++ptr;
+	while (*previous != max && *previous > *ptr)
+	{
+		previous = ptr;
+		ptr = ptr == array + size - 1 ? array : ++ptr;
+	}
+	return (*previous == max);
+}
 
 static int	check_order(int *array, size_t size)
 {
@@ -46,6 +64,9 @@ static int	do_next_action(t_sort_result *sort_result,
 	size_t					c;
 
 	is_sorted = check_order(sort_result->stack, sort_result->stack_size);
+	if (!is_sorted)
+		is_sorted = check_order_high(sort_result->stack,
+				sort_result->stack_size, sort_result->median, sort_result->max);
 	if (is_sorted)
 	{
 		c = 0;
@@ -67,24 +88,27 @@ static int	do_next_action(t_sort_result *sort_result,
 		while (c--)
 			execute_action(sort_result, ra);
 	}
-	c = 0;
-	while (!is_sorted && sort_result->action_list_size < *max_actions &&
-															valid_actions[c])
+	else if (sort_result->total_num_of_actions < 80000)
 	{
-		execute_action(sort_result, valid_actions[c]);
-		create_action_order(sort_result, new_valid_actions, valid_actions[c]);
-		is_sorted = do_next_action(sort_result, new_valid_actions,
-													result_array, max_actions);
-		if (!is_sorted)
+		c = 0;
+		while (!is_sorted && sort_result->action_list_size < *max_actions &&
+																valid_actions[c])
 		{
-			if (valid_actions[c] == sa)
-				execute_action(sort_result, sa);
-			else if (valid_actions[c] == ra)
-				execute_action(sort_result, rra);
-			else if (valid_actions[c] == rra)
-				execute_action(sort_result, ra);
+			execute_action(sort_result, valid_actions[c]);
+			create_action_order(sort_result, new_valid_actions, valid_actions[c]);
+			is_sorted = do_next_action(sort_result, new_valid_actions,
+														result_array, max_actions);
+			if (!is_sorted)
+			{
+				if (valid_actions[c] == sa)
+					execute_action(sort_result, sa);
+				else if (valid_actions[c] == ra)
+					execute_action(sort_result, rra);
+				else if (valid_actions[c] == rra)
+					execute_action(sort_result, ra);
+			}
+			c++;
 		}
-		c++;
 	}
 	return (is_sorted);
 }
