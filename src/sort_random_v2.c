@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/24 21:09:22 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/25 11:32:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,25 @@ static int	do_next_action(t_sort_result *sort_result,
 		size_t *max_actions)
 {
 	int						is_sorted;
+	static int				is_sorted_high;
 	static t_move_action	new_valid_actions[4];
 	t_sort_result			*save_result;
 	size_t					c;
 
 	is_sorted = check_order(sort_result->stack, sort_result->stack_size);
 	if (!is_sorted)
-		is_sorted = check_order_high(sort_result->stack,
+	{
+		if (!is_sorted_high)
+		{
+			is_sorted_high = check_order_high(sort_result->stack,
 				sort_result->stack_size, sort_result->median, sort_result->max);
+			if (is_sorted_high)
+			{
+				valid_actions[0] = v11;
+				valid_actions[1] = null;
+			}
+		}
+	}
 	if (is_sorted)
 	{
 		c = 0;
@@ -102,7 +113,7 @@ static int	do_next_action(t_sort_result *sort_result,
 		while (!is_sorted && sort_result->action_list_size < *max_actions &&
 															valid_actions[c])
 		{
-			if (valid_actions[c] & (v0 | v1 | v2))
+			if (valid_actions[c] & (v0 | v1 | v2 | v11))
 				rule = valid_actions[c];
 			else
 				execute_action(sort_result, valid_actions[c]);

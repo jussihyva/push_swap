@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/24 20:22:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/25 11:13:48 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ typedef enum	e_move_action
 	rra = 0x04,
 	v0 = 0x08,
 	v1 = 0x10,
-	v2 = 0x20
+	v2 = 0x20,
+	v11 = 0x40
 }				t_move_action;
 
 typedef struct	s_stack_ptr
@@ -33,6 +34,7 @@ typedef struct	s_stack_ptr
 	int		*top;
 	int		*next;
 	int		*bottom;
+	int		*bottom_1;
 	int		*smallest_int;
 }				t_stack_ptr;
 
@@ -97,5 +99,7 @@ int				*ft_intsort(int const *array, size_t size);
 void			create_action_order(t_sort_result *sort_result,
 						t_move_action *valid_actions, t_move_action last_action,
 															t_move_action rule);
+void			create_action_order_v11(t_sort_result *sort_result,
+						t_move_action *valid_actions, t_move_action last_action);
 
 #endif

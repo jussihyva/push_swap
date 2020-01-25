@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/24 11:38:07 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/25 11:16:50 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void			step_prt_up(t_sort_result *sort_result)
 	stack_ptr->bottom =
 				stack_ptr->top == stack + sort_result->stack_size - 1 ?
 				stack : stack_ptr->top + 1;
+	stack_ptr->bottom_1 =
+				stack_ptr->bottom == stack + sort_result->stack_size - 1 ?
+				stack : stack_ptr->bottom + 1;
 	return ;
 }
 
@@ -44,6 +47,9 @@ void			step_prt_down(t_sort_result *sort_result)
 	stack_ptr->bottom =
 				stack_ptr->top == stack + sort_result->stack_size - 1 ?
 				stack : stack_ptr->top + 1;
+	stack_ptr->bottom_1 =
+				stack_ptr->bottom == stack + sort_result->stack_size - 1 ?
+				stack : stack_ptr->bottom + 1;
 	return ;
 }
 

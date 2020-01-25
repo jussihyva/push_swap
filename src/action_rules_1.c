@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:56:26 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/24 20:35:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/25 11:44:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ static void		create_action_order_v1(t_sort_result *sort_result,
 	t_stack_ptr		stack_ptr;
 
 	stack_ptr = sort_result->stack_ptr;
-	if (*stack_ptr.top >= sort_result->median &&
-		*stack_ptr.next >= sort_result->median &&
-		*stack_ptr.top > *stack_ptr.next)
+	if ((*stack_ptr.top > *stack_ptr.next) &&
+		((*stack_ptr.top >= sort_result->median &&
+		*stack_ptr.next >= sort_result->median) ||
+		(*stack_ptr.top < sort_result->median &&
+		*stack_ptr.next < sort_result->median)))
 	{
 		valid_actions[0] = sa;
 		valid_actions[1] = null;
@@ -221,5 +223,7 @@ void			create_action_order(t_sort_result *sort_result,
 		create_action_order_v1(sort_result, valid_actions, last_action);
 	else if (rule == v2)
 		create_action_order_v2(sort_result, valid_actions, last_action);
+	else if (rule == v11)
+		create_action_order_v11(sort_result, valid_actions, last_action);
 	return ;
 }
