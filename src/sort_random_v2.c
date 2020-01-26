@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/26 14:17:51 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/26 18:26:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,29 @@ static int	check_order_high(int *array, size_t size, int median, int max)
 	return (*previous < median);
 }
 
-static int	check_order(int *array, size_t size)
+static int	check_order(t_list *top)
 {
-	int		*ptr;
-	int		*previous;
+	t_list		*ptr;
+	t_list		*previous;
 
-	ptr = array;
+	ptr = top;
 	previous = ptr;
-	ptr = ptr == (array + size - 1) ? array : ++ptr;
-	while (ptr != array && *previous > *ptr)
+	ptr = ptr->next;
+	while (ptr != top && *(int *)previous->content > *(int *)ptr->content)
 	{
 		previous = ptr;
-		ptr = ptr == array + size - 1 ? array : ++ptr;
+		ptr = ptr->next;
 	}
-	if (ptr == array)
+	if (ptr == top)
 		return (1);
 	previous = ptr;
-	ptr = ptr == (array + size - 1) ? array : ++ptr;
-	while (previous != array && *previous > *ptr)
+	ptr = ptr->next;
+	while (previous != top && *(int *)previous->content > *(int *)ptr->content)
 	{
 		previous = ptr;
-		ptr = ptr == array + size - 1 ? array : ++ptr;
+		ptr = ptr->next;
 	}
-	return (previous == array);
+	return (previous == top);
 }
 
 static int	do_next_action(t_sort_result *sort_result,
@@ -72,7 +72,7 @@ static int	do_next_action(t_sort_result *sort_result,
 	t_sort_result			*save_result;
 	size_t					c;
 
-	is_sorted = check_order(sort_result->stack, sort_result->stack_size);
+	is_sorted = check_order(sort_result->stack_ptr.top_a);
 	if (!is_sorted)
 	{
 		if (!is_sorted_high)

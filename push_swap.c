@@ -6,11 +6,29 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/26 15:44:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/26 18:39:57 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static t_list			*ft_lstcpy(t_list *elem)
+{
+	t_list		*new_elem;
+
+	new_elem = ft_lstnew(elem->content, elem->content_size);
+	return (new_elem);
+}
+static void				add_to_list(t_list **list, int *integer)
+{
+	t_list		*elem;
+
+	elem = ft_lstnew(integer, sizeof(*integer));
+	if (*list)
+		ft_lstadd_e(list, elem);
+	else
+		*list = elem;
+}
 
 static void				string_to_array(char *s, t_input_data *input)
 {
@@ -30,6 +48,7 @@ static void				string_to_array(char *s, t_input_data *input)
 		while (i--)
 		{
 			stack[i] = ft_atoi(str_array[input->int_array_size - i - 1]);
+			add_to_list(&input->int_list, stack + i);
 			input->min = input->min > stack[i] ? stack[i] : input->min;
 			input->max = input->max < stack[i] ? stack[i] : input->max;
 		}
@@ -74,6 +93,7 @@ static t_input_data		*prepare_input_data(int argc, char **argv)
 	input = (t_input_data *)ft_memalloc(sizeof(*input));
 	s = merge_args(argv + 1, argc - 1);
 	input->int_array_size = 0;
+	input->int_list = NULL;
 	string_to_array(s, input);
 	ft_strdel(&s);
 	sorted_array = ft_intsort(input->int_array, input->int_array_size);
@@ -90,17 +110,27 @@ static void				stack_sort(t_input_data *input,
 {
 	t_sort_result	sort_result;
 	size_t			i;
+	t_list			*elem;
 
 	init_sort_result(&sort_result);
 	sort_result.action_list =
 			(t_move_action *)ft_memalloc(sizeof(*sort_result.action_list) * 200000);
 	sort_result.stack = ft_intdup(input->int_array, input->int_array_size);
 	sort_result.stack_size = input->int_array_size;
+	sort_result.stack_a = ft_lstmap(input->int_list, ft_lstcpy);
+	elem = sort_result.stack_a;
+	while (elem->next)
+		elem = elem->next;
+	sort_result.stack_a->prev = elem;
+	elem->next = sort_result.stack_a;
+	sort_result.stack_b = NULL;
 	sort_result.median = input->median;
 	sort_result.min = input->min;
 	sort_result.max = input->max;
 	sort_result.average = input->average;
 	sort_result.stack_ptr.top = sort_result.stack + sort_result.stack_size;
+	sort_result.stack_ptr.top_a = sort_result.stack_a->prev;
+	sort_result.stack_ptr.top_b = sort_result.stack_b;
 	i = -1;
 	while (++i < sort_result.stack_size)
 	{
@@ -141,10 +171,10 @@ int						main(int argc, char **argv)
 		{
 			stack_sort(input, sort_function_array[i],
 													result_array, &max_actions);
-//			ft_printf("MAX: %5d\n", max_actions);
+			printf("MAX: %5lu\n", max_actions);
 			max_actions *= 10;
 		}
-		print_action_list(result_array);
+//		print_action_list(result_array);
 	}
 	return (0);
 }

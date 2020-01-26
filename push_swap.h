@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/26 15:41:55 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/26 18:06:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <limits.h>
 # include "libft.h"
 # include "ft_printf.h"
+# include <stdio.h>
 
 typedef enum	e_move_action
 {
@@ -32,10 +33,20 @@ typedef enum	e_move_action
 typedef struct	s_stack_ptr
 {
 	int		*top;
+	t_list	*top_a;
+	t_list	*top_b;
 	int		*next;
+	t_list	*next_a;
+	t_list	*next_b;
 	int		*bottom;
+	t_list	*bottom_a;
+	t_list	*bottom_b;
 	int		*bottom_1;
+	t_list	*bottom_1_a;
+	t_list	*bottom_1_b;
 	int		*smallest_int;
+	int		*smallest_int_a;
+	int		*smallest_int_b;
 }				t_stack_ptr;
 
 typedef struct	s_input_data
@@ -44,6 +55,7 @@ typedef struct	s_input_data
 	char			**argv;
 	int				*int_array;
 	size_t			int_array_size;
+	t_list			*int_list;
 	int				min;
 	int				max;
 	int				average;
@@ -54,6 +66,8 @@ typedef struct	s_sort_result
 {
 	int				*stack;
 	size_t			stack_size;
+	t_list			*stack_a;
+	t_list			*stack_b;
 	int				min;
 	int				max;
 	int				average;
