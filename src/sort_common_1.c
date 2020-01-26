@@ -6,21 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/24 11:14:38 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/26 15:42:47 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int				*ft_intcpy(int const *array, size_t size)
-{
-	int			*new_array;
-
-	new_array = (int *)ft_memalloc(sizeof(*new_array) * size);
-	while (size--)
-		new_array[size] = array[size];
-	return (new_array);
-}
 
 t_move_action	*ft_int_array_dup(t_move_action *array, size_t size)
 {
