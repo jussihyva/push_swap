@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/25 11:32:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/26 14:17:51 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,35 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 	int				is_sorted;
 	t_move_action	valid_actions[4];
 	t_move_action	rule;
+	int				*start_ptr;
 
+	start_ptr = count_max_average(sort_result->stack, sort_result->stack_size);
+	if ((size_t)(start_ptr - sort_result->stack) >= sort_result->stack_size / 2)
+	{
+		if (*sort_result->stack_ptr.top < *sort_result->stack_ptr.next &&
+			*sort_result->stack_ptr.next >= sort_result->median)
+			execute_action(sort_result, sa);
+		while (sort_result->stack_ptr.top != start_ptr)
+		{
+			execute_action(sort_result, rra);
+			if (*sort_result->stack_ptr.top < *sort_result->stack_ptr.next &&
+				*sort_result->stack_ptr.next >= sort_result->median)
+				execute_action(sort_result, sa);
+		}
+	}
+	else
+	{
+		if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
+			*sort_result->stack_ptr.next >= sort_result->median)
+			execute_action(sort_result, sa);
+		while (sort_result->stack_ptr.top != start_ptr)
+		{
+			execute_action(sort_result, ra);
+			if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
+				*sort_result->stack_ptr.next >= sort_result->median)
+				execute_action(sort_result, sa);
+		}
+	}
 	rule = v1;
 	create_action_order(sort_result, valid_actions, null, rule);
 	is_sorted = do_next_action(sort_result, valid_actions, rule, result_array,

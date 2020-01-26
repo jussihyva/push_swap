@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 10:01:04 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/25 10:23:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/26 13:53:26 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ void		create_action_order_v11(t_sort_result *sort_result,
 		*stack_ptr.top > *stack_ptr.next)
 	{
 		valid_actions[0] = sa;
+		valid_actions[1] = null;
+		valid_actions[2] = null;
+		valid_actions[3] = null;
+	}
+	else if (last_action == ra)
+	{
+		valid_actions[0] = ra;
 		valid_actions[1] = null;
 		valid_actions[2] = null;
 		valid_actions[3] = null;

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/25 11:13:48 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/26 12:36:44 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,6 @@ void			create_action_order(t_sort_result *sort_result,
 															t_move_action rule);
 void			create_action_order_v11(t_sort_result *sort_result,
 						t_move_action *valid_actions, t_move_action last_action);
+int				*count_max_average(int *array, size_t size);
 
 #endif
