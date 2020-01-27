@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 13:12:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 15:33:55 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 18:49:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,33 +62,6 @@ static int	check_order(t_sort_result *sort_result, t_move_action **valid_actions
 		}
 	}
 	return (is_sorted);
-}
-
-static void	save_result(t_sort_result *sort_result, size_t *max_actions,
-														t_list **result_array)
-{
-	size_t				c;
-	t_sort_result		*valid_result;
-
-	c = 0;
-	while (*sort_result->stack_ptr.top != sort_result->min)
-	{
-		execute_action(sort_result, rra);
-		c++;
-	}
-	valid_result = (t_sort_result *)ft_memalloc(sizeof(*valid_result));
-	init_sort_result(valid_result);
-	valid_result->action_list = ft_int_array_dup(sort_result->action_list,
-											sort_result->action_list_size);
-	valid_result->action_list_size = sort_result->action_list_size;
-	ft_lstadd_e(result_array, ft_lstnew(valid_result, sizeof(*valid_result)));
-	if (*max_actions > valid_result->action_list_size)
-		*max_actions = valid_result->action_list_size;
-	free(valid_result);
-	valid_result = NULL;
-	while (c--)
-		execute_action(sort_result, ra);
-	return ;
 }
 
 static int	do_next_action(t_sort_result *sort_result,

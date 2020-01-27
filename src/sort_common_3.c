@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 12:30:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/26 13:13:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 18:50:34 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,32 @@ int			*count_max_average(int *array, size_t size)
 		++ptr;
 	}
 	return (start_ptr);
+}
+
+void		save_result(t_sort_result *sort_result, size_t *max_actions,
+														t_list **result_array)
+{
+	size_t				c;
+	t_sort_result		*valid_result;
+
+	c = 0;
+	while (*sort_result->stack_ptr.top != sort_result->min)
+	{
+		execute_action(sort_result, rra);
+		c++;
+	}
+	valid_result = (t_sort_result *)ft_memalloc(sizeof(*valid_result));
+	init_sort_result(valid_result);
+	valid_result->action_list = ft_int_array_dup(sort_result->action_list,
+											sort_result->action_list_size);
+	valid_result->action_list_size = sort_result->action_list_size;
+	ft_lstadd_e(result_array, ft_lstnew(valid_result, sizeof(*valid_result)));
+	if (*max_actions > valid_result->action_list_size)
+		*max_actions = valid_result->action_list_size;
+	free(valid_result);
+	valid_result = NULL;
+	while (c--)
+		execute_action(sort_result, ra);
+	return ;
 }
 
