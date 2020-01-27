@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 18:50:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 21:32:44 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@
 typedef enum	e_move_action
 {
 	null = 0,
-	sa = 0x01,
-	ra = 0x02,
-	rra = 0x04,
-	v0 = 0x08,
-	v1 = 0x10,
-	v2 = 0x20,
-	v11 = 0x40
+	sa  = 0x001,
+	ra  = 0x002,
+	rra = 0x004,
+	pb  = 0x008,
+	v0  = 0x010,
+	v1  = 0x020,
+	v2  = 0x040,
+	v11 = 0x080,
+	pa  = 0x100,
+	v31 = 0x200
 }				t_move_action;
 
 typedef struct	s_stack_ptr
@@ -120,5 +123,8 @@ int				*count_max_average(int *array, size_t size);
 int				*ft_intdup(int const *array, size_t size);
 void			save_result(t_sort_result *sort_result, size_t *max_actions,
 														t_list **result_array);
+void			move_to_stack(t_sort_result *sort_result, t_move_action action);
+void			create_action_order_v31(t_sort_result *sort_result,
+						t_move_action *valid_actions, t_move_action last_action);
 
 #endif

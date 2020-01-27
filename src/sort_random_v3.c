@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 13:12:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 18:49:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 22:00:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,16 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 	start_ptr = count_max_average(sort_result->stack, sort_result->stack_size);
 	if ((size_t)(start_ptr - sort_result->stack) >= sort_result->stack_size / 2)
 	{
+		while (*(int *)sort_result->stack_ptr.top_a->content < sort_result->median)
+			execute_action(sort_result, pb);
 		if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
 			*sort_result->stack_ptr.next >= sort_result->median)
 			execute_action(sort_result, sa);
 		while (sort_result->stack_ptr.top != start_ptr)
 		{
 			execute_action(sort_result, rra);
+			while (*(int *)sort_result->stack_ptr.top_a->content < sort_result->median)
+				execute_action(sort_result, pb);
 			if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
 				*sort_result->stack_ptr.next >= sort_result->median)
 				execute_action(sort_result, sa);
@@ -128,18 +132,22 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 	}
 	else
 	{
+		while (*(int *)sort_result->stack_ptr.top_a->content < sort_result->median)
+			execute_action(sort_result, pb);
 		if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
 			*sort_result->stack_ptr.next >= sort_result->median)
 			execute_action(sort_result, sa);
 		while (sort_result->stack_ptr.top != start_ptr)
 		{
 			execute_action(sort_result, ra);
+			while (*(int *)sort_result->stack_ptr.top_a->content < sort_result->median)
+				execute_action(sort_result, pb);
 			if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
 				*sort_result->stack_ptr.next >= sort_result->median)
 				execute_action(sort_result, sa);
 		}
 	}
-	rule = v1;
+	rule = v31;
 	create_action_order(sort_result, valid_actions, null, rule);
 	is_sorted = do_next_action(sort_result, valid_actions, rule, result_array,
 															max_actions);
