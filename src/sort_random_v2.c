@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/26 18:26:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 08:33:34 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,20 @@ static int	check_order(t_list *top)
 
 	ptr = top;
 	previous = ptr;
-	ptr = ptr->next;
+	ptr = ptr->prev;
 	while (ptr != top && *(int *)previous->content > *(int *)ptr->content)
 	{
 		previous = ptr;
-		ptr = ptr->next;
+		ptr = ptr->prev;
 	}
 	if (ptr == top)
 		return (1);
 	previous = ptr;
-	ptr = ptr->next;
+	ptr = ptr->prev;
 	while (previous != top && *(int *)previous->content > *(int *)ptr->content)
 	{
 		previous = ptr;
-		ptr = ptr->next;
+		ptr = ptr->prev;
 	}
 	return (previous == top);
 }
@@ -147,13 +147,13 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 	start_ptr = count_max_average(sort_result->stack, sort_result->stack_size);
 	if ((size_t)(start_ptr - sort_result->stack) >= sort_result->stack_size / 2)
 	{
-		if (*sort_result->stack_ptr.top < *sort_result->stack_ptr.next &&
+		if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
 			*sort_result->stack_ptr.next >= sort_result->median)
 			execute_action(sort_result, sa);
 		while (sort_result->stack_ptr.top != start_ptr)
 		{
 			execute_action(sort_result, rra);
-			if (*sort_result->stack_ptr.top < *sort_result->stack_ptr.next &&
+			if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
 				*sort_result->stack_ptr.next >= sort_result->median)
 				execute_action(sort_result, sa);
 		}

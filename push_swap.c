@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/26 18:39:57 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 08:06:10 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int						main(int argc, char **argv)
 		{
 			stack_sort(input, sort_function_array[i],
 													result_array, &max_actions);
-			printf("MAX: %5lu\n", max_actions);
+			ft_printf("MAX: %5lu\n", max_actions);
 			max_actions *= 10;
 		}
 //		print_action_list(result_array);
