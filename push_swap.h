@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/26 18:06:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 13:56:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void			random_sort_v1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			random_sort_v2(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
+void			random_sort_v3(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
 void			optimize_last_actions(t_sort_result *sort_result);
 void			add_action(t_sort_result *sort_result, t_move_action action);
 void			print_stack(int *stack, int size);
@@ -103,7 +105,6 @@ void			execute_action(t_sort_result *sort_result,
 														t_move_action action);
 void			step_prt_down(t_sort_result *sort_result);
 void			step_prt_up(t_sort_result *sort_result);
-void			save_result(t_sort_result *sort_result);
 void			init_sort_result(t_sort_result *sort_result);
 int				*ft_intcpy(int const *array, size_t size);
 t_move_action	*ft_int_array_dup(t_move_action *array, size_t size);

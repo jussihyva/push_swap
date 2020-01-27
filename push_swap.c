@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 11:28:17 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 13:14:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,19 +150,20 @@ int						main(int argc, char **argv)
 	t_input_data	*input;
 	size_t			i;
 	t_list			**result_array;
-	static void		*sort_function_array[7];
+	static void		*sort_function_array[8];
 	size_t			max_actions;
 
 	if (argc > 1)
 	{
-		max_actions = -1;
-		sort_function_array[0] = bubble_sort_v1;
-		sort_function_array[1] = random_sort_v1;
-		sort_function_array[2] = bubble_sort_v2;
-		sort_function_array[3] = bubble_sort_v3;
-		sort_function_array[4] = insertion_sort_v1;
-		sort_function_array[5] = random_sort_v2;
-		sort_function_array[6] = 0;
+		max_actions = 20000;
+//		sort_function_array[0] = bubble_sort_v1;
+//		sort_function_array[1] = random_sort_v1;
+//		sort_function_array[2] = bubble_sort_v2;
+//		sort_function_array[3] = bubble_sort_v3;
+//		sort_function_array[4] = insertion_sort_v1;
+//		sort_function_array[5] = random_sort_v2;
+		sort_function_array[0] = random_sort_v3;
+		sort_function_array[1] = 0;
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		*result_array = NULL;
 		input = prepare_input_data(argc, argv);
@@ -171,10 +172,10 @@ int						main(int argc, char **argv)
 		{
 			stack_sort(input, sort_function_array[i],
 													result_array, &max_actions);
-			ft_printf("MAX: %5lu\n", max_actions);
+//			ft_printf("MAX: %5lu\n", max_actions);
 			max_actions *= 10;
 		}
-//		print_action_list(result_array);
+		print_action_list(result_array);
 	}
 	return (0);
 }

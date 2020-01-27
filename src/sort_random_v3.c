@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_random_v2.c                                   :+:      :+:    :+:   */
+/*   sort_random_v3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 13:11:00 by jkauppi          ###   ########.fr       */
+/*   Created: 2020/01/27 13:12:25 by jkauppi           #+#    #+#             */
+/*   Updated: 2020/01/27 14:37:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,52 +15,80 @@
 static int	check_order_high(t_list *top, int median, int max)
 {
 	t_list		*ptr;
-	t_list		*previous;
 
 	ptr = top;
-	while (*(int *)ptr->content != max)
-		ptr = ptr->prev;
-	previous = ptr;
-	ptr = ptr->prev;
-	while (*(int *)previous->content != median &&
-							*(int *)previous->content > *(int *)ptr->content)
-	{
-		previous = ptr;
-		ptr = ptr->prev;
-	}
-	previous = ptr;
-	ptr = ptr->prev;
-	while (*(int *)ptr->content != max && *(int *)previous->content < median)
-	{
-		previous = ptr;
-		ptr = ptr->prev;
-	}
-	return (*(int *)previous->content < median);
+	while (*(int *)ptr->content != median)
+		ptr = ptr->next;
+	ptr = ptr->next;
+	while (*(int *)ptr->prev->content != max &&
+							*(int *)ptr->prev->content < *(int *)ptr->content)
+		ptr = ptr->next;
+	ptr = ptr->next;
+	while (*(int *)ptr->content != median &&
+											*(int *)ptr->prev->content < median)
+		ptr = ptr->next;
+	return (*(int *)ptr->prev->content < median);
 }
 
-static int	check_order(t_list *top)
+static int	check_order(t_sort_result *sort_result, t_move_action **valid_actions)
 {
-	t_list		*ptr;
-	t_list		*previous;
+	t_list			*ptr;
+	int				is_sorted;
+	static int		is_sorted_high;
+	t_list			*top;
 
-	ptr = top;
-	previous = ptr;
-	ptr = ptr->prev;
-	while (ptr != top && *(int *)previous->content > *(int *)ptr->content)
-	{
-		previous = ptr;
-		ptr = ptr->prev;
-	}
+	top = sort_result->stack_ptr.top_a;
+	ptr = top->next;
+	while (ptr != top && *(int *)ptr->prev->content < *(int *)ptr->content)
+		ptr = ptr->next;
 	if (ptr == top)
 		return (1);
-	previous = ptr;
-	ptr = ptr->prev;
-	while (previous != top && *(int *)previous->content > *(int *)ptr->content)
+	ptr = ptr->next;
+	while (ptr->prev != top &&
+							*(int *)ptr->prev->content < *(int *)ptr->content)
+		ptr = ptr->next;
+	is_sorted = ptr->prev == top;
+	if (!is_sorted)
 	{
-		previous = ptr;
-		ptr = ptr->prev;
+		if (!is_sorted_high)
+		{
+			is_sorted_high = check_order_high(top, sort_result->median,
+															sort_result->max);
+			if (is_sorted_high)
+			{
+				*(*valid_actions + 0) = v11;
+				*(*valid_actions + 1) = null;
+			}
+		}
 	}
-	return (previous == top);
+	return (is_sorted);
+}
+
+static void	save_result(t_sort_result *sort_result, size_t *max_actions,
+														t_list **result_array)
+{
+	size_t				c;
+	t_sort_result		*valid_result;
+
+	c = 0;
+	while (*sort_result->stack_ptr.top != sort_result->min)
+	{
+		execute_action(sort_result, rra);
+		c++;
+	}
+	valid_result = (t_sort_result *)ft_memalloc(sizeof(*valid_result));
+	init_sort_result(valid_result);
+	valid_result->action_list = ft_int_array_dup(sort_result->action_list,
+											sort_result->action_list_size);
+	valid_result->action_list_size = sort_result->action_list_size;
+	ft_lstadd_e(result_array, ft_lstnew(valid_result, sizeof(*valid_result)));
+	if (*max_actions > valid_result->action_list_size)
+		*max_actions = valid_result->action_list_size;
+	free(valid_result);
+	valid_result = NULL;
+	while (c--)
+		execute_action(sort_result, ra);
+	return ;
 }
 
 static int	do_next_action(t_sort_result *sort_result,
@@ -68,46 +96,12 @@ static int	do_next_action(t_sort_result *sort_result,
 		size_t *max_actions)
 {
 	int						is_sorted;
-	static int				is_sorted_high;
 	static t_move_action	new_valid_actions[4];
-	t_sort_result			*save_result;
 	size_t					c;
 
-	is_sorted = check_order(sort_result->stack_ptr.top_a);
-	if (!is_sorted)
-	{
-		if (!is_sorted_high)
-		{
-			is_sorted_high = check_order_high(sort_result->stack_ptr.top_a,
-										sort_result->median, sort_result->max);
-			if (is_sorted_high)
-			{
-				valid_actions[0] = v11;
-				valid_actions[1] = null;
-			}
-		}
-	}
+	is_sorted = check_order(sort_result, &valid_actions);
 	if (is_sorted)
-	{
-		c = 0;
-		while (*sort_result->stack_ptr.top != sort_result->min)
-		{
-			execute_action(sort_result, rra);
-			c++;
-		}
-		save_result = (t_sort_result *)ft_memalloc(sizeof(*save_result));
-		init_sort_result(save_result);
-		save_result->action_list = ft_int_array_dup(sort_result->action_list,
-												sort_result->action_list_size);
-		save_result->action_list_size = sort_result->action_list_size;
-		ft_lstadd_e(result_array, ft_lstnew(save_result, sizeof(*save_result)));
-		if (*max_actions > save_result->action_list_size)
-			*max_actions = save_result->action_list_size;
-		free(save_result);
-		save_result = NULL;
-		while (c--)
-			execute_action(sort_result, ra);
-	}
+		save_result(sort_result, max_actions, result_array);
 	else if (sort_result->total_num_of_actions < 80000)
 	{
 		c = 0;
@@ -179,7 +173,7 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 	return (is_sorted);
 }
 
-void		random_sort_v2(t_sort_result *sort_result, t_list **result_array,
+void		random_sort_v3(t_sort_result *sort_result, t_list **result_array,
 															size_t *max_actions)
 {
 	int				is_sorted;

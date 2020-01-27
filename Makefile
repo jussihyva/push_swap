@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/01/26 15:42:28 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/01/27 13:16:22 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC_FILES_NAME		=	ft_intswap.c ft_arraydel.c ft_intsort.c ft_intdup.c \
 						sort_common_1.c sort_common_2.c sort_common_3.c \
 						sort_bubble_v1.c sort_bubble_v2.c sort_bubble_v3.c \
 						sort_insertion_v1.c \
-						sort_random_v1.c sort_random_v2.c \
+						sort_random_v1.c sort_random_v2.c sort_random_v3.c \
 						action_rules_1.c action_rules_2.c \
 						print_result.c
 
