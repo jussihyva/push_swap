@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:10:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 11:23:55 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 16:49:48 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,8 @@ void		random_sort_v1(t_sort_result *sort_result, t_list **result_array,
 															size_t *max_actions)
 {
 	int				is_sorted;
-	t_stack_ptr		*stack_ptr;
 	int				result_required;
 
-	stack_ptr = &sort_result->stack_ptr;
 	result_required = (*max_actions == (size_t)-1) ? 1 : 0;
 	if (result_required)
 		*max_actions = 10;

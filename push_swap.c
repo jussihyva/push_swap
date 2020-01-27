@@ -6,11 +6,19 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 15:57:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 17:59:29 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static void				del_stack(void *nbr, size_t size)
+{
+	(void)size;
+	free(nbr);
+	nbr = NULL;
+	return ;
+}
 
 static t_list			*ft_lstcpy(t_list *elem)
 {
@@ -130,7 +138,7 @@ static void				stack_sort(t_input_data *input,
 	sort_result.average = input->average;
 	sort_result.stack_ptr.top = sort_result.stack + sort_result.stack_size;
 	sort_result.stack_ptr.top_a = sort_result.stack_a->prev;
-	sort_result.stack_ptr.top_b = sort_result.stack_b;
+	sort_result.stack_ptr.top_b = NULL;
 	i = -1;
 	while (++i < sort_result.stack_size)
 	{
@@ -142,6 +150,11 @@ static void				stack_sort(t_input_data *input,
 	}
 	step_prt_down(&sort_result);
 	sort_function(&sort_result, result_array, max_actions);
+	free(sort_result.action_list);
+	sort_result.stack_ptr.bottom_a->next = NULL;
+	ft_lstdel(&sort_result.stack_a, *del_stack);
+	free(sort_result.stack);
+	sort_result.stack = NULL;
 	return ;
 }
 
