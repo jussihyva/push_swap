@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 16:39:09 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/23 11:52:51 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 15:56:04 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void			insertion_sort_v1(t_sort_result *sort_result,
 
 	stack_ptr = &sort_result->stack_ptr;
 	is_sorted = 0;
-	while (!is_sorted)
+	while (!is_sorted && sort_result->total_num_of_actions < 80000)
 		is_sorted = loop_if_swap(sort_result);
 	while (*stack_ptr->top != sort_result->min)
 		execute_action(sort_result, rra);

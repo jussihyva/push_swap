@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 12:39:52 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/23 11:50:40 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 15:54:08 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			bubble_sort_v2(t_sort_result *sort_result,
 		execute_action(sort_result, rra);
 	}
 	is_sorted = 0;
-	while (!is_sorted)
+	while (!is_sorted && sort_result->total_num_of_actions < 80000)
 	{
 		is_sorted = loop_if_swap(sort_result);
 	}
