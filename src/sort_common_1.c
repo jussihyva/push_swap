@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 08:02:40 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/27 11:06:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 		ft_intswap(stack_ptr->top, stack_ptr->next);
 		stack_ptr->next_a->prev = stack_ptr->top_a->prev;
 		stack_ptr->top_a->next = stack_ptr->next_a->next;
+		stack_ptr->top_a->prev->next = stack_ptr->next_a;
+		stack_ptr->next_a->next->prev = stack_ptr->top_a;
 		stack_ptr->top_a->prev = stack_ptr->next_a;
 		stack_ptr->next_a->next = stack_ptr->top_a;
 		stack_ptr->top_a = stack_ptr->next_a;
