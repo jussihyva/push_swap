@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 20:10:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/28 15:05:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,23 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 		stack_ptr->top_a = stack_ptr->next_a;
 		stack_ptr->next_a = stack_ptr->top_a->next;
 	}
+	else if (action == sb)
+	{
+		stack_ptr->next_b->prev = stack_ptr->top_b->prev;
+		stack_ptr->top_b->next = stack_ptr->next_b->next;
+		stack_ptr->top_b->prev->next = stack_ptr->next_b;
+		stack_ptr->next_b->next->prev = stack_ptr->top_b;
+		stack_ptr->top_b->prev = stack_ptr->next_b;
+		stack_ptr->next_b->next = stack_ptr->top_b;
+		stack_ptr->top_b = stack_ptr->next_b;
+		stack_ptr->next_b = stack_ptr->top_b->next;
+	}
 	else if (action == pb || action == pa)
 		move_to_stack(sort_result, action);
 	else if (action == ra)
 		step_prt_down(sort_result);
+	else if (action == rb)
+		step_prt_down_b(sort_result);
 	else if (action == rra)
 		step_prt_up(sort_result);
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/28 12:54:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/28 16:18:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,19 @@
 typedef enum	e_move_action
 {
 	null = 0,
-	sa  = 0x001,
-	ra  = 0x002,
-	rra = 0x004,
-	pb  = 0x008,
-	v0  = 0x010,
-	v1  = 0x020,
-	v2  = 0x040,
-	v11 = 0x080,
-	pa  = 0x100,
-	v31 = 0x200
+	sa,
+	sb,
+	ra,
+	rb,
+	rra,
+	rrb,
+	pa,
+	pb,
+	v0,
+	v1,
+	v2,
+	v11,
+	v31
 }				t_move_action;
 
 typedef struct	s_stack_ptr
@@ -73,6 +76,8 @@ typedef struct	s_sort_result
 	t_list			*stack_b;
 	int				min;
 	int				max;
+	int				min_b;
+	int				max_b;
 	int				average;
 	int				median;
 	t_move_action	*action_list;
@@ -127,8 +132,11 @@ void			save_result(t_sort_result *sort_result, size_t *max_actions,
 void			move_to_stack(t_sort_result *sort_result, t_move_action action);
 void			create_action_order_v31(t_sort_result *sort_result,
 						t_move_action *valid_actions, t_move_action last_action);
-void			split_two_stacks_v1(t_sort_result *sort_result);
+void			split_one_stack_to_two_v1(t_sort_result *sort_result);
+void			split_one_stack_to_two_v2(t_sort_result *sort_result);
 void			bubble_sort_v2_1(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
+void			bubble_sort_v2_2(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 
 #endif
