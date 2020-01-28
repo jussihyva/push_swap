@@ -6,19 +6,19 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 21:21:47 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/28 11:41:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void				del_stack(void *nbr, size_t size)
-{
-	(void)size;
-	free(nbr);
-	nbr = NULL;
-	return ;
-}
+// static void				del_stack(void *nbr, size_t size)
+// {
+// 	(void)size;
+// 	free(nbr);
+// 	nbr = NULL;
+// 	return ;
+// }
 
 static t_list			*ft_lstcpy(t_list *elem)
 {
@@ -150,10 +150,10 @@ static void				stack_sort(t_input_data *input,
 	}
 	step_prt_down(&sort_result);
 	sort_function(&sort_result, result_array, max_actions);
-	free(sort_result.action_list);
+//	free(sort_result.action_list);
 	sort_result.stack_ptr.bottom_a->next = NULL;
-	ft_lstdel(&sort_result.stack_a, *del_stack);
-	free(sort_result.stack);
+//	ft_lstdel(&sort_result.stack_a, *del_stack);
+//	free(sort_result.stack);
 	sort_result.stack = NULL;
 	return ;
 }
@@ -169,14 +169,14 @@ int						main(int argc, char **argv)
 	if (argc > 1)
 	{
 		max_actions = 20000;
-		sort_function_array[0] = bubble_sort_v1;
+//		sort_function_array[0] = bubble_sort_v1;
 //		sort_function_array[1] = random_sort_v1;
 //		sort_function_array[2] = bubble_sort_v2;
 //		sort_function_array[3] = bubble_sort_v3;
 //		sort_function_array[4] = insertion_sort_v1;
 //		sort_function_array[5] = random_sort_v2;
-		sort_function_array[1] = random_sort_v3;
-		sort_function_array[2] = 0;
+		sort_function_array[0] = random_sort_v3;
+		sort_function_array[1] = 0;
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		*result_array = NULL;
 		input = prepare_input_data(argc, argv);

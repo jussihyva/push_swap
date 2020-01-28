@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 21:32:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/28 10:31:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void			ft_int_swap(int *ptr1, int *ptr2);
 void			execute_action(t_sort_result *sort_result,
 														t_move_action action);
 void			step_prt_down(t_sort_result *sort_result);
+void			step_prt_down_b(t_sort_result *sort_result);
 void			step_prt_up(t_sort_result *sort_result);
 void			init_sort_result(t_sort_result *sort_result);
 int				*ft_intcpy(int const *array, size_t size);

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 13:12:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/28 08:53:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/28 12:04:29 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ static int	check_order(t_sort_result *sort_result, t_move_action **valid_actions
 			}
 		}
 	}
-	// if (is_sorted)
-	// {
-	// 	while (stack_ptr->top_b)
-	// 	{
-	// 		is_sorted = 0;
-	// 		execute_action(sort_result, pa);
-	// 	}
-	// }
+	if (is_sorted)
+	{
+		while (stack_ptr->top_b)
+		{
+			is_sorted = 0;
+			execute_action(sort_result, pa);
+		}
+	}
 	return (is_sorted);
 }
 
@@ -81,7 +81,9 @@ static int	do_next_action(t_sort_result *sort_result,
 	int						is_sorted;
 	static t_move_action	new_valid_actions[4];
 	size_t					c;
+	t_stack_ptr		*stack_ptr;
 
+	stack_ptr = &sort_result->stack_ptr;
 	is_sorted = check_order(sort_result, &valid_actions);
 	if (is_sorted)
 		save_result(sort_result, max_actions, result_array);
@@ -140,6 +142,8 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 			if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
 				*sort_result->stack_ptr.next >= sort_result->median)
 				execute_action(sort_result, sa);
+			while (*(int *)sort_result->stack_ptr.top_a->content < sort_result->median)
+				execute_action(sort_result, pb);
 		}
 	}
 	else
@@ -157,6 +161,8 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 			if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
 				*sort_result->stack_ptr.next >= sort_result->median)
 				execute_action(sort_result, sa);
+			while (*(int *)sort_result->stack_ptr.top_a->content < sort_result->median)
+				execute_action(sort_result, pb);
 		}
 	}
 	rule = v31;

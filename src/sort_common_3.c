@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 12:30:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/28 08:52:35 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/28 11:50:10 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ void		save_result(t_sort_result *sort_result, size_t *max_actions,
 {
 	size_t				c;
 	t_sort_result		*valid_result;
+	t_stack_ptr		*stack_ptr;
 
+	stack_ptr = &sort_result->stack_ptr;
 	c = 0;
-	while (*sort_result->stack_ptr.top != sort_result->min)
+	while (*(int *)sort_result->stack_ptr.top_a->content != sort_result->min)
 	{
 		execute_action(sort_result, rra);
 		c++;
@@ -90,27 +92,33 @@ void		move_to_stack(t_sort_result *sort_result, t_move_action action)
 	stack_ptr = &sort_result->stack_ptr;
 	if (action == pa)
 	{
-		stack_ptr->top_a->prev->next = stack_ptr->top_a->next;
-		stack_ptr->top_a->next->prev = stack_ptr->top_a->prev;
-		if (stack_ptr->top_b == NULL)
+		stack_ptr->top_b->prev->next = stack_ptr->top_b->next;
+		stack_ptr->top_b->next->prev = stack_ptr->top_b->prev;
+		if (stack_ptr->top_a == NULL)
 		{
-			stack_ptr->bottom_1_b = NULL;
-			stack_ptr->bottom_b = stack_ptr->top_a;
-			stack_ptr->next_b = stack_ptr->top_a;
-			stack_ptr->top_b = stack_ptr->top_a;
-			step_prt_down(sort_result);
-			stack_ptr->top_b->prev = stack_ptr->top_b;
-			stack_ptr->top_b->next = stack_ptr->top_b;
+			stack_ptr->bottom_1_a = NULL;
+			stack_ptr->bottom_a = stack_ptr->top_b;
+			stack_ptr->next_a = stack_ptr->top_b;
+			stack_ptr->top_a = stack_ptr->top_b;
+			if (stack_ptr->top_b == stack_ptr->next_b)
+				stack_ptr->top_b = NULL;
+			else
+				step_prt_down_b(sort_result);
+			stack_ptr->top_a->prev = stack_ptr->top_a;
+			stack_ptr->top_a->next = stack_ptr->top_a;
 		}
 		else
 		{
-			stack_ptr->next_b = stack_ptr->top_b;
-			stack_ptr->top_b = stack_ptr->top_a;
-			step_prt_down(sort_result);
-			stack_ptr->top_b->prev = stack_ptr->bottom_b;
-			stack_ptr->top_b->next = stack_ptr->next_b;
-			stack_ptr->bottom_b->next = stack_ptr->top_b;
-			stack_ptr->next_b->prev = stack_ptr->top_b;
+			stack_ptr->next_a = stack_ptr->top_a;
+			stack_ptr->top_a = stack_ptr->top_b;
+			if (stack_ptr->top_b == stack_ptr->next_b)
+				stack_ptr->top_b = NULL;
+			else
+				step_prt_down_b(sort_result);
+			stack_ptr->top_a->prev = stack_ptr->bottom_a;
+			stack_ptr->top_a->next = stack_ptr->next_a;
+			stack_ptr->bottom_a->next = stack_ptr->top_a;
+			stack_ptr->next_a->prev = stack_ptr->top_a;
 		}
 	}
 	else if (action == pb)
@@ -123,7 +131,10 @@ void		move_to_stack(t_sort_result *sort_result, t_move_action action)
 			stack_ptr->bottom_b = stack_ptr->top_a;
 			stack_ptr->next_b = stack_ptr->top_a;
 			stack_ptr->top_b = stack_ptr->top_a;
-			step_prt_down(sort_result);
+			if (stack_ptr->top_a == stack_ptr->next_a)
+				stack_ptr->top_a = NULL;
+			else
+				step_prt_down(sort_result);
 			stack_ptr->top_b->prev = stack_ptr->top_b;
 			stack_ptr->top_b->next = stack_ptr->top_b;
 		}
@@ -131,7 +142,10 @@ void		move_to_stack(t_sort_result *sort_result, t_move_action action)
 		{
 			stack_ptr->next_b = stack_ptr->top_b;
 			stack_ptr->top_b = stack_ptr->top_a;
-			step_prt_down(sort_result);
+			if (stack_ptr->top_a == stack_ptr->next_a)
+				stack_ptr->top_a = NULL;
+			else
+				step_prt_down(sort_result);
 			stack_ptr->top_b->prev = stack_ptr->bottom_b;
 			stack_ptr->top_b->next = stack_ptr->next_b;
 			stack_ptr->bottom_b->next = stack_ptr->top_b;
