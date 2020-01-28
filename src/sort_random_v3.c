@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 13:12:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 22:00:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/28 08:53:30 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ static int	check_order(t_sort_result *sort_result, t_move_action **valid_actions
 	int				is_sorted;
 	static int		is_sorted_high;
 	t_list			*top;
+	t_stack_ptr		*stack_ptr;
 
+	stack_ptr = &sort_result->stack_ptr;
 	top = sort_result->stack_ptr.top_a;
 	ptr = top->next;
 	while (ptr != top && *(int *)ptr->prev->content < *(int *)ptr->content)
@@ -61,6 +63,14 @@ static int	check_order(t_sort_result *sort_result, t_move_action **valid_actions
 			}
 		}
 	}
+	// if (is_sorted)
+	// {
+	// 	while (stack_ptr->top_b)
+	// 	{
+	// 		is_sorted = 0;
+	// 		execute_action(sort_result, pa);
+	// 	}
+	// }
 	return (is_sorted);
 }
 
@@ -111,7 +121,9 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 	t_move_action	valid_actions[4];
 	t_move_action	rule;
 	int				*start_ptr;
+	t_stack_ptr		*stack_ptr;
 
+	stack_ptr = &sort_result->stack_ptr;
 	start_ptr = count_max_average(sort_result->stack, sort_result->stack_size);
 	if ((size_t)(start_ptr - sort_result->stack) >= sort_result->stack_size / 2)
 	{
