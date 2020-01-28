@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/28 10:31:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/28 12:54:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,8 @@ void			save_result(t_sort_result *sort_result, size_t *max_actions,
 void			move_to_stack(t_sort_result *sort_result, t_move_action action);
 void			create_action_order_v31(t_sort_result *sort_result,
 						t_move_action *valid_actions, t_move_action last_action);
+void			split_two_stacks_v1(t_sort_result *sort_result);
+void			bubble_sort_v2_1(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
 
 #endif
