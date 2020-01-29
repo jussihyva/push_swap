@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/29 18:47:07 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/29 20:07:12 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int						main(int argc, char **argv)
 	size_t			max_actions;
 	int				compare;
 
-	compare = 0;
+	compare = 1;
 	if (argc > 1)
 	{
 		max_actions = 20000;
