@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/29 11:23:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/29 18:39:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void			step_prt_up(t_sort_result *sort_result)
 	stack = sort_result->stack;
 	stack_ptr = &sort_result->stack_ptr;
 	stack_ptr->top =
-				stack_ptr->top == stack + sort_result->stack_size - 1 ?
+				stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
 				stack : stack_ptr->top + 1;
 	stack_ptr->next = stack_ptr->top == stack ?
-				stack + sort_result->stack_size - 1 : stack_ptr->top - 1;
+				stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
 	stack_ptr->bottom =
-				stack_ptr->top == stack + sort_result->stack_size - 1 ?
+				stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
 				stack : stack_ptr->top + 1;
 	stack_ptr->bottom_1 =
-				stack_ptr->bottom == stack + sort_result->stack_size - 1 ?
+				stack_ptr->bottom == stack + sort_result->stack_a_size - 1 ?
 				stack : stack_ptr->bottom + 1;
 	stack_ptr->top_a = stack_ptr->top_a->prev;
 	stack_ptr->next_a = stack_ptr->top_a->next;
@@ -45,14 +45,14 @@ void			step_prt_down(t_sort_result *sort_result)
 	stack = sort_result->stack;
 	stack_ptr = &sort_result->stack_ptr;
 	stack_ptr->top = stack_ptr->top == stack ?
-				stack + sort_result->stack_size - 1 : stack_ptr->top - 1;
+				stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
 	stack_ptr->next = stack_ptr->top == stack ?
-				stack + sort_result->stack_size - 1 : stack_ptr->top - 1;
+				stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
 	stack_ptr->bottom =
-				stack_ptr->top == stack + sort_result->stack_size - 1 ?
+				stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
 				stack : stack_ptr->top + 1;
 	stack_ptr->bottom_1 =
-				stack_ptr->bottom == stack + sort_result->stack_size - 1 ?
+				stack_ptr->bottom == stack + sort_result->stack_a_size - 1 ?
 				stack : stack_ptr->bottom + 1;
 	stack_ptr->top_a = stack_ptr->top_a->next;
 	stack_ptr->next_a = stack_ptr->top_a->next;
@@ -92,11 +92,12 @@ void			optimize_last_actions(t_sort_result *sort_result)
 {
 	size_t		c;
 
-	if (sort_result->seq_action_counter > (size_t)sort_result->stack_size / 2)
+	if ((sort_result->last_action == ra || sort_result->last_action == rra) &&
+		sort_result->seq_action_counter > (size_t)sort_result->stack_a_size / 2)
 	{
 		sort_result->action_list_size -= sort_result->seq_action_counter;
 		c = 0;
-		while (c++ < (size_t)sort_result->stack_size -
+		while (c++ < (size_t)sort_result->stack_a_size -
 												sort_result->seq_action_counter)
 		{
 			if (sort_result->last_action == ra)
@@ -146,9 +147,11 @@ void			add_action(t_sort_result *sort_result, t_move_action action)
 													sort_result->last_action;
 		sort_result->action_list_size++;
 	}
-	if (sort_result->seq_action_counter == (size_t)sort_result->stack_size)
+	if (sort_result->last_action &&
+		(sort_result->last_action == ra || sort_result->last_action == rra) &&
+		sort_result->seq_action_counter == (size_t)sort_result->stack_a_size)
 	{
-		sort_result->action_list_size -= sort_result->stack_size;
+		sort_result->action_list_size -= sort_result->stack_a_size;
 		if (sort_result->action_list_size)
 			sort_result->last_action =
 					sort_result->action_list[sort_result->action_list_size - 1];

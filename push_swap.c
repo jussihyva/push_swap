@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/29 14:40:05 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/29 18:47:07 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ static void				stack_sort(t_input_data *input,
 	sort_result.action_list =
 			(t_move_action *)ft_memalloc(sizeof(*sort_result.action_list) * 200000);
 	sort_result.stack = ft_intdup(input->int_array, input->int_array_size);
-	sort_result.stack_size = input->int_array_size;
+	sort_result.stack_a_size = input->int_array_size;
 	sort_result.stack_a = ft_lstmap(input->int_list, ft_lstcpy);
 	elem = sort_result.stack_a;
 	while (elem->next)
@@ -136,11 +136,11 @@ static void				stack_sort(t_input_data *input,
 	sort_result.min = input->min;
 	sort_result.max = input->max;
 	sort_result.average = input->average;
-	sort_result.stack_ptr.top = sort_result.stack + sort_result.stack_size;
+	sort_result.stack_ptr.top = sort_result.stack + sort_result.stack_a_size;
 	sort_result.stack_ptr.top_a = sort_result.stack_a->prev;
 	sort_result.stack_ptr.top_b = NULL;
 	i = -1;
-	while (++i < sort_result.stack_size)
+	while (++i < sort_result.stack_a_size)
 	{
 		if (*(sort_result.stack + i) == input->min)
 		{
@@ -172,9 +172,9 @@ int						main(int argc, char **argv)
 	{
 		max_actions = 20000;
 		sort_function_array[0] = bubble_sort_v1;
-//		sort_function_array[1] = random_sort_v1;
-//		sort_function_array[2] = bubble_sort_v2;
-//		sort_function_array[3] = bubble_sort_v3;
+		// sort_function_array[1] = random_sort_v1;
+		// sort_function_array[2] = bubble_sort_v2;
+		// sort_function_array[3] = bubble_sort_v3;
 //		sort_function_array[4] = insertion_sort_v1;
 //		sort_function_array[5] = random_sort_v2;
 //		sort_function_array[6] = random_sort_v3;

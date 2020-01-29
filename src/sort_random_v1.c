@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:10:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 16:49:48 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/29 18:31:03 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	do_next_action(t_sort_result *sort_result,
 
 	new_valid_actions = 0;
 	stack_ptr = sort_result->stack_ptr;
-	is_sorted = check_order(sort_result->stack, sort_result->stack_size);
+	is_sorted = check_order(sort_result->stack, sort_result->stack_a_size);
 	if (is_sorted)
 	{
 		c = 0;

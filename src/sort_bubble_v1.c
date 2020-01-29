@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:21:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 18:51:40 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/29 18:29:44 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int		loop_if_swap(t_sort_result *sort_result, size_t top_i)
 
 	stack = sort_result->stack;
 	current = top_i;
-	current_1 = current ? current - 1 : sort_result->stack_size - 1;
+	current_1 = current ? current - 1 : sort_result->stack_a_size - 1;
 	is_sorted = 1;
 	while (current_1 != top_i)
 	{
@@ -34,8 +34,8 @@ static int		loop_if_swap(t_sort_result *sort_result, size_t top_i)
 		}
 		add_action(sort_result, ra);
 		sort_result->total_num_of_actions++;
-		current = current ? current - 1 : sort_result->stack_size - 1;
-		current_1 = current ? current - 1 : sort_result->stack_size - 1;
+		current = current ? current - 1 : sort_result->stack_a_size - 1;
+		current_1 = current ? current - 1 : sort_result->stack_a_size - 1;
 	}
 	add_action(sort_result, ra);
 	sort_result->total_num_of_actions++;
@@ -48,7 +48,7 @@ void			bubble_sort_v1(t_sort_result *sort_result,
 	int			is_sorted;
 	size_t		top_i;
 
-	top_i = sort_result->stack_size - 1;
+	top_i = sort_result->stack_a_size - 1;
 	sort_result->action_list_size = 0;
 	is_sorted = 0;
 	while (!is_sorted && sort_result->total_num_of_actions < 80000)

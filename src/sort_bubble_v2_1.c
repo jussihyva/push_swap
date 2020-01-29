@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 12:29:47 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/29 11:26:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/29 17:40:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,12 @@ static void		sort_b(t_sort_result *sort_result)
 
 static void		move_stack_b_to_a(t_sort_result *sort_result)
 {
+	t_stack_ptr		*stack_ptr;
+
+	stack_ptr = &sort_result->stack_ptr;
 	while (sort_result->stack_ptr.top_b)
 		execute_action(sort_result, pa);
+	return ;
 }
 
 void			bubble_sort_v2_1(t_sort_result *sort_result,

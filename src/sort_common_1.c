@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/29 14:05:50 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/29 18:27:10 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_move_action	*ft_int_array_dup(t_move_action *array, size_t size)
 void			init_sort_result(t_sort_result *sort_result)
 {
 	sort_result->seq_action_counter = 0;
-	sort_result->stack_size = 0;
+	sort_result->stack_a_size = 0;
+	sort_result->stack_b_size = 0;
 	sort_result->average = 0;
 	sort_result->action_list_size = 0;
 	sort_result->action_list = NULL;
