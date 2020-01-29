@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 12:29:47 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/28 15:15:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/29 11:26:16 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void		sort_b(t_sort_result *sort_result)
 	stack_ptr = &sort_result->stack_ptr;
 	while (*(int *)stack_ptr->top_b->content != sort_result->min)
 	{
-		if (*(int *)stack_ptr->top_b->content < *(int *)stack_ptr->next_b->content)
+		if (*(int *)stack_ptr->top_b->content < *(int *)stack_ptr->top_b->next->content)
 			execute_action(sort_result, sb);
 		execute_action(sort_result, rb);
 	}
@@ -62,7 +62,7 @@ static void		sort_b(t_sort_result *sort_result)
 		is_sorted = 1;
 		while (*(int *)stack_ptr->top_b->content != sort_result->min)
 		{
-			if (*(int *)stack_ptr->top_b->content < *(int *)stack_ptr->next_b->content)
+			if (*(int *)stack_ptr->top_b->content < *(int *)stack_ptr->top_b->next->content)
 			{
 				execute_action(sort_result, sb);
 				is_sorted = 0;

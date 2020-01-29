@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 12:13:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/28 15:54:22 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/29 11:25:24 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void		split_one_stack_to_two_v2(t_sort_result *sort_result)
 		if (*(int *)stack_ptr->top_a->content <= sort_result->median)
 		{
 			execute_action(sort_result, pb);
-			if (*(int *)stack_ptr->top_b->content < *(int *)stack_ptr->next_b->content)
+			if (*(int *)stack_ptr->top_b->content <
+										*(int *)stack_ptr->top_b->next->content)
 				execute_action(sort_result, sb);
 		}
 		else

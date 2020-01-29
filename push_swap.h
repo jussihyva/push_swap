@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/28 16:18:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/29 11:19:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ typedef struct	s_stack_ptr
 	t_list	*top_b;
 	int		*next;
 	t_list	*next_a;
-	t_list	*next_b;
+//	t_list	*next_b;
 	int		*bottom;
 	t_list	*bottom_a;
-	t_list	*bottom_b;
+//	t_list	*bottom_b;
 	int		*bottom_1;
 	t_list	*bottom_1_a;
-	t_list	*bottom_1_b;
+//	t_list	*bottom_1_b;
 	int		*smallest_int;
 	int		*smallest_int_a;
 	int		*smallest_int_b;
