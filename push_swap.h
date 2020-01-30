@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/29 18:26:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/30 15:52:50 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@
 typedef enum	e_move_action
 {
 	null = 0,
-	sa,
-	sb,
-	ra,
-	rb,
-	rra,
-	rrb,
-	pa,
-	pb,
-	v0,
-	v1,
-	v2,
-	v11,
-	v31
+	sa  = 0x0001,
+	ra  = 0x0002,
+	rra = 0x0004,
+	v0  = 0x0008,
+	v1  = 0x0010,
+	v2  = 0x0020,
+	v11 = 0x0040,
+	sb  = 0x0080,
+	rb  = 0x0100,
+	rrb = 0x0200,
+	pa  = 0x0400,
+	pb  = 0x0800,
+	v31 = 0x1000
 }				t_move_action;
 
 typedef struct	s_stack_ptr

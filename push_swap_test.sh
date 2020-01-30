@@ -131,7 +131,7 @@ declare -i high=0
 declare -i low=99999
 declare -i hl=0
 declare -i fails=0
-while [ $x -le 100 ]; do
+while [ $x -le 500 ]; do
 	ARG=$(printf '%s ' `seq 0 $((nb-1)) | sort -R`)
 	if [ $varyn == "y" ]; then
 		echo "$ARG"
@@ -158,13 +158,13 @@ while [ $x -le 100 ]; do
 		(( x++ )); done
 echo " "
 echo "_____________________"
-declare -i med=$(( sum/100 ))
+declare -i med=$(( sum/500 ))
 echo "number: $nb"
 echo "test: 100"
 echo "fails: $fails"
 echo "high: $high"
 echo "low: $low"
-echo "avarage: $med ($sum / 100)"
+echo "avarage: $med ($sum / 500)"
 if [ $nb ==  5 ]; then
 	echo "- Less than 13: pass"
 	echo "- Precisely 8: Kudos"
