@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/30 17:17:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/30 17:41:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,9 +165,7 @@ int						main(int argc, char **argv)
 	t_list			**result_array;
 	void			*sort_function_array[10];
 	size_t			max_actions;
-	int				compare;
 
-	compare = 0;
 	if (argc > 1)
 	{
 		max_actions = 20000;
@@ -193,8 +191,7 @@ int						main(int argc, char **argv)
 			max_actions *= 10;
 		}
 		sleep(0);
-		if (!compare)
-			print_action_list(result_array);
+		print_action_list(result_array);
 		free(result_array);
 		result_array = NULL;
 	}
