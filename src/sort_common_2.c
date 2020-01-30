@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/29 20:08:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/30 08:58:51 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void		count_num_of_consecutive(t_sort_result *sort_result)
 	c = 0;
 	if (sort_result->action_list_size)
 	{
-		c++;
 		while (sort_result->last_action ==
 				sort_result->action_list[sort_result->action_list_size - c - 1])
 			c++;
@@ -90,38 +89,60 @@ static void		count_num_of_consecutive(t_sort_result *sort_result)
 
 void			optimize_last_actions(t_sort_result *sort_result)
 {
-	size_t		c;
+	size_t			c;
+	t_move_action	last_action;
 
-	if ((sort_result->last_action == ra || sort_result->last_action == rra) &&
-		sort_result->seq_action_counter > (size_t)sort_result->stack_a_size / 2)
+	if (sort_result->action_list_size > 1)
 	{
-		sort_result->action_list_size -= sort_result->seq_action_counter;
-		c = 0;
-		while (c++ < (size_t)sort_result->stack_a_size -
-												sort_result->seq_action_counter)
+		last_action = sort_result->action_list[sort_result->action_list_size - 1];
+		if ((last_action == ra || last_action == rra) &&
+			sort_result->seq_action_counter == (size_t)sort_result->stack_a_size)
 		{
-			if (sort_result->last_action == ra)
-				sort_result->action_list[sort_result->action_list_size] = rra;
+			sort_result->action_list_size -= sort_result->stack_a_size;
+			if (sort_result->action_list_size)
+				sort_result->last_action =
+						sort_result->action_list[sort_result->action_list_size - 1];
 			else
-				sort_result->action_list[sort_result->action_list_size] = ra;
-			sort_result->action_list_size++;
+				sort_result->last_action = null;
+			count_num_of_consecutive(sort_result);
 		}
+		if ((last_action == ra || last_action == rra) &&
+			sort_result->seq_action_counter > (size_t)sort_result->stack_a_size / 2)
+		{
+			sort_result->action_list_size -= sort_result->seq_action_counter;
+			c = 0;
+			while (c++ < (size_t)sort_result->stack_a_size -
+													sort_result->seq_action_counter)
+			{
+				if (last_action == ra)
+					sort_result->action_list[sort_result->action_list_size] = rra;
+				else
+					sort_result->action_list[sort_result->action_list_size] = ra;
+				sort_result->action_list_size++;
+			}
+			if (sort_result->action_list_size)
+				sort_result->last_action =
+						sort_result->action_list[sort_result->action_list_size - 1];
+			else
+				sort_result->last_action = null;
+			count_num_of_consecutive(sort_result);
+		}
+		// if ((sort_result->last_action == rb || sort_result->last_action == rrb) &&
+		// 	sort_result->seq_action_counter > (size_t)sort_result->stack_b_size / 2)
+		// {
+		// 	sort_result->action_list_size -= sort_result->seq_action_counter;
+		// 	c = 0;
+		// 	while (c++ < (size_t)sort_result->stack_b_size -
+		// 											sort_result->seq_action_counter)
+		// 	{
+		// 		if (sort_result->last_action == rb)
+		// 			sort_result->action_list[sort_result->action_list_size] = rrb;
+		// 		else
+		// 			sort_result->action_list[sort_result->action_list_size] = rb;
+		// 		sort_result->action_list_size++;
+		// 	}
+		// }
 	}
-	// if ((sort_result->last_action == rb || sort_result->last_action == rrb) &&
-	// 	sort_result->seq_action_counter > (size_t)sort_result->stack_b_size / 2)
-	// {
-	// 	sort_result->action_list_size -= sort_result->seq_action_counter;
-	// 	c = 0;
-	// 	while (c++ < (size_t)sort_result->stack_b_size -
-	// 											sort_result->seq_action_counter)
-	// 	{
-	// 		if (sort_result->last_action == rb)
-	// 			sort_result->action_list[sort_result->action_list_size] = rrb;
-	// 		else
-	// 			sort_result->action_list[sort_result->action_list_size] = rb;
-	// 		sort_result->action_list_size++;
-	// 	}
-	// }
 	return ;
 }
 
@@ -145,10 +166,7 @@ void			add_action(t_sort_result *sort_result, t_move_action action)
 		if (sort_result->last_action == action)
 			sort_result->seq_action_counter++;
 		else
-		{
-			optimize_last_actions(sort_result);
 			sort_result->seq_action_counter = 1;
-		}
 		sort_result->last_action = action;
 		sort_result->action_list[sort_result->action_list_size] =
 													sort_result->last_action;
@@ -162,18 +180,18 @@ void			add_action(t_sort_result *sort_result, t_move_action action)
 													sort_result->last_action;
 		sort_result->action_list_size++;
 	}
-	if (sort_result->last_action &&
-		(sort_result->last_action == ra || sort_result->last_action == rra) &&
-		sort_result->seq_action_counter == (size_t)sort_result->stack_a_size)
-	{
-		sort_result->action_list_size -= sort_result->stack_a_size;
-		if (sort_result->action_list_size)
-			sort_result->last_action =
-					sort_result->action_list[sort_result->action_list_size - 1];
-		else
-			sort_result->last_action = null;
-		count_num_of_consecutive(sort_result);
-	}
+	// if (sort_result->last_action &&
+	// 	(sort_result->last_action == ra || sort_result->last_action == rra) &&
+	// 	sort_result->seq_action_counter == (size_t)sort_result->stack_a_size)
+	// {
+	// 	sort_result->action_list_size -= sort_result->stack_a_size;
+	// 	if (sort_result->action_list_size)
+	// 		sort_result->last_action =
+	// 				sort_result->action_list[sort_result->action_list_size - 1];
+	// 	else
+	// 		sort_result->last_action = null;
+	// 	count_num_of_consecutive(sort_result);
+	// }
 	if (sort_result->last_action &&
 		(sort_result->last_action == rb || sort_result->last_action == rrb) &&
 		sort_result->seq_action_counter == (size_t)sort_result->stack_b_size)
@@ -186,5 +204,6 @@ void			add_action(t_sort_result *sort_result, t_move_action action)
 			sort_result->last_action = null;
 		count_num_of_consecutive(sort_result);
 	}
+	optimize_last_actions(sort_result);
 	return ;
 }
