@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/31 09:47:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/31 12:07:42 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,8 @@ int						main(int argc, char **argv)
 //		sort_function_array[5] = bubble_sort_v2_1;
 //		sort_function_array[6] = bubble_sort_v2_2;
 		sort_function_array[0] = bubble_sort_v2_3;
-		sort_function_array[1] = 0;
+		sort_function_array[1] = bubble_sort_v2_4;
+		sort_function_array[2] = 0;
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		*result_array = NULL;
 		input = prepare_input_data(argc, argv);

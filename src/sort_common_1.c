@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/29 19:07:17 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/31 10:38:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 		step_prt_down(sort_result);
 	else if (action == rb)
 		step_prt_down_b(sort_result);
+	else if (action == rr)
+	{
+		step_prt_down(sort_result);
+		step_prt_down_b(sort_result);
+	}
 	else if (action == rra)
 		step_prt_up(sort_result);
 }
