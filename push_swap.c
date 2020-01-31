@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/30 17:41:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/31 09:47:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,16 +169,17 @@ int						main(int argc, char **argv)
 	if (argc > 1)
 	{
 		max_actions = 20000;
-		sort_function_array[0] = bubble_sort_v1;
+//		sort_function_array[0] = bubble_sort_v1;
 							//		sort_function_array[0] = random_sort_v1;
-		sort_function_array[1] = bubble_sort_v2;
-		sort_function_array[2] = bubble_sort_v3;
-		sort_function_array[3] = insertion_sort_v1;
-		sort_function_array[4] = random_sort_v2;
+//		sort_function_array[1] = bubble_sort_v2;
+//		sort_function_array[2] = bubble_sort_v3;
+//		sort_function_array[3] = insertion_sort_v1;
+//		sort_function_array[4] = random_sort_v2;
 							//		sort_function_array[0] = random_sort_v3;
-				//		sort_function_array[0] = bubble_sort_v2_1;
-		sort_function_array[5] = bubble_sort_v2_2;
-		sort_function_array[6] = 0;
+//		sort_function_array[5] = bubble_sort_v2_1;
+//		sort_function_array[6] = bubble_sort_v2_2;
+		sort_function_array[0] = bubble_sort_v2_3;
+		sort_function_array[1] = 0;
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		*result_array = NULL;
 		input = prepare_input_data(argc, argv);
