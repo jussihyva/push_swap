@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/01/31 10:22:55 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/01/31 15:36:58 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRC_FILES_NAME		=	ft_intswap.c ft_arraydel.c ft_intsort.c ft_intdup.c \
 						action_rules_1.c action_rules_2.c action_rules_3.c \
 						print_result.c \
 						split_two_stacks.c \
-						sort_bubble_v2_1.c sort_bubble_v2_2.c sort_bubble_v2_3.c sort_bubble_v2_4.c
+						sort_bubble_v2_1.c sort_bubble_v2_2.c sort_bubble_v2_3.c sort_bubble_v2_4.c sort_bubble_v2_5.c
 
 OBJ_FILES			=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(SRC_FILES_NAME)))
 

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/31 10:35:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/31 15:39:07 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ void			create_action_order_v31(t_sort_result *sort_result,
 void			split_one_stack_to_two_v1(t_sort_result *sort_result);
 void			split_one_stack_to_two_v2(t_sort_result *sort_result);
 void			split_one_stack_to_two_v3(t_sort_result *sort_result);
+void			split_one_stack_to_two_v4(t_sort_result *sort_result);
+void			split_one_stack_to_two_v5(t_sort_result *sort_result);
 void			bubble_sort_v2_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			bubble_sort_v2_2(t_sort_result *sort_result,
@@ -141,6 +143,8 @@ void			bubble_sort_v2_2(t_sort_result *sort_result,
 void			bubble_sort_v2_3(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			bubble_sort_v2_4(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
+void			bubble_sort_v2_5(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 
 #endif
