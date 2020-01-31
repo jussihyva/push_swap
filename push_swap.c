@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/31 15:38:24 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/31 18:35:17 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int						main(int argc, char **argv)
 	t_input_data	*input;
 	size_t			i;
 	t_list			**result_array;
-	void			*sort_function_array[10];
+	void			*sort_function_array[12];
 	size_t			max_actions;
 
 	if (argc > 1)
@@ -171,17 +171,18 @@ int						main(int argc, char **argv)
 		max_actions = 20000;
 		sort_function_array[0] = bubble_sort_v1;
 							//		sort_function_array[0] = random_sort_v1;
-//		sort_function_array[1] = bubble_sort_v2;
-		sort_function_array[1] = bubble_sort_v3;
-//		sort_function_array[3] = insertion_sort_v1;
-//		sort_function_array[4] = random_sort_v2;
+		sort_function_array[1] = bubble_sort_v2;
+		sort_function_array[2] = bubble_sort_v3;
+		sort_function_array[3] = insertion_sort_v1;
+		sort_function_array[4] = random_sort_v2;
 							//		sort_function_array[0] = random_sort_v3;
-//		sort_function_array[5] = bubble_sort_v2_1;
-//		sort_function_array[6] = bubble_sort_v2_2;
-//		sort_function_array[0] = bubble_sort_v2_3;
-		sort_function_array[2] = bubble_sort_v2_4;
-		sort_function_array[3] = bubble_sort_v2_5;
-		sort_function_array[3] = 0;
+		sort_function_array[5] = bubble_sort_v2_1;
+		sort_function_array[6] = bubble_sort_v2_2;
+		sort_function_array[7] = bubble_sort_v2_3;
+		sort_function_array[8] = bubble_sort_v2_4;
+		sort_function_array[9] = bubble_sort_v2_5;
+		sort_function_array[10] = bubble_sort_v3_1;
+		sort_function_array[11] = 0;
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		*result_array = NULL;
 		input = prepare_input_data(argc, argv);

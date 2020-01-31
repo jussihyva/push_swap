@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/31 15:39:07 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/01/31 17:47:55 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef enum	e_move_action
 	pa  = 0x0400,
 	pb  = 0x0800,
 	v31 = 0x1000,
-	rr  = 0x2000
+	rr  = 0x2000,
+	rrr = 0x2000
 }				t_move_action;
 
 typedef struct	s_stack_ptr
@@ -136,6 +137,7 @@ void			split_one_stack_to_two_v2(t_sort_result *sort_result);
 void			split_one_stack_to_two_v3(t_sort_result *sort_result);
 void			split_one_stack_to_two_v4(t_sort_result *sort_result);
 void			split_one_stack_to_two_v5(t_sort_result *sort_result);
+void			split_one_stack_to_two_v3_1(t_sort_result *sort_result);
 void			bubble_sort_v2_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			bubble_sort_v2_2(t_sort_result *sort_result,
@@ -145,6 +147,8 @@ void			bubble_sort_v2_3(t_sort_result *sort_result,
 void			bubble_sort_v2_4(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			bubble_sort_v2_5(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
+void			bubble_sort_v3_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 
 #endif
