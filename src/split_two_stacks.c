@@ -6,11 +6,18 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 12:13:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/31 16:54:11 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/01 12:58:06 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void		move_all_to_stack_b(t_sort_result *sort_result)
+{
+	while (sort_result->stack_a_size)
+		execute_action(sort_result, pb);
+	return ;
+}
 
 void		split_one_stack_to_two_v1(t_sort_result *sort_result)
 {

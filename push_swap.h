@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/31 17:47:55 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/01 14:12:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void			split_one_stack_to_two_v3(t_sort_result *sort_result);
 void			split_one_stack_to_two_v4(t_sort_result *sort_result);
 void			split_one_stack_to_two_v5(t_sort_result *sort_result);
 void			split_one_stack_to_two_v3_1(t_sort_result *sort_result);
+void			move_all_to_stack_b(t_sort_result *sort_result);
 void			bubble_sort_v2_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			bubble_sort_v2_2(t_sort_result *sort_result,
@@ -150,5 +151,8 @@ void			bubble_sort_v2_5(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			bubble_sort_v3_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
+void			less_moves_sort_v1_1(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
+void			min_max(t_sort_result *sort_result);
 
 #endif
