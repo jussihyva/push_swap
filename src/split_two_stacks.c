@@ -6,16 +6,91 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 12:13:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/01 12:58:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 08:52:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void		move_all_to_stack_b(t_sort_result *sort_result)
+void		move_all_to_stack_b_v1(t_sort_result *sort_result)
 {
 	while (sort_result->stack_a_size)
 		execute_action(sort_result, pb);
+	return ;
+}
+
+void		move_all_to_stack_b_v2(t_sort_result *sort_result)
+{
+	t_stack_ptr		*stack_ptr;
+
+	stack_ptr = &sort_result->stack_ptr;
+	while (sort_result->stack_a_size)
+	{
+		execute_action(sort_result, pb);
+		if (stack_ptr->top_a &&
+			*(int *)stack_ptr->top_b->content <= sort_result->median &&
+			*(int *)stack_ptr->top_b->next->content > sort_result->median &&
+			*(int *)stack_ptr->top_a->content > sort_result->median)
+			execute_action(sort_result, rr);
+		else if (*(int *)stack_ptr->top_b->content <= sort_result->median &&
+			*(int *)stack_ptr->top_b->next->content > sort_result->median)
+			execute_action(sort_result, rb);
+	}
+	return ;
+}
+
+void		move_all_to_stack_b_v3(t_sort_result *sort_result)
+{
+	t_stack_ptr		*stack_ptr;
+	double			factor;
+
+	factor = 1.5;
+	stack_ptr = &sort_result->stack_ptr;
+	while (sort_result->stack_a_size)
+	{
+		execute_action(sort_result, pb);
+		if (stack_ptr->top_a &&
+			*(int *)stack_ptr->top_b->content <= sort_result->median &&
+			*(int *)stack_ptr->top_b->next->content > sort_result->median &&
+			*(int *)stack_ptr->top_a->content > sort_result->median / 2 &&
+			*(int *)stack_ptr->top_a->content < sort_result->median * factor)
+			execute_action(sort_result, rr);
+		else if (*(int *)stack_ptr->top_b->content <= sort_result->median &&
+			*(int *)stack_ptr->top_b->next->content > sort_result->median)
+			execute_action(sort_result, rb);
+	}
+	return ;
+}
+
+void		move_all_to_stack_b_v4(t_sort_result *sort_result)
+{
+	t_stack_ptr		*stack_ptr;
+	double			factor;
+
+	factor = 1.5;
+	stack_ptr = &sort_result->stack_ptr;
+	while (sort_result->stack_a_size)
+	{
+		execute_action(sort_result, pb);
+		if (stack_ptr->top_a &&
+			*(int *)stack_ptr->top_b->content <= sort_result->median &&
+			*(int *)stack_ptr->top_b->next->content > sort_result->median &&
+			*(int *)stack_ptr->top_a->content > sort_result->median / 2 &&
+			*(int *)stack_ptr->top_a->content < sort_result->median * factor)
+			execute_action(sort_result, rr);
+		else if (*(int *)stack_ptr->top_b->content <= sort_result->median &&
+			*(int *)stack_ptr->top_b->next->content > sort_result->median)
+			execute_action(sort_result, rb);
+		else if (stack_ptr->top_a &&
+			*(int *)stack_ptr->top_b->content
+									< *(int *)stack_ptr->top_b->next->content &&
+			*(int *)stack_ptr->top_a->content
+									> *(int *)stack_ptr->top_a->next->content)
+			execute_action(sort_result, ss);
+		// else if (*(int *)stack_ptr->top_b->content
+		// 							< *(int *)stack_ptr->top_b->next->content)
+		// 	execute_action(sort_result, sb);
+	}
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/01 14:14:34 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 08:16:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,31 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 	stack_ptr = &sort_result->stack_ptr;
 	sort_result->total_num_of_actions++;
 	add_action(sort_result, action);
-	if (action == sa)
+	if (action == sa || action == sb || action == ss)
 	{
-		ft_intswap(stack_ptr->top, stack_ptr->next);
-		stack_ptr->next_a->prev = stack_ptr->top_a->prev;
-		stack_ptr->top_a->next = stack_ptr->next_a->next;
-		stack_ptr->top_a->prev->next = stack_ptr->next_a;
-		stack_ptr->next_a->next->prev = stack_ptr->top_a;
-		stack_ptr->top_a->prev = stack_ptr->next_a;
-		stack_ptr->next_a->next = stack_ptr->top_a;
-		stack_ptr->top_a = stack_ptr->next_a;
-		stack_ptr->next_a = stack_ptr->top_a->next;
-	}
-	else if (action == sb)
-	{
-		stack_ptr->top_b->next->next->prev = stack_ptr->top_b; /* -1 */
-		tmp_ptr = stack_ptr->top_b->next->next; /* 0 */
-		stack_ptr->top_b->next->next = stack_ptr->top_b; /* 1 */
-		stack_ptr->top_b = stack_ptr->top_b->next; /* 2 */
-		stack_ptr->top_b->next->next = tmp_ptr; /* 0 */
-		stack_ptr->top_b->prev->prev->next = stack_ptr->top_b; /* 3 */
-		stack_ptr->top_b->prev = stack_ptr->top_b->next->prev; /* 5 */
-		stack_ptr->top_b->next->prev = stack_ptr->top_b; /* 4 */
+		if (action == sa || action == ss)
+		{
+			ft_intswap(stack_ptr->top, stack_ptr->next);
+			stack_ptr->next_a->prev = stack_ptr->top_a->prev;
+			stack_ptr->top_a->next = stack_ptr->next_a->next;
+			stack_ptr->top_a->prev->next = stack_ptr->next_a;
+			stack_ptr->next_a->next->prev = stack_ptr->top_a;
+			stack_ptr->top_a->prev = stack_ptr->next_a;
+			stack_ptr->next_a->next = stack_ptr->top_a;
+			stack_ptr->top_a = stack_ptr->next_a;
+			stack_ptr->next_a = stack_ptr->top_a->next;
+		}
+		if (action == sb || action == ss)
+		{
+			stack_ptr->top_b->next->next->prev = stack_ptr->top_b; /* -1 */
+			tmp_ptr = stack_ptr->top_b->next->next; /* 0 */
+			stack_ptr->top_b->next->next = stack_ptr->top_b; /* 1 */
+			stack_ptr->top_b = stack_ptr->top_b->next; /* 2 */
+			stack_ptr->top_b->next->next = tmp_ptr; /* 0 */
+			stack_ptr->top_b->prev->prev->next = stack_ptr->top_b; /* 3 */
+			stack_ptr->top_b->prev = stack_ptr->top_b->next->prev; /* 5 */
+			stack_ptr->top_b->next->prev = stack_ptr->top_b; /* 4 */
+		}
 	}
 	else if (action == pb || action == pa)
 	{

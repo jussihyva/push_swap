@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_less_moves_v1_1.c                             :+:      :+:    :+:   */
+/*   sort_less_moves_v1_4.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/01 11:58:33 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 07:17:59 by jkauppi          ###   ########.fr       */
+/*   Created: 2020/02/02 08:48:41 by jkauppi           #+#    #+#             */
+/*   Updated: 2020/02/02 08:49:17 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static t_list	*select_next_integer(t_sort_result *sort_result)
 	}
 }
 
-void			less_moves_sort_v1_1(t_sort_result *sort_result,
+void			less_moves_sort_v1_4(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
 	t_list		*next_to_move;
 	t_stack_ptr		*stack_ptr;
 
 	stack_ptr = &sort_result->stack_ptr;
-	move_all_to_stack_b_v1(sort_result);
+	move_all_to_stack_b_v4(sort_result);
 	while (sort_result->stack_ptr.top_b)
 	{
 		next_to_move = select_next_integer(sort_result);
