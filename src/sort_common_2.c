@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/01 16:05:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 12:24:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,20 @@ void			add_action(t_sort_result *sort_result, t_move_action action)
 		(last_action == sa && action == sa)))
 	{
 		sort_result->action_list_size--;
+		if (sort_result->action_list_size)
+			sort_result->last_action =
+					sort_result->action_list[sort_result->action_list_size - 1];
+		else
+			sort_result->last_action = null;
+		count_num_of_consecutive(sort_result);
+	}
+	else if (last_action &&
+		((last_action == ra && action == rb) ||
+		(last_action == rb && action == ra)))
+	{
+		sort_result->action_list_size--;
+		sort_result->action_list[sort_result->action_list_size] = rr;
+		sort_result->action_list_size++;
 		if (sort_result->action_list_size)
 			sort_result->last_action =
 					sort_result->action_list[sort_result->action_list_size - 1];

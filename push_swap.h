@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 08:50:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 11:17:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,8 @@ void			less_moves_sort_v1_2(t_sort_result *sort_result,
 void			less_moves_sort_v1_3(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			less_moves_sort_v1_4(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
+void			less_moves_sort_v2_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			min_max(t_sort_result *sort_result);
 
