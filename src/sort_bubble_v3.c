@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 11:21:02 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/29 18:30:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 16:16:05 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static int		loop_down_if_swap(t_sort_result *sort_result,
 
 	is_sorted = 1;
 	loop_cnt = 0;
-	while (*(stack_ptr->top) != sort_result->max)
+	while (*(int *)stack_ptr->top_a->content != sort_result->max)
 	{
 		loop_cnt++;
-		if (*stack_ptr->top > *stack_ptr->next)
+		if (*(int *)stack_ptr->top_a->content > *(int *)stack_ptr->top_a->next->content)
 		{
 			execute_action(sort_result, sa);
 			is_sorted = 0;
@@ -31,7 +31,7 @@ static int		loop_down_if_swap(t_sort_result *sort_result,
 		}
 		else
 		{
-			if (!is_sorted && *stack_ptr->bottom <= sort_result->median)
+			if (!is_sorted && *(int *)stack_ptr->top_a->prev->content <= sort_result->median)
 				break ;
 			execute_action(sort_result, ra);
 		}
@@ -47,9 +47,9 @@ static int		loop_up_if_swap(t_sort_result *sort_result,
 	int				is_sorted;
 
 	is_sorted = 0;
-	while (*stack_ptr->top != sort_result->max)
+	while (*(int *)stack_ptr->top_a->content != sort_result->max)
 	{
-		if (*stack_ptr->next < *stack_ptr->top)
+		if (*(int *)stack_ptr->top_a->next->content < *(int *)stack_ptr->top_a->content)
 		{
 			execute_action(sort_result, sa);
 			execute_action(sort_result, rra);
@@ -80,10 +80,10 @@ void			bubble_sort_v3(t_sort_result *sort_result,
 	t_stack_ptr		*stack_ptr;
 
 	stack_ptr = &sort_result->stack_ptr;
-	if (*sort_result->stack_ptr.top > sort_result->median &&
-				*stack_ptr->next > sort_result->median)
+	if (*(int *)sort_result->stack_ptr.top_a->content > sort_result->median &&
+				*(int *)stack_ptr->top_a->next->content > sort_result->median)
 	{
-		if (*stack_ptr->top > *stack_ptr->next)
+		if (*(int *)stack_ptr->top_a->content > *(int *)stack_ptr->top_a->next->content)
 			execute_action(sort_result, sa);
 		execute_action(sort_result, ra);
 		execute_action(sort_result, ra);
@@ -91,7 +91,7 @@ void			bubble_sort_v3(t_sort_result *sort_result,
 	is_sorted = 0;
 	while (!is_sorted && sort_result->total_num_of_actions < 80000)
 		is_sorted = loop_if_swap(sort_result);
-	while (*stack_ptr->top != sort_result->min)
+	while (*(int *)stack_ptr->top_a->content != sort_result->min)
 		execute_action(sort_result, rra);
 	ft_lstadd_e(result_array, ft_lstnew(sort_result, sizeof(*sort_result)));
 	*max_actions = (*max_actions > sort_result->action_list_size) ?

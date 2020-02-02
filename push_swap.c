@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 12:56:26 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 16:40:41 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ static void				stack_sort(t_input_data *input,
 	sort_result.min = input->min;
 	sort_result.max = input->max;
 	sort_result.average = input->average;
-	sort_result.stack_ptr.top = sort_result.stack + sort_result.stack_a_size;
 	sort_result.stack_ptr.top_a = sort_result.stack_a->prev;
 	sort_result.stack_ptr.top_b = NULL;
 	i = -1;
@@ -165,31 +164,31 @@ int						main(int argc, char **argv)
 	t_input_data	*input;
 	size_t			i;
 	t_list			**result_array;
-	void			*sort_function_array[12];
+	void			*sort_function_array[16];
 	size_t			max_actions;
 
 	if (argc > 1)
 	{
 		max_actions = 20000;
-		// sort_function_array[0] = bubble_sort_v1;
+		sort_function_array[0] = bubble_sort_v1;
 		// 					//		sort_function_array[0] = random_sort_v1;
-		// sort_function_array[1] = bubble_sort_v2;
-		// sort_function_array[2] = bubble_sort_v3;
-		// sort_function_array[3] = insertion_sort_v1;
-		// sort_function_array[4] = random_sort_v2;
+		sort_function_array[1] = bubble_sort_v2;
+		sort_function_array[2] = bubble_sort_v3;
+		sort_function_array[3] = insertion_sort_v1;
+		sort_function_array[4] = random_sort_v2;
 		// 					//		sort_function_array[0] = random_sort_v3;
-		// sort_function_array[5] = bubble_sort_v2_1;
-		// sort_function_array[6] = bubble_sort_v2_2;
-		// sort_function_array[7] = bubble_sort_v2_3;
-		// sort_function_array[8] = bubble_sort_v2_4;
-		// sort_function_array[9] = bubble_sort_v2_5;
-//		sort_function_array[0] = bubble_sort_v3_1;
-//		sort_function_array[0] = less_moves_sort_v1_1;
-		// sort_function_array[0] = less_moves_sort_v1_2;
-		// sort_function_array[1] = less_moves_sort_v1_3;
-		// sort_function_array[0] = less_moves_sort_v1_4;
-		sort_function_array[0] = less_moves_sort_v2_1;
-		sort_function_array[1] = 0;
+		sort_function_array[5] = bubble_sort_v2_1;
+		sort_function_array[6] = bubble_sort_v2_2;
+		sort_function_array[7] = bubble_sort_v2_3;
+		sort_function_array[8] = bubble_sort_v2_4;
+		sort_function_array[9] = bubble_sort_v2_5;
+		sort_function_array[10] = bubble_sort_v3_1;
+		sort_function_array[11] = less_moves_sort_v1_1;
+		sort_function_array[12] = less_moves_sort_v1_2;
+		sort_function_array[13] = less_moves_sort_v1_3;
+		sort_function_array[14] = less_moves_sort_v1_4;
+//		sort_function_array[0] = less_moves_sort_v2_1;
+		sort_function_array[15] = 0;
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		*result_array = NULL;
 		input = prepare_input_data(argc, argv);
@@ -201,7 +200,7 @@ int						main(int argc, char **argv)
 			dprintf(2, "MAX: %5lu\n", max_actions);
 			max_actions *= 10;
 		}
-		sleep(1);
+		sleep(0);
 		print_action_list(result_array);
 		free(result_array);
 		result_array = NULL;

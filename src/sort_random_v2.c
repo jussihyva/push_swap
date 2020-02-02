@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/29 18:31:48 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 14:37:05 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	do_next_action(t_sort_result *sort_result,
 	if (is_sorted)
 	{
 		c = 0;
-		while (*sort_result->stack_ptr.top != sort_result->min)
+		while (*(int *)sort_result->stack_ptr.top_a->content != sort_result->min)
 		{
 			execute_action(sort_result, rra);
 			c++;
@@ -148,27 +148,27 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 	start_ptr = count_max_average(sort_result->stack, sort_result->stack_a_size);
 	if ((size_t)(start_ptr - sort_result->stack) >= sort_result->stack_a_size / 2)
 	{
-		if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
-			*sort_result->stack_ptr.next >= sort_result->median)
+		if (*(int *)sort_result->stack_ptr.top_a->content > *(int *)sort_result->stack_ptr.top_a->next->content &&
+			*(int *)sort_result->stack_ptr.top_a->next->content >= sort_result->median)
 			execute_action(sort_result, sa);
-		while (sort_result->stack_ptr.top != start_ptr)
+		while (*(int *)sort_result->stack_ptr.top_a->content != *start_ptr)
 		{
 			execute_action(sort_result, rra);
-			if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
-				*sort_result->stack_ptr.next >= sort_result->median)
+			if (*(int *)sort_result->stack_ptr.top_a->content > *(int *)sort_result->stack_ptr.top_a->next->content &&
+				*(int *)sort_result->stack_ptr.top_a->next->content >= sort_result->median)
 				execute_action(sort_result, sa);
 		}
 	}
 	else
 	{
-		if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
-			*sort_result->stack_ptr.next >= sort_result->median)
+		if (*(int *)sort_result->stack_ptr.top_a->content > *(int *)sort_result->stack_ptr.top_a->next->content &&
+			*(int *)sort_result->stack_ptr.top_a->next->content >= sort_result->median)
 			execute_action(sort_result, sa);
-		while (sort_result->stack_ptr.top != start_ptr)
+		while (*(int *)sort_result->stack_ptr.top_a->content != *start_ptr)
 		{
 			execute_action(sort_result, ra);
-			if (*sort_result->stack_ptr.top > *sort_result->stack_ptr.next &&
-				*sort_result->stack_ptr.next >= sort_result->median)
+			if (*(int *)sort_result->stack_ptr.top_a->content > *(int *)sort_result->stack_ptr.top_a->next->content &&
+				*(int *)sort_result->stack_ptr.top_a->next->content >= sort_result->median)
 				execute_action(sort_result, sa);
 		}
 	}

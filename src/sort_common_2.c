@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 12:24:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 16:38:51 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ void			step_prt_up(t_sort_result *sort_result)
 
 	stack = sort_result->stack;
 	stack_ptr = &sort_result->stack_ptr;
-	stack_ptr->top =
-				stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
-				stack : stack_ptr->top + 1;
-	stack_ptr->next = stack_ptr->top == stack ?
-				stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
-	stack_ptr->bottom =
-				stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
-				stack : stack_ptr->top + 1;
-	stack_ptr->bottom_1 =
-				stack_ptr->bottom == stack + sort_result->stack_a_size - 1 ?
-				stack : stack_ptr->bottom + 1;
+	// stack_ptr->top =
+	// 			stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
+	// 			stack : stack_ptr->top + 1;
+	// stack_ptr->next = stack_ptr->top == stack ?
+	// 			stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
+	// stack_ptr->bottom =
+	// 			stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
+	// 			stack : stack_ptr->top + 1;
+	// stack_ptr->bottom_1 =
+	// 			stack_ptr->bottom == stack + sort_result->stack_a_size - 1 ?
+	// 			stack : stack_ptr->bottom + 1;
 	stack_ptr->top_a = stack_ptr->top_a->prev;
 	stack_ptr->next_a = stack_ptr->top_a->next;
 	stack_ptr->bottom_a = stack_ptr->top_a->prev;
@@ -44,19 +44,19 @@ void			step_prt_down(t_sort_result *sort_result)
 
 	stack = sort_result->stack;
 	stack_ptr = &sort_result->stack_ptr;
-	if (sort_result->stack_a_size > 1)
-	{
-		stack_ptr->top = stack_ptr->top == stack ?
-					stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
-		stack_ptr->next = stack_ptr->top == stack ?
-					stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
-		stack_ptr->bottom =
-					stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
-					stack : stack_ptr->top + 1;
-		stack_ptr->bottom_1 =
-					stack_ptr->bottom == stack + sort_result->stack_a_size - 1 ?
-					stack : stack_ptr->bottom + 1;
-	}
+	// if (sort_result->stack_a_size > 1)
+	// {
+	// 	stack_ptr->top = stack_ptr->top == stack ?
+	// 				stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
+	// 	stack_ptr->next = stack_ptr->top == stack ?
+	// 				stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
+	// 	stack_ptr->bottom =
+	// 				stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
+	// 				stack : stack_ptr->top + 1;
+	// 	stack_ptr->bottom_1 =
+	// 				stack_ptr->bottom == stack + sort_result->stack_a_size - 1 ?
+	// 				stack : stack_ptr->bottom + 1;
+	// }
 	if (sort_result->stack_a_size)
 		stack_ptr->top_a = stack_ptr->top_a->next;
 	stack_ptr->next_a = stack_ptr->top_a->next;
@@ -113,8 +113,9 @@ void			optimize_last_actions(t_sort_result *sort_result)
 			count_num_of_consecutive(sort_result);
 		}
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
-		if ((last_action == rb || last_action == rrb) &&
-			sort_result->seq_action_counter == (size_t)sort_result->stack_b_size)
+		while ((last_action == rb || last_action == rrb) &&
+			(size_t)sort_result->stack_b_size > 2 &&
+			sort_result->seq_action_counter >= (size_t)sort_result->stack_b_size)
 		{
 			sort_result->action_list_size -= sort_result->stack_b_size;
 			if (sort_result->action_list_size)
@@ -123,6 +124,7 @@ void			optimize_last_actions(t_sort_result *sort_result)
 			else
 				sort_result->last_action = null;
 			count_num_of_consecutive(sort_result);
+			last_action = sort_result->action_list[sort_result->action_list_size - 1];
 		}
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
 		if ((last_action == rr || last_action == rrr) &&

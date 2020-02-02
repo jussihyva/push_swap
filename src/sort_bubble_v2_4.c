@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 10:21:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/31 17:35:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 16:11:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,8 @@ void			bubble_sort_v2_4(t_sort_result *sort_result,
 		sort_b(sort_result);
 		move_stack_b_to_a(sort_result);
 	}
-	*max_actions = (*max_actions > sort_result->action_list_size) ?
-				sort_result->action_list_size : *max_actions;
+//	*max_actions = (*max_actions > sort_result->action_list_size) ?
+//				sort_result->action_list_size : *max_actions;
 	save_result(sort_result, max_actions, result_array);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 12:39:52 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/01/27 15:54:08 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 16:15:51 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ static int		loop_down_if_swap(t_sort_result *sort_result)
 {
 	int				is_sorted;
 	t_stack_ptr		*stack_ptr;
-	int				*end_ptr;
+	t_list			*end_ptr;
 
-	end_ptr = sort_result->stack_ptr.top;
+	end_ptr = sort_result->stack_ptr.top_a->prev;
 	stack_ptr = &sort_result->stack_ptr;
 	is_sorted = 1;
-	while (stack_ptr->next != end_ptr)
+	while (stack_ptr->top_a != end_ptr)
 	{
-		if (*stack_ptr->top > *stack_ptr->next)
+		if (*(int *)stack_ptr->top_a->content > *(int *)stack_ptr->top_a->next->content)
 		{
+			if (end_ptr == stack_ptr->top_a->next)
+				end_ptr = stack_ptr->top_a;
 			execute_action(sort_result, sa);
 			is_sorted = 0;
 		}
@@ -49,12 +51,12 @@ void			bubble_sort_v2(t_sort_result *sort_result,
 	t_stack_ptr		*stack_ptr;
 
 	stack_ptr = &sort_result->stack_ptr;
-	if (*stack_ptr->top > sort_result->median)
+	if (*(int *)stack_ptr->top_a->content > sort_result->median)
 	{
 		sort_result->action_list_size = 0;
-		execute_action(sort_result, ra);
+			execute_action(sort_result, ra);
 	}
-	else if (sort_result->stack[0] <= sort_result->median)
+	else if (*(int *)sort_result->stack_ptr.top_a->content <= sort_result->median)
 	{
 		sort_result->action_list_size = 0;
 		execute_action(sort_result, rra);
