@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 10:21:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 16:11:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 17:51:04 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void		sort_a(t_sort_result *sort_result)
 	stack_ptr = &sort_result->stack_ptr;
 	while (*(int *)stack_ptr->top_a->content != sort_result->max)
 	{
-		if (*(int *)stack_ptr->top_a->content > *(int *)stack_ptr->next_a->content)
+		if (*(int *)stack_ptr->top_a->content > *(int *)stack_ptr->top_a->next->content)
 			execute_action(sort_result, sa);
 		execute_rr_action(sort_result);
 	}

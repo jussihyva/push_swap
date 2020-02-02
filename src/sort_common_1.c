@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 13:06:04 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 17:41:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,14 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 	{
 		if (action == sa || action == ss)
 		{
-//			ft_intswap(stack_ptr->top, stack_ptr->next);
-			stack_ptr->next_a->prev = stack_ptr->top_a->prev;
-			stack_ptr->top_a->next = stack_ptr->next_a->next;
-			stack_ptr->top_a->prev->next = stack_ptr->next_a;
-			stack_ptr->next_a->next->prev = stack_ptr->top_a;
-			stack_ptr->top_a->prev = stack_ptr->next_a;
-			stack_ptr->next_a->next = stack_ptr->top_a;
-			stack_ptr->top_a = stack_ptr->next_a;
-			stack_ptr->next_a = stack_ptr->top_a->next;
+			stack_ptr->top_a->next->next->prev = stack_ptr->top_a; /* -1 */
+			tmp_ptr = stack_ptr->top_a->next->next; /* 0 */
+			stack_ptr->top_a->next->next = stack_ptr->top_a; /* 1 */
+			stack_ptr->top_a = stack_ptr->top_a->next; /* 2 */
+			stack_ptr->top_a->next->next = tmp_ptr; /* 0 */
+			stack_ptr->top_a->prev->prev->next = stack_ptr->top_a; /* 3 */
+			stack_ptr->top_a->prev = stack_ptr->top_a->next->prev; /* 5 */
+			stack_ptr->top_a->next->prev = stack_ptr->top_a; /* 4 */
 		}
 		if (action == sb || action == ss)
 		{

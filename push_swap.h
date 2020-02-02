@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 13:05:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 17:56:03 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,13 @@ typedef enum	e_move_action
 typedef struct s_stack
 {
 	t_list		*top;
+	t_list		*int_lst;
 }				t_stack;
 
 typedef struct	s_stack_ptr
 {
-	t_stack		stack_a;
-	t_stack		stack_b;
-//	int			*top;
 	t_list		*top_a;
 	t_list		*top_b;
-	int			*next;
-	t_list		*next_a;
-	int			*bottom;
-	t_list		*bottom_a;
-	int			*bottom_1;
-	t_list		*bottom_1_a;
-	int			*smallest_int;
-	int			*smallest_int_a;
-	int			*smallest_int_b;
 }				t_stack_ptr;
 
 typedef struct	s_input_data
@@ -77,6 +66,8 @@ typedef struct	s_input_data
 
 typedef struct	s_sort_result
 {
+//	t_stack			stack_a;
+//	t_stack			stack_b;
 	int				*stack;
 	t_list			*stack_a;
 	size_t			stack_a_size;

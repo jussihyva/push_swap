@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 16:40:41 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/02 17:33:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ static void				stack_sort(t_input_data *input,
 							t_list **result_array, size_t *max_actions)
 {
 	t_sort_result	sort_result;
-	size_t			i;
 	t_list			*elem;
 	t_stack_ptr		*stack_ptr;
 
@@ -140,19 +139,9 @@ static void				stack_sort(t_input_data *input,
 	sort_result.average = input->average;
 	sort_result.stack_ptr.top_a = sort_result.stack_a->prev;
 	sort_result.stack_ptr.top_b = NULL;
-	i = -1;
-	while (++i < sort_result.stack_a_size)
-	{
-		if (*(sort_result.stack + i) == input->min)
-		{
-			sort_result.stack_ptr.smallest_int = sort_result.stack + i;
-			break ;
-		}
-	}
 	step_prt_down(&sort_result);
 	sort_function(&sort_result, result_array, max_actions);
 //	free(sort_result.action_list);
-	sort_result.stack_ptr.bottom_a->next = NULL;
 //	ft_lstdel(&sort_result.stack_a, *del_stack);
 //	free(sort_result.stack);
 	sort_result.stack = NULL;
