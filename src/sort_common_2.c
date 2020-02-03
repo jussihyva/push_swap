@@ -19,17 +19,6 @@ void			step_prt_up(t_sort_result *sort_result)
 
 	stack = sort_result->stack;
 	stack_ptr = &sort_result->stack_ptr;
-	// stack_ptr->top =
-	// 			stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
-	// 			stack : stack_ptr->top + 1;
-	// stack_ptr->next = stack_ptr->top == stack ?
-	// 			stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
-	// stack_ptr->bottom =
-	// 			stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
-	// 			stack : stack_ptr->top + 1;
-	// stack_ptr->bottom_1 =
-	// 			stack_ptr->bottom == stack + sort_result->stack_a_size - 1 ?
-	// 			stack : stack_ptr->bottom + 1;
 	if (sort_result->stack_a_size)
 		stack_ptr->top_a = stack_ptr->top_a->prev;
 	return ;
@@ -42,19 +31,6 @@ void			step_prt_down(t_sort_result *sort_result)
 
 	stack = sort_result->stack;
 	stack_ptr = &sort_result->stack_ptr;
-	// if (sort_result->stack_a_size > 1)
-	// {
-	// 	stack_ptr->top = stack_ptr->top == stack ?
-	// 				stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
-	// 	stack_ptr->next = stack_ptr->top == stack ?
-	// 				stack + sort_result->stack_a_size - 1 : stack_ptr->top - 1;
-	// 	stack_ptr->bottom =
-	// 				stack_ptr->top == stack + sort_result->stack_a_size - 1 ?
-	// 				stack : stack_ptr->top + 1;
-	// 	stack_ptr->bottom_1 =
-	// 				stack_ptr->bottom == stack + sort_result->stack_a_size - 1 ?
-	// 				stack : stack_ptr->bottom + 1;
-	// }
 	if (sort_result->stack_a_size)
 		stack_ptr->top_a = stack_ptr->top_a->next;
 	return ;
