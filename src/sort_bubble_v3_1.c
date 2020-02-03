@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 16:49:53 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:08:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:39:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ static int		swap_stack_a(t_sort_result *sort_result)
 
 static int		swap_stack_b(t_sort_result *sort_result)
 {
-	t_stack_ptr		*stack_ptr;
+	t_stack			*stack_b;
 
-	stack_ptr = &sort_result->stack_ptr;
-	if (*(int *)stack_ptr->top_b->next->content != sort_result->max_b &&
-		*(int *)stack_ptr->top_b->content < *(int *)stack_ptr->top_b->next->content)
+	stack_b = &sort_result->stack_b;
+	if (*(int *)stack_b->top->next->content != sort_result->max_b &&
+		*(int *)stack_b->top->content < *(int *)stack_b->top->next->content)
 	{
 		execute_action(sort_result, sb);
 		return (1);
@@ -114,12 +114,12 @@ static void		sort_a(t_sort_result *sort_result)
 static void		sort_b(t_sort_result *sort_result)
 {
 	int				is_sorted;
-	t_stack_ptr		*stack_ptr;
+	t_stack			*stack_b;
 
-	stack_ptr = &sort_result->stack_ptr;
-	if (check_order(stack_ptr->top_b))
+	stack_b = &sort_result->stack_b;
+	if (check_order(stack_b->top))
 		return ;
-	while (*(int *)stack_ptr->top_b->content != sort_result->min_b)
+	while (*(int *)stack_b->top->content != sort_result->min_b)
 		if (!swap_stack_b(sort_result))
 			execute_rr_action(sort_result);
 	execute_rr_action(sort_result);
@@ -127,10 +127,10 @@ static void		sort_b(t_sort_result *sort_result)
 	while (!is_sorted)
 	{
 		is_sorted = 1;
-		while (*(int *)stack_ptr->top_b->content != sort_result->min_b)
+		while (*(int *)stack_b->top->content != sort_result->min_b)
 		{
-			if (*(int *)stack_ptr->top_b->content <
-										*(int *)stack_ptr->top_b->next->content)
+			if (*(int *)stack_b->top->content <
+										*(int *)stack_b->top->next->content)
 			{
 				execute_action(sort_result, sb);
 				is_sorted = 0;
@@ -145,10 +145,7 @@ static void		sort_b(t_sort_result *sort_result)
 
 static void		move_stack_b_to_a(t_sort_result *sort_result)
 {
-	t_stack_ptr		*stack_ptr;
-
-	stack_ptr = &sort_result->stack_ptr;
-	while (sort_result->stack_ptr.top_b)
+	while (sort_result->stack_b.top)
 		execute_action(sort_result, pa);
 }
 

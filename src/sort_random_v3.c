@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 13:12:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 07:37:57 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:31:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static int	check_order(t_sort_result *sort_result, t_move_action **valid_actions
 	int				is_sorted;
 	static int		is_sorted_high;
 	t_list			*top;
-	t_stack_ptr		*stack_ptr;
+	t_stack			*stack_b;
 
-	stack_ptr = &sort_result->stack_ptr;
+	stack_b = &sort_result->stack_b;
 	top = sort_result->stack_a.top;
 	ptr = top->next;
 	while (ptr != top && *(int *)ptr->prev->content < *(int *)ptr->content)
@@ -65,7 +65,7 @@ static int	check_order(t_sort_result *sort_result, t_move_action **valid_actions
 	}
 	if (is_sorted)
 	{
-		while (stack_ptr->top_b)
+		while (stack_b->top)
 		{
 			is_sorted = 0;
 			execute_action(sort_result, pa);
@@ -81,9 +81,7 @@ static int	do_next_action(t_sort_result *sort_result,
 	int						is_sorted;
 	static t_move_action	new_valid_actions[4];
 	size_t					c;
-	t_stack_ptr		*stack_ptr;
 
-	stack_ptr = &sort_result->stack_ptr;
 	is_sorted = check_order(sort_result, &valid_actions);
 	if (is_sorted)
 		save_result(sort_result, max_actions, result_array);
@@ -123,9 +121,7 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 	t_move_action	valid_actions[4];
 	t_move_action	rule;
 	int				*start_ptr;
-	t_stack_ptr		*stack_ptr;
 
-	stack_ptr = &sort_result->stack_ptr;
 	start_ptr = count_max_average(sort_result->stack, sort_result->stack_a_size);
 	if ((size_t)(start_ptr - sort_result->stack) >= sort_result->stack_a_size / 2)
 	{
@@ -176,10 +172,8 @@ void		random_sort_v3(t_sort_result *sort_result, t_list **result_array,
 															size_t *max_actions)
 {
 	int				is_sorted;
-	t_stack_ptr		*stack_ptr;
 	int				result_required;
 
-	stack_ptr = &sort_result->stack_ptr;
 	result_required = (*max_actions == (size_t)-1) ? 1 : 0;
 	if (result_required)
 		*max_actions = 10;

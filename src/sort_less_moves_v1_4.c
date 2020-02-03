@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 08:48:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 07:37:57 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:41:16 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static t_list	*select_next_integer(t_sort_result *sort_result)
 {
 	if (sort_result->stack_a.top)
 	{
-		return (sort_result->stack_ptr.top_b);
+		return (sort_result->stack_b.top);
 	}
 	else
 	{
-		if (sort_result->stack_ptr.top_b)
-			return (sort_result->stack_ptr.top_b);
+		if (sort_result->stack_b.top)
+			return (sort_result->stack_b.top);
 		else
 			return (NULL);
 	}
@@ -31,14 +31,12 @@ void			less_moves_sort_v1_4(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
 	t_list		*next_to_move;
-	t_stack_ptr		*stack_ptr;
 
-	stack_ptr = &sort_result->stack_ptr;
 	move_all_to_stack_b_v4(sort_result);
-	while (sort_result->stack_ptr.top_b)
+	while (sort_result->stack_b.top)
 	{
 		next_to_move = select_next_integer(sort_result);
-		while (sort_result->stack_ptr.top_b != next_to_move)
+		while (sort_result->stack_b.top != next_to_move)
 		{
 			if (!(sort_result->total_num_of_actions < 80000))
 				break ;
@@ -46,8 +44,8 @@ void			less_moves_sort_v1_4(t_sort_result *sort_result,
 		}
 		if (sort_result->stack_a.top)
 		{
-			if (*(int *)sort_result->stack_ptr.top_b->content > sort_result->max ||
-				*(int *)sort_result->stack_ptr.top_b->content < sort_result->min)
+			if (*(int *)sort_result->stack_b.top->content > sort_result->max ||
+				*(int *)sort_result->stack_b.top->content < sort_result->min)
 			{
 				while (*(int *)sort_result->stack_a.top->content !=
 								sort_result->min)
@@ -60,9 +58,9 @@ void			less_moves_sort_v1_4(t_sort_result *sort_result,
 			else
 			{
 				while (!(*(int *)sort_result->stack_a.top->content >
-								*(int *)sort_result->stack_ptr.top_b->content &&
+								*(int *)sort_result->stack_b.top->content &&
 						*(int *)sort_result->stack_a.top->prev->content <
-								*(int *)sort_result->stack_ptr.top_b->content))
+								*(int *)sort_result->stack_b.top->content))
 				{
 					if (!(sort_result->total_num_of_actions < 80000))
 						break ;
@@ -72,8 +70,6 @@ void			less_moves_sort_v1_4(t_sort_result *sort_result,
 		}
 		execute_action(sort_result, pa);
 	}
-//	*max_actions = (*max_actions > sort_result->action_list_size) ?
-//				sort_result->action_list_size : *max_actions;
 	save_result(sort_result, max_actions, result_array);
 	return ;
 }

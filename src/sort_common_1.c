@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 07:42:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:24:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void			init_sort_result(t_sort_result *sort_result)
 
 void			execute_action(t_sort_result *sort_result, t_move_action action)
 {
-	t_stack_ptr		*stack_ptr;
+	t_stack			*stack_b;
 	t_stack			*stack_a;
 	t_list			*tmp_ptr;
 
-	stack_ptr = &sort_result->stack_ptr;
+	stack_b = &sort_result->stack_b;
 	stack_a = &sort_result->stack_a;
 	sort_result->total_num_of_actions++;
 	add_action(sort_result, action);
@@ -60,14 +60,14 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 		}
 		if (action == sb || action == ss)
 		{
-			stack_ptr->top_b->next->next->prev = stack_ptr->top_b; /* -1 */
-			tmp_ptr = stack_ptr->top_b->next->next; /* 0 */
-			stack_ptr->top_b->next->next = stack_ptr->top_b; /* 1 */
-			stack_ptr->top_b = stack_ptr->top_b->next; /* 2 */
-			stack_ptr->top_b->next->next = tmp_ptr; /* 0 */
-			stack_ptr->top_b->prev->prev->next = stack_ptr->top_b; /* 3 */
-			stack_ptr->top_b->prev = stack_ptr->top_b->next->prev; /* 5 */
-			stack_ptr->top_b->next->prev = stack_ptr->top_b; /* 4 */
+			stack_b->top->next->next->prev = stack_b->top; /* -1 */
+			tmp_ptr = stack_b->top->next->next; /* 0 */
+			stack_b->top->next->next = stack_b->top; /* 1 */
+			stack_b->top = stack_b->top->next; /* 2 */
+			stack_b->top->next->next = tmp_ptr; /* 0 */
+			stack_b->top->prev->prev->next = stack_b->top; /* 3 */
+			stack_b->top->prev = stack_b->top->next->prev; /* 5 */
+			stack_b->top->next->prev = stack_b->top; /* 4 */
 		}
 	}
 	else if (action == pb || action == pa)

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 11:03:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 07:36:35 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:40:55 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_list	*select_next_integer(t_sort_result *sort_result)
 	selected = NULL;
 	if (sort_result->stack_a.top)
 	{
-		ptr = sort_result->stack_ptr.top_b;
+		ptr = sort_result->stack_b.top;
 		previous_int = *(int *)sort_result->stack_a.top->content;
 		c = 4;
 		while (c--)
@@ -43,8 +43,8 @@ static t_list	*select_next_integer(t_sort_result *sort_result)
 	}
 	if (!selected)
 	{
-		if (sort_result->stack_ptr.top_b)
-			selected = sort_result->stack_ptr.top_b;
+		if (sort_result->stack_b.top)
+			selected = sort_result->stack_b.top;
 		else
 			selected = NULL;
 	}
@@ -55,14 +55,12 @@ void			less_moves_sort_v2_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
 	t_list		*next_to_move;
-	t_stack_ptr		*stack_ptr;
 
-	stack_ptr = &sort_result->stack_ptr;
 	move_all_to_stack_b_v4(sort_result);
-	while (sort_result->stack_ptr.top_b)
+	while (sort_result->stack_b.top)
 	{
 		next_to_move = select_next_integer(sort_result);
-		while ((sort_result->stack_ptr.top_b != next_to_move) ||
+		while ((sort_result->stack_b.top != next_to_move) ||
 
 			(sort_result->stack_a.top && *(int *)sort_result->stack_a.top->content !=
 									sort_result->min &&
@@ -76,7 +74,7 @@ void			less_moves_sort_v2_1(t_sort_result *sort_result,
 							*(int *)sort_result->stack_a.top->prev->content <
 									*(int *)next_to_move->content)))
 		{
-			if (sort_result->stack_ptr.top_b != next_to_move)
+			if (sort_result->stack_b.top != next_to_move)
 			{
 				if (!(sort_result->total_num_of_actions < 80000))
 					break ;

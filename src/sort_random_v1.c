@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:10:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 07:37:57 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:29:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,12 @@ static int	check_order(int *array, size_t size)
 static int	do_next_action(t_sort_result *sort_result,
 		t_move_action valid_actions, t_list **result_array, size_t *max_actions)
 {
-	t_stack_ptr		stack_ptr;
 	int				is_sorted;
 	t_move_action	new_valid_actions;
 	t_sort_result	save_result;
 	size_t			c;
 
 	new_valid_actions = 0;
-	stack_ptr = sort_result->stack_ptr;
 	is_sorted = check_order(sort_result->stack, sort_result->stack_a_size);
 	if (is_sorted)
 	{

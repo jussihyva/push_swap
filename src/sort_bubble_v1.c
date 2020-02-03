@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 13:21:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 07:47:11 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:28:51 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ static int		loop_if_swap(t_sort_result *sort_result)
 	int				is_sorted;
 	t_list			*end_ptr;
 	int				*stack;
-	t_stack_ptr		*stack_ptr;
 	t_stack			*stack_a;
 
 	stack = sort_result->stack;
-	stack_ptr = &sort_result->stack_ptr;
 	stack_a = &sort_result->stack_a;
 	end_ptr = stack_a->top->prev;
 	is_sorted = 1;

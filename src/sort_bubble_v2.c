@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 12:39:52 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 07:48:15 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:29:22 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 static int		loop_down_if_swap(t_sort_result *sort_result)
 {
 	int				is_sorted;
-	t_stack_ptr		*stack_ptr;
 	t_stack			*stack_a;
 	t_list			*end_ptr;
 
 	end_ptr = sort_result->stack_a.top->prev;
-	stack_ptr = &sort_result->stack_ptr;
 	stack_a = &sort_result->stack_a;
 	is_sorted = 1;
 	while (stack_a->top != end_ptr)
@@ -50,10 +48,8 @@ void			bubble_sort_v2(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
 	int				is_sorted;
-	t_stack_ptr		*stack_ptr;
 	t_stack			*stack_a;
 
-	stack_ptr = &sort_result->stack_ptr;
 	stack_a = &sort_result->stack_a;
 	if (*(int *)stack_a->top->content > sort_result->median)
 	{

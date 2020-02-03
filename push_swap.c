@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:13:57 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:23:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,7 @@ static void				stack_sort(t_input_data *input,
 {
 	t_sort_result	sort_result;
 	t_list			*elem;
-	t_stack_ptr		*stack_ptr;
 
-	stack_ptr = &sort_result.stack_ptr;
 	init_sort_result(&sort_result);
 	sort_result.action_list =
 			(t_move_action *)ft_memalloc(sizeof(*sort_result.action_list) * 200000);
@@ -131,13 +129,12 @@ static void				stack_sort(t_input_data *input,
 		elem = elem->next;
 	sort_result.stack_a.int_lst->prev = elem;
 	elem->next = sort_result.stack_a.int_lst;
-	sort_result.stack_b = NULL;
 	sort_result.median = input->median;
 	sort_result.min = input->min;
 	sort_result.max = input->max;
 	sort_result.average = input->average;
 	sort_result.stack_a.top = sort_result.stack_a.int_lst->prev;
-	sort_result.stack_ptr.top_b = NULL;
+	sort_result.stack_b.top = NULL;
 	step_prt_down(&sort_result);
 	((t_sort_function *)function_elem->content)->sort_function(&sort_result,
 													result_array, max_actions);
