@@ -73,22 +73,20 @@ static char				*merge_args(char **array, int size)
 	char		*tmp;
 	int			c;
 
-	c = -1;
-	s = NULL;
-	while (++c < size)
+	if (size)
 	{
-		if (s)
+		c = 0;
+		s = ft_strdup(array[c]);
+		while (++c < size)
 		{
-			tmp = ft_strjoin(s, array[c]);
+			tmp = ft_strjoin(s, " ");
 			ft_strdel(&s);
+			s = ft_strjoin(tmp, array[c]);
+			ft_strdel(&tmp);
 		}
-		else
-			tmp = ft_strdup(array[c]);
-		s = tmp;
-		tmp = ft_strjoin(s, " ");
-		ft_strdel(&s);
-		s = tmp;
 	}
+	else
+		s = ft_strdup("");
 	return (s);
 }
 
