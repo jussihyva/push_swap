@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:30:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 10:48:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 	t_move_action	rule;
 	int				*start_ptr;
 
-	start_ptr = count_max_average(sort_result->stack, sort_result->stack_a_size);
-	if ((size_t)(start_ptr - sort_result->stack) >= sort_result->stack_a_size / 2)
+	start_ptr = count_max_average(sort_result->stack_array, sort_result->stack_a.int_lst_size);
+	if ((size_t)(start_ptr - sort_result->stack_array) >= sort_result->stack_a.int_lst_size / 2)
 	{
 		if (*(int *)sort_result->stack_a.top->content > *(int *)sort_result->stack_a.top->next->content &&
 			*(int *)sort_result->stack_a.top->next->content >= sort_result->median)

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 12:13:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:33:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 10:48:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		move_all_to_stack_b_v1(t_sort_result *sort_result)
 {
-	while (sort_result->stack_a_size)
+	while (sort_result->stack_a.int_lst_size)
 		execute_action(sort_result, pb);
 	return ;
 }
@@ -26,7 +26,7 @@ void		move_all_to_stack_b_v2(t_sort_result *sort_result)
 
 	stack_b = &sort_result->stack_b;
 	stack_a = &sort_result->stack_a;
-	while (sort_result->stack_a_size)
+	while (sort_result->stack_a.int_lst_size)
 	{
 		execute_action(sort_result, pb);
 		if (stack_a->top &&
@@ -50,7 +50,7 @@ void		move_all_to_stack_b_v3(t_sort_result *sort_result)
 	stack_b = &sort_result->stack_b;
 	factor = 1.5;
 	stack_a = &sort_result->stack_a;
-	while (sort_result->stack_a_size)
+	while (sort_result->stack_a.int_lst_size)
 	{
 		execute_action(sort_result, pb);
 		if (stack_a->top &&
@@ -75,7 +75,7 @@ void		move_all_to_stack_b_v4(t_sort_result *sort_result)
 	stack_b = &sort_result->stack_b;
 	factor = 1.5;
 	stack_a = &sort_result->stack_a;
-	while (sort_result->stack_a_size)
+	while (sort_result->stack_a.int_lst_size)
 	{
 		execute_action(sort_result, pb);
 		if (stack_a->top &&

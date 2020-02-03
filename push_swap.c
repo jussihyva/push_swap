@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:23:19 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 10:48:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ static void				stack_sort(t_input_data *input,
 	init_sort_result(&sort_result);
 	sort_result.action_list =
 			(t_move_action *)ft_memalloc(sizeof(*sort_result.action_list) * 200000);
-	sort_result.stack = ft_intdup(input->int_array, input->int_array_size);
-	sort_result.stack_a_size = input->int_array_size;
+	sort_result.stack_array = ft_intdup(input->int_array, input->int_array_size);
+	sort_result.stack_a.int_lst_size = input->int_array_size;
 	sort_result.stack_a.int_lst = ft_lstmap(input->int_list, ft_lstcpy);
 	elem = sort_result.stack_a.int_lst;
 	while (elem->next)
@@ -140,8 +140,8 @@ static void				stack_sort(t_input_data *input,
 													result_array, max_actions);
 //	free(sort_result.action_list);
 //	ft_lstdel(&sort_result.stack_a, *del_stack);
-//	free(sort_result.stack);
-	sort_result.stack = NULL;
+//	free(sort_result.stack_array);
+	sort_result.stack_array = NULL;
 	return ;
 }
 
@@ -158,8 +158,8 @@ int						main(int argc, char **argv)
 	{
 		max_actions = 20000;
 		sort_function_list = (t_list **)ft_memalloc(sizeof(*sort_function_list));
-		sort_function.sort_function = (void *)bubble_sort_v1;
-		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		// sort_function.sort_function = (void *)bubble_sort_v1;
+		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 						// sort_function.sort_function = (void *)random_sort_v1;
 						// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		// sort_function.sort_function = (void *)bubble_sort_v2;

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 12:30:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:28:22 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 10:49:11 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ void			move_to_stack(t_sort_result *sort_result, t_move_action action)
 	stack_a = &sort_result->stack_a;
 	if (action == pa)
 	{
-		sort_result->stack_b_size--;
-		sort_result->stack_a_size++;
+		sort_result->stack_b.int_lst_size--;
+		sort_result->stack_a.int_lst_size++;
 		stack_b->top->prev->next = stack_b->top->next;
 		stack_b->top->next->prev = stack_b->top->prev;
 		if (stack_a->top == NULL)
@@ -153,8 +153,8 @@ void			move_to_stack(t_sort_result *sort_result, t_move_action action)
 	}
 	else if (action == pb)
 	{
-		sort_result->stack_a_size--;
-		sort_result->stack_b_size++;
+		sort_result->stack_a.int_lst_size--;
+		sort_result->stack_b.int_lst_size++;
 		stack_a->top->prev->next = stack_a->top->next;
 		stack_a->top->next->prev = stack_a->top->prev;
 		if (stack_b->top == NULL)

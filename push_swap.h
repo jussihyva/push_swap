@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:17:22 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 10:52:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,8 @@ typedef struct s_stack
 {
 	t_list		*top;
 	t_list		*int_lst;
+	size_t		int_lst_size;
 }				t_stack;
-
-typedef struct	s_stack_ptr
-{
-//	t_list		*top_a;
-//	t_list		*top_b;
-}				t_stack_ptr;
 
 typedef struct	s_input_data
 {
@@ -68,11 +63,7 @@ typedef struct	s_sort_result
 {
 	t_stack			stack_a;
 	t_stack			stack_b;
-	int				*stack;
-//	t_list			*stack_a;
-	size_t			stack_a_size;
-//	t_list			*stack_b;
-	size_t			stack_b_size;
+	int				*stack_array;
 	int				min;
 	int				max;
 	int				min_b;
@@ -84,7 +75,6 @@ typedef struct	s_sort_result
 	size_t			seq_action_counter;
 	t_move_action	last_action;
 	size_t			total_num_of_actions;
-//	t_stack_ptr		stack_ptr;
 }				t_sort_result;
 
 typedef struct	s_sort_function

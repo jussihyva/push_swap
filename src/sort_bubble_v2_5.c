@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 13:57:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:38:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 10:48:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int		loop_down_if_swap(t_sort_result *sort_result,
 			execute_rr_action(sort_result);
 		}
 	}
-	if (loop_cnt != sort_result->stack_a_size - 1)
+	if (loop_cnt != sort_result->stack_a.int_lst_size - 1)
 		is_sorted = 0;
 	return (is_sorted);
 }

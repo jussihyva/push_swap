@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:27:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 10:49:11 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,20 @@
 
 void			step_prt_up(t_sort_result *sort_result)
 {
-	int				*stack;
 	t_stack			*stack_a;
 
-	stack = sort_result->stack;
 	stack_a = &sort_result->stack_a;
-	if (sort_result->stack_a_size)
+	if (sort_result->stack_a.int_lst_size)
 		stack_a->top = stack_a->top->prev;
 	return ;
 }
 
 void			step_prt_down(t_sort_result *sort_result)
 {
-	int				*stack;
 	t_stack			*stack_a;
 
-	stack = sort_result->stack;
 	stack_a = &sort_result->stack_a;
-	if (sort_result->stack_a_size)
+	if (sort_result->stack_a.int_lst_size)
 		stack_a->top = stack_a->top->next;
 	return ;
 }
@@ -41,7 +37,8 @@ void			step_prt_down_b(t_sort_result *sort_result)
 	t_stack			*stack_b;
 
 	stack_b = &sort_result->stack_b;
-	stack_b->top = stack_b->top->next;
+	if (sort_result->stack_b.int_lst_size)
+		stack_b->top = stack_b->top->next;
 	return ;
 }
 
@@ -71,9 +68,9 @@ void			optimize_last_actions(t_sort_result *sort_result)
 	{
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
 		if ((last_action == ra || last_action == rra) &&
-			sort_result->seq_action_counter == (size_t)sort_result->stack_a_size)
+			sort_result->seq_action_counter == (size_t)sort_result->stack_a.int_lst_size)
 		{
-			sort_result->action_list_size -= sort_result->stack_a_size;
+			sort_result->action_list_size -= sort_result->stack_a.int_lst_size;
 			if (sort_result->action_list_size)
 				sort_result->last_action =
 						sort_result->action_list[sort_result->action_list_size - 1];
@@ -83,10 +80,10 @@ void			optimize_last_actions(t_sort_result *sort_result)
 		}
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
 		while ((last_action == rb || last_action == rrb) &&
-			(size_t)sort_result->stack_b_size > 2 &&
-			sort_result->seq_action_counter >= (size_t)sort_result->stack_b_size)
+			(size_t)sort_result->stack_b.int_lst_size > 2 &&
+			sort_result->seq_action_counter >= (size_t)sort_result->stack_b.int_lst_size)
 		{
-			sort_result->action_list_size -= sort_result->stack_b_size;
+			sort_result->action_list_size -= sort_result->stack_b.int_lst_size;
 			if (sort_result->action_list_size)
 				sort_result->last_action =
 						sort_result->action_list[sort_result->action_list_size - 1];
@@ -97,10 +94,10 @@ void			optimize_last_actions(t_sort_result *sort_result)
 		}
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
 		if ((last_action == rr || last_action == rrr) &&
-			sort_result->seq_action_counter == (size_t)sort_result->stack_b_size &&
-			(size_t)sort_result->stack_a_size == (size_t)sort_result->stack_b_size)
+			sort_result->seq_action_counter == (size_t)sort_result->stack_b.int_lst_size &&
+			(size_t)sort_result->stack_a.int_lst_size == (size_t)sort_result->stack_b.int_lst_size)
 		{
-			sort_result->action_list_size -= sort_result->stack_b_size;
+			sort_result->action_list_size -= sort_result->stack_b.int_lst_size;
 			if (sort_result->action_list_size)
 				sort_result->last_action =
 						sort_result->action_list[sort_result->action_list_size - 1];
@@ -110,12 +107,12 @@ void			optimize_last_actions(t_sort_result *sort_result)
 		}
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
 		if ((last_action == ra || last_action == rra) &&
-			(size_t)sort_result->stack_a_size > 2 &&
-			sort_result->seq_action_counter > (size_t)sort_result->stack_a_size / 2)
+			(size_t)sort_result->stack_a.int_lst_size > 2 &&
+			sort_result->seq_action_counter > (size_t)sort_result->stack_a.int_lst_size / 2)
 		{
 			sort_result->action_list_size -= sort_result->seq_action_counter;
 			c = 0;
-			while (c++ < (size_t)sort_result->stack_a_size -
+			while (c++ < (size_t)sort_result->stack_a.int_lst_size -
 													sort_result->seq_action_counter)
 			{
 				if (last_action == ra)
@@ -133,12 +130,12 @@ void			optimize_last_actions(t_sort_result *sort_result)
 		}
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
 		// if ((last_action == rr) &&
-		// 	sort_result->seq_action_counter > (size_t)sort_result->stack_a_size / 2 &&
-		// 	(size_t)sort_result->stack_a_size == (size_t)sort_result->stack_b_size)
+		// 	sort_result->seq_action_counter > (size_t)sort_result->stack_a.int_lst_size / 2 &&
+		// 	(size_t)sort_result->stack_a.int_lst_size == (size_t)sort_result->stack_b.int_lst_size)
 		// {
 		// 	sort_result->action_list_size -= sort_result->seq_action_counter;
 		// 	c = 0;
-		// 	while (c++ < (size_t)sort_result->stack_a_size -
+		// 	while (c++ < (size_t)sort_result->stack_a.int_lst_size -
 		// 											sort_result->seq_action_counter)
 		// 	{
 		// 		sort_result->action_list[sort_result->action_list_size] = rrr;
@@ -153,11 +150,11 @@ void			optimize_last_actions(t_sort_result *sort_result)
 		// }
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
 		if ((last_action == rb || last_action == rrb) &&
-			sort_result->seq_action_counter > (size_t)sort_result->stack_b_size / 2)
+			sort_result->seq_action_counter > (size_t)sort_result->stack_b.int_lst_size / 2)
 		{
 			sort_result->action_list_size -= sort_result->seq_action_counter;
 			c = 0;
-			while (c++ < (size_t)sort_result->stack_b_size -
+			while (c++ < (size_t)sort_result->stack_b.int_lst_size -
 													sort_result->seq_action_counter)
 			{
 				if (last_action == rb)

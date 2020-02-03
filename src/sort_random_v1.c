@@ -6,35 +6,35 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:10:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:29:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 10:20:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	check_order(int *array, size_t size)
+static int	check_order(t_list *top)
 {
-	int		*ptr;
-	int		*previous;
+	t_list		*ptr;
+	t_list		*previous;
 
-	ptr = array;
+	ptr = top;
 	previous = ptr;
-	ptr = ptr == (array + size - 1) ? array : ++ptr;
-	while (ptr != array && *previous > *ptr)
+	ptr = ptr->prev;
+	while (ptr != top && *(int *)previous->content > *(int *)ptr->content)
 	{
 		previous = ptr;
-		ptr = ptr == array + size - 1 ? array : ++ptr;
+		ptr = ptr->prev;
 	}
-	if (ptr == array)
+	if (ptr == top)
 		return (1);
 	previous = ptr;
-	ptr = ptr == (array + size - 1) ? array : ++ptr;
-	while (previous != array && *previous > *ptr)
+	ptr = ptr->prev;
+	while (previous != top && *(int *)previous->content > *(int *)ptr->content)
 	{
 		previous = ptr;
-		ptr = ptr == array + size - 1 ? array : ++ptr;
+		ptr = ptr->prev;
 	}
-	return (previous == array);
+	return (previous == top);
 }
 
 static int	do_next_action(t_sort_result *sort_result,
@@ -46,7 +46,7 @@ static int	do_next_action(t_sort_result *sort_result,
 	size_t			c;
 
 	new_valid_actions = 0;
-	is_sorted = check_order(sort_result->stack, sort_result->stack_a_size);
+	is_sorted = check_order(sort_result->stack_a.top);
 	if (is_sorted)
 	{
 		c = 0;

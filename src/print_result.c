@@ -6,24 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:31:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 16:39:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 10:28:03 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void		print_stack(int *stack, int size)
-{
-	int			c;
-
-	c = -1;
-	while (++c == size + 1)
-	{
-		ft_putnbr(*(stack + c));
-		ft_putchar(' ');
-	}
-	return ;
-}
 
 void		print_action_list(t_list **result_array)
 {
@@ -76,7 +63,6 @@ void		print_action_list(t_list **result_array)
 				ft_putendl("ss");
 			sleep(0);
 		}
-		print_stack(sort_result->stack, sort_result->stack_a_size);
 //		free(sort_result->stack);
 		free(sort_result->action_list);
 		free(sort_result);
