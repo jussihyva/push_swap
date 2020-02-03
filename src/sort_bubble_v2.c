@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 12:39:52 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:29:22 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 11:09:30 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void			bubble_sort_v2(t_sort_result *sort_result,
 	t_stack			*stack_a;
 
 	stack_a = &sort_result->stack_a;
-	if (*(int *)stack_a->top->content > sort_result->median)
+	if (*(int *)stack_a->top->content > sort_result->stack_a.median)
 	{
 		sort_result->action_list_size = 0;
 			execute_action(sort_result, ra);
 	}
-	else if (*(int *)sort_result->stack_a.top->content <= sort_result->median)
+	else if (*(int *)sort_result->stack_a.top->content <= sort_result->stack_a.median)
 	{
 		sort_result->action_list_size = 0;
 		execute_action(sort_result, rra);

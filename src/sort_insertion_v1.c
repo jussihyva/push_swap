@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 16:39:09 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 11:01:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 11:09:30 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		loop_down_if_swap(t_sort_result *sort_result,
 		}
 		else
 		{
-			if (!is_sorted && *(int *)stack_a->top->prev->content <= sort_result->median)
+			if (!is_sorted && *(int *)stack_a->top->prev->content <= sort_result->stack_a.median)
 				break ;
 			execute_action(sort_result, ra);
 		}
