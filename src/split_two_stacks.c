@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 12:13:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 11:09:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 12:24:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,42 @@ void		move_all_to_stack_b_v4(t_sort_result *sort_result)
 			execute_action(sort_result, rr);
 		else if (*(int *)stack_b->top->content <= sort_result->stack_a.median &&
 			*(int *)stack_b->top->next->content > sort_result->stack_a.median)
+			execute_action(sort_result, rb);
+		else if (stack_a->top &&
+			*(int *)stack_b->top->content
+									< *(int *)stack_b->top->next->content &&
+			*(int *)stack_a->top->content
+									> *(int *)stack_a->top->next->content)
+			execute_action(sort_result, ss);
+		// else if (*(int *)stack_b->top->content
+		// 							< *(int *)stack_b->top->next->content)
+		// 	execute_action(sort_result, sb);
+	}
+	return ;
+}
+
+void		move_to_stack_b_v1(t_sort_result *sort_result, int percentage)
+{
+	t_stack			*stack_a;
+	double			factor;
+	t_stack			*stack_b;
+	size_t			target_size;
+
+	stack_b = &sort_result->stack_b;
+	factor = 1.5;
+	stack_a = &sort_result->stack_a;
+	target_size = stack_a->int_lst_size * percentage / (double)100;
+	while (stack_a->int_lst_size > target_size)
+	{
+		execute_action(sort_result, pb);
+		if (stack_a->top &&
+			*(int *)stack_b->top->content <= stack_a->median &&
+			*(int *)stack_b->top->next->content > stack_a->median &&
+			*(int *)stack_a->top->content > stack_a->median / 2 &&
+			*(int *)stack_a->top->content < stack_a->median * factor)
+			execute_action(sort_result, rr);
+		else if (*(int *)stack_b->top->content <= stack_a->median &&
+			*(int *)stack_b->top->next->content > stack_a->median)
 			execute_action(sort_result, rb);
 		else if (stack_a->top &&
 			*(int *)stack_b->top->content
