@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 12:24:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 15:27:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ typedef enum	e_move_action
 
 typedef enum	e_stack_status
 {
-	stack_a_ready = 0x01,
-	stack_b_ready = 0x02
+	source_stack_ready = 0x01,
+	target_stack_ready = 0x02
 }				t_stack_status;
 
 typedef struct s_stack
@@ -140,7 +140,6 @@ void			move_all_to_stack_b_v1(t_sort_result *sort_result);
 void			move_all_to_stack_b_v2(t_sort_result *sort_result);
 void			move_all_to_stack_b_v3(t_sort_result *sort_result);
 void			move_all_to_stack_b_v4(t_sort_result *sort_result);
-void			move_to_stack_b_v1(t_sort_result *sort_result, int percentage);
 void			bubble_sort_v2_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			bubble_sort_v2_2(t_sort_result *sort_result,
@@ -164,5 +163,7 @@ void			less_moves_sort_v1_4(t_sort_result *sort_result,
 void			less_moves_sort_v2_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			min_max(t_sort_result *sort_result);
+void			move_max_to_top(t_sort_result *sort_result, t_stack *stack,
+												int max, t_move_action action);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 12:30:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 11:01:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 15:34:15 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,24 @@ void	min_max(t_sort_result *sort_result)
 				sort_result->stack_a.min = *(int *)ptr->content;
 			else if (sort_result->stack_a.max < *(int *)ptr->content)
 				sort_result->stack_a.max = *(int *)ptr->content;
+			ptr = ptr->next;
+		}
+	}
+	sort_result->stack_b.min = INT_MAX;
+	sort_result->stack_b.max = INT_MIN;
+	start_ptr = sort_result->stack_b.top;
+	if (start_ptr)
+	{
+		ptr = start_ptr;
+		sort_result->stack_b.min = *(int *)ptr->content;
+		sort_result->stack_b.max = *(int *)ptr->content;
+		ptr = ptr->next;
+		while(ptr != start_ptr)
+		{
+			if (sort_result->stack_b.min > *(int *)ptr->content)
+				sort_result->stack_b.min = *(int *)ptr->content;
+			else if (sort_result->stack_b.max < *(int *)ptr->content)
+				sort_result->stack_b.max = *(int *)ptr->content;
 			ptr = ptr->next;
 		}
 	}
@@ -80,6 +98,20 @@ int				*count_max_average(int *array, size_t size)
 		++ptr;
 	}
 	return (start_ptr);
+}
+
+void			move_max_to_top(t_sort_result *sort_result, t_stack *stack,
+												int max, t_move_action action)
+{
+	t_list		*ptr;
+
+	ptr = stack->top;
+	if (stack->top)
+	{
+		while (*(int *)sort_result->stack_b.top->content != max)
+			execute_action(sort_result, action);
+	}
+	return ;
 }
 
 void			save_result(t_sort_result *sort_result, size_t *max_actions,

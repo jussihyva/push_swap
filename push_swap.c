@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 11:27:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 15:37:44 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ static void				stack_sort(t_input_data *input,
 	sort_result.stack_a.median = input->median;
 	sort_result.stack_a.min = input->min;
 	sort_result.stack_a.max = input->max;
+	sort_result.stack_b.min = INT_MAX;
+	sort_result.stack_b.max = INT_MIN;
 	sort_result.stack_a.average = input->average;
 	sort_result.stack_a.top = sort_result.stack_a.int_lst->prev;
 	sort_result.stack_b.top = NULL;
