@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 12:30:27 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 10:49:11 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 11:01:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ void	min_max(t_sort_result *sort_result)
 	t_list		*start_ptr;
 	t_list		*ptr;
 
-	sort_result->min = INT_MAX;
-	sort_result->max = INT_MIN;
+	sort_result->stack_a.min = INT_MAX;
+	sort_result->stack_a.max = INT_MIN;
 	start_ptr = sort_result->stack_a.top;
 	if (start_ptr)
 	{
 		ptr = start_ptr;
-		sort_result->min = *(int *)ptr->content;
-		sort_result->max = *(int *)ptr->content;
+		sort_result->stack_a.min = *(int *)ptr->content;
+		sort_result->stack_a.max = *(int *)ptr->content;
 		ptr = ptr->next;
 		while(ptr != start_ptr)
 		{
-			if (sort_result->min > *(int *)ptr->content)
-				sort_result->min = *(int *)ptr->content;
-			else if (sort_result->max < *(int *)ptr->content)
-				sort_result->max = *(int *)ptr->content;
+			if (sort_result->stack_a.min > *(int *)ptr->content)
+				sort_result->stack_a.min = *(int *)ptr->content;
+			else if (sort_result->stack_a.max < *(int *)ptr->content)
+				sort_result->stack_a.max = *(int *)ptr->content;
 			ptr = ptr->next;
 		}
 	}
@@ -92,7 +92,7 @@ void			save_result(t_sort_result *sort_result, size_t *max_actions,
 	c = 0;
 	if (sort_result->stack_a.top)
 	{
-		while (*(int *)sort_result->stack_a.top->content != sort_result->min)
+		while (*(int *)sort_result->stack_a.top->content != sort_result->stack_a.min)
 		{
 			execute_action(sort_result, rra);
 			c++;
@@ -159,8 +159,8 @@ void			move_to_stack(t_sort_result *sort_result, t_move_action action)
 		stack_a->top->next->prev = stack_a->top->prev;
 		if (stack_b->top == NULL)
 		{
-			sort_result->min_b = INT_MAX;
-			sort_result->max_b = INT_MIN;
+			sort_result->stack_b.min = INT_MAX;
+			sort_result->stack_b.max = INT_MIN;
 			stack_b->top = stack_a->top;
 			if (stack_a->top == stack_a->top->next)
 				stack_a->top = NULL;
@@ -182,9 +182,9 @@ void			move_to_stack(t_sort_result *sort_result, t_move_action action)
 			stack_b->top->prev = tmp;
 			stack_b->top = tmp;
 		}
-		if (sort_result->min_b > *(int *)stack_b->top->content)
-			sort_result->min_b = *(int *)stack_b->top->content;
-		if (sort_result->max_b < *(int *)stack_b->top->content)
-			sort_result->max_b = *(int *)stack_b->top->content;
+		if (sort_result->stack_b.min > *(int *)stack_b->top->content)
+			sort_result->stack_b.min = *(int *)stack_b->top->content;
+		if (sort_result->stack_b.max < *(int *)stack_b->top->content)
+			sort_result->stack_b.max = *(int *)stack_b->top->content;
 	}
 }

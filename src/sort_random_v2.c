@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 10:48:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 11:01:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	do_next_action(t_sort_result *sort_result,
 		if (!is_sorted_high)
 		{
 			is_sorted_high = check_order_high(sort_result->stack_a.top,
-										sort_result->median, sort_result->max);
+										sort_result->median, sort_result->stack_a.max);
 			if (is_sorted_high)
 			{
 				valid_actions[0] = v11;
@@ -90,7 +90,7 @@ static int	do_next_action(t_sort_result *sort_result,
 	if (is_sorted)
 	{
 		c = 0;
-		while (*(int *)sort_result->stack_a.top->content != sort_result->min)
+		while (*(int *)sort_result->stack_a.top->content != sort_result->stack_a.min)
 		{
 			execute_action(sort_result, rra);
 			c++;

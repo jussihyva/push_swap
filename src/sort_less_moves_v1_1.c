@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:58:33 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 08:40:26 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 11:01:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void			less_moves_sort_v1_1(t_sort_result *sort_result,
 		}
 		if (sort_result->stack_a.top)
 		{
-			if (*(int *)sort_result->stack_b.top->content > sort_result->max ||
-				*(int *)sort_result->stack_b.top->content < sort_result->min)
+			if (*(int *)sort_result->stack_b.top->content > sort_result->stack_a.max ||
+				*(int *)sort_result->stack_b.top->content < sort_result->stack_a.min)
 			{
 				while (*(int *)sort_result->stack_a.top->content !=
-								sort_result->min)
+								sort_result->stack_a.min)
 				{
 					if (!(sort_result->total_num_of_actions < 80000))
 						break ;

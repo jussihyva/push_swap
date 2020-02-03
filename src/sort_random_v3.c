@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 13:12:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 10:48:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 11:01:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	check_order(t_sort_result *sort_result, t_move_action **valid_actions
 		if (!is_sorted_high)
 		{
 			is_sorted_high = check_order_high(top, sort_result->median,
-															sort_result->max);
+															sort_result->stack_a.max);
 			if (is_sorted_high)
 			{
 				*(*valid_actions + 0) = v11;

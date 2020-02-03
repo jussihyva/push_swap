@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 16:39:09 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 10:48:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 11:01:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int		loop_down_if_swap(t_sort_result *sort_result,
 
 	is_sorted = 1;
 	loop_cnt = 0;
-	while (*(int *)stack_a->top->content != sort_result->max)
+	while (*(int *)stack_a->top->content != sort_result->stack_a.max)
 	{
 		loop_cnt++;
 		if (*(int *)stack_a->top->content > *(int *)stack_a->top->next->content)
@@ -47,7 +47,7 @@ static int		loop_up_if_swap(t_sort_result *sort_result,
 	int				is_sorted;
 
 	is_sorted = 0;
-	while (*(int *)stack_a->top->content != sort_result->max)
+	while (*(int *)stack_a->top->content != sort_result->stack_a.max)
 	{
 		if (*(int *)stack_a->top->next->content < *(int *)stack_a->top->content)
 		{
@@ -83,7 +83,7 @@ void			insertion_sort_v1(t_sort_result *sort_result,
 	is_sorted = 0;
 	while (!is_sorted && sort_result->total_num_of_actions < 80000)
 		is_sorted = loop_if_swap(sort_result);
-	while (*(int *)stack_a->top->content != sort_result->min)
+	while (*(int *)stack_a->top->content != sort_result->stack_a.min)
 		execute_action(sort_result, rra);
 	ft_lstadd_e(result_array, ft_lstnew(sort_result, sizeof(*sort_result)));
 	*max_actions = (*max_actions > sort_result->action_list_size) ?
