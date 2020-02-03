@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 12:39:52 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 16:15:51 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 07:48:15 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@ static int		loop_down_if_swap(t_sort_result *sort_result)
 {
 	int				is_sorted;
 	t_stack_ptr		*stack_ptr;
+	t_stack			*stack_a;
 	t_list			*end_ptr;
 
-	end_ptr = sort_result->stack_ptr.top_a->prev;
+	end_ptr = sort_result->stack_a.top->prev;
 	stack_ptr = &sort_result->stack_ptr;
+	stack_a = &sort_result->stack_a;
 	is_sorted = 1;
-	while (stack_ptr->top_a != end_ptr)
+	while (stack_a->top != end_ptr)
 	{
-		if (*(int *)stack_ptr->top_a->content > *(int *)stack_ptr->top_a->next->content)
+		if (*(int *)stack_a->top->content > *(int *)stack_a->top->next->content)
 		{
-			if (end_ptr == stack_ptr->top_a->next)
-				end_ptr = stack_ptr->top_a;
+			if (end_ptr == stack_a->top->next)
+				end_ptr = stack_a->top;
 			execute_action(sort_result, sa);
 			is_sorted = 0;
 		}
@@ -49,14 +51,16 @@ void			bubble_sort_v2(t_sort_result *sort_result,
 {
 	int				is_sorted;
 	t_stack_ptr		*stack_ptr;
+	t_stack			*stack_a;
 
 	stack_ptr = &sort_result->stack_ptr;
-	if (*(int *)stack_ptr->top_a->content > sort_result->median)
+	stack_a = &sort_result->stack_a;
+	if (*(int *)stack_a->top->content > sort_result->median)
 	{
 		sort_result->action_list_size = 0;
 			execute_action(sort_result, ra);
 	}
-	else if (*(int *)sort_result->stack_ptr.top_a->content <= sort_result->median)
+	else if (*(int *)sort_result->stack_a.top->content <= sort_result->median)
 	{
 		sort_result->action_list_size = 0;
 		execute_action(sort_result, rra);

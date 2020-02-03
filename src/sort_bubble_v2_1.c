@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 12:29:47 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 17:46:23 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:03:11 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static void		sort_a(t_sort_result *sort_result)
 {
 	int				is_sorted;
-	t_stack_ptr		*stack_ptr;
+	t_stack			*stack_a;
 
-	stack_ptr = &sort_result->stack_ptr;
-	while (*(int *)stack_ptr->top_a->content != sort_result->max)
+	stack_a = &sort_result->stack_a;
+	while (*(int *)stack_a->top->content != sort_result->max)
 	{
-		if (*(int *)stack_ptr->top_a->content > *(int *)stack_ptr->top_a->next->content)
+		if (*(int *)stack_a->top->content > *(int *)stack_a->top->next->content)
 			execute_action(sort_result, sa);
 		execute_action(sort_result, ra);
 	}
@@ -29,9 +29,9 @@ static void		sort_a(t_sort_result *sort_result)
 	while (!is_sorted)
 	{
 		is_sorted = 1;
-		while (*(int *)stack_ptr->top_a->content != sort_result->max)
+		while (*(int *)stack_a->top->content != sort_result->max)
 		{
-			if (*(int *)stack_ptr->top_a->content > *(int *)stack_ptr->top_a->next->content)
+			if (*(int *)stack_a->top->content > *(int *)stack_a->top->next->content)
 			{
 				execute_action(sort_result, sa);
 				is_sorted = 0;
@@ -94,8 +94,6 @@ void			bubble_sort_v2_1(t_sort_result *sort_result,
 		sort_b(sort_result);
 		move_stack_b_to_a(sort_result);
 	}
-//	*max_actions = (*max_actions > sort_result->action_list_size) ?
-//				sort_result->action_list_size : *max_actions;
 	save_result(sort_result, max_actions, result_array);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:58:33 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 16:12:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 07:37:57 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_list	*select_next_integer(t_sort_result *sort_result)
 {
-	if (sort_result->stack_ptr.top_a)
+	if (sort_result->stack_a.top)
 	{
 		return (sort_result->stack_ptr.top_b);
 	}
@@ -44,12 +44,12 @@ void			less_moves_sort_v1_1(t_sort_result *sort_result,
 				break ;
 			execute_action(sort_result, rb);
 		}
-		if (sort_result->stack_ptr.top_a)
+		if (sort_result->stack_a.top)
 		{
 			if (*(int *)sort_result->stack_ptr.top_b->content > sort_result->max ||
 				*(int *)sort_result->stack_ptr.top_b->content < sort_result->min)
 			{
-				while (*(int *)sort_result->stack_ptr.top_a->content !=
+				while (*(int *)sort_result->stack_a.top->content !=
 								sort_result->min)
 				{
 					if (!(sort_result->total_num_of_actions < 80000))
@@ -59,9 +59,9 @@ void			less_moves_sort_v1_1(t_sort_result *sort_result,
 			}
 			else
 			{
-				while (!(*(int *)sort_result->stack_ptr.top_a->content >
+				while (!(*(int *)sort_result->stack_a.top->content >
 								*(int *)sort_result->stack_ptr.top_b->content &&
-						*(int *)sort_result->stack_ptr.top_a->prev->content <
+						*(int *)sort_result->stack_a.top->prev->content <
 								*(int *)sort_result->stack_ptr.top_b->content))
 				{
 					if (!(sort_result->total_num_of_actions < 80000))

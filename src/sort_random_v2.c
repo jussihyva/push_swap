@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 14:37:05 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 07:37:57 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ static int	do_next_action(t_sort_result *sort_result,
 	t_sort_result			*save_result;
 	size_t					c;
 
-	is_sorted = check_order(sort_result->stack_ptr.top_a);
+	is_sorted = check_order(sort_result->stack_a.top);
 	if (!is_sorted)
 	{
 		if (!is_sorted_high)
 		{
-			is_sorted_high = check_order_high(sort_result->stack_ptr.top_a,
+			is_sorted_high = check_order_high(sort_result->stack_a.top,
 										sort_result->median, sort_result->max);
 			if (is_sorted_high)
 			{
@@ -90,7 +90,7 @@ static int	do_next_action(t_sort_result *sort_result,
 	if (is_sorted)
 	{
 		c = 0;
-		while (*(int *)sort_result->stack_ptr.top_a->content != sort_result->min)
+		while (*(int *)sort_result->stack_a.top->content != sort_result->min)
 		{
 			execute_action(sort_result, rra);
 			c++;
@@ -148,27 +148,27 @@ static int	loop_if_swap(t_sort_result *sort_result, t_list **result_array,
 	start_ptr = count_max_average(sort_result->stack, sort_result->stack_a_size);
 	if ((size_t)(start_ptr - sort_result->stack) >= sort_result->stack_a_size / 2)
 	{
-		if (*(int *)sort_result->stack_ptr.top_a->content > *(int *)sort_result->stack_ptr.top_a->next->content &&
-			*(int *)sort_result->stack_ptr.top_a->next->content >= sort_result->median)
+		if (*(int *)sort_result->stack_a.top->content > *(int *)sort_result->stack_a.top->next->content &&
+			*(int *)sort_result->stack_a.top->next->content >= sort_result->median)
 			execute_action(sort_result, sa);
-		while (*(int *)sort_result->stack_ptr.top_a->content != *start_ptr)
+		while (*(int *)sort_result->stack_a.top->content != *start_ptr)
 		{
 			execute_action(sort_result, rra);
-			if (*(int *)sort_result->stack_ptr.top_a->content > *(int *)sort_result->stack_ptr.top_a->next->content &&
-				*(int *)sort_result->stack_ptr.top_a->next->content >= sort_result->median)
+			if (*(int *)sort_result->stack_a.top->content > *(int *)sort_result->stack_a.top->next->content &&
+				*(int *)sort_result->stack_a.top->next->content >= sort_result->median)
 				execute_action(sort_result, sa);
 		}
 	}
 	else
 	{
-		if (*(int *)sort_result->stack_ptr.top_a->content > *(int *)sort_result->stack_ptr.top_a->next->content &&
-			*(int *)sort_result->stack_ptr.top_a->next->content >= sort_result->median)
+		if (*(int *)sort_result->stack_a.top->content > *(int *)sort_result->stack_a.top->next->content &&
+			*(int *)sort_result->stack_a.top->next->content >= sort_result->median)
 			execute_action(sort_result, sa);
-		while (*(int *)sort_result->stack_ptr.top_a->content != *start_ptr)
+		while (*(int *)sort_result->stack_a.top->content != *start_ptr)
 		{
 			execute_action(sort_result, ra);
-			if (*(int *)sort_result->stack_ptr.top_a->content > *(int *)sort_result->stack_ptr.top_a->next->content &&
-				*(int *)sort_result->stack_ptr.top_a->next->content >= sort_result->median)
+			if (*(int *)sort_result->stack_a.top->content > *(int *)sort_result->stack_a.top->next->content &&
+				*(int *)sort_result->stack_a.top->next->content >= sort_result->median)
 				execute_action(sort_result, sa);
 		}
 	}

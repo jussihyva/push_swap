@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 13:57:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 16:11:38 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:07:07 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void		execute_rr_action(t_sort_result *sort_result)
 }
 
 static int		loop_down_if_swap(t_sort_result *sort_result,
-													t_stack_ptr *stack_ptr)
+													t_stack *stack_a)
 {
 	int				is_sorted;
 	size_t			loop_cnt;
@@ -76,11 +76,11 @@ static int		loop_down_if_swap(t_sort_result *sort_result,
 	factor = 1.5;
 	is_sorted = 1;
 	loop_cnt = 0;
-	while (*(int *)stack_ptr->top_a->content != sort_result->max)
+	while (*(int *)stack_a->top->content != sort_result->max)
 	{
 		loop_cnt++;
-		if (*(int *)stack_ptr->top_a->content >
-										*(int *)stack_ptr->top_a->next->content)
+		if (*(int *)stack_a->top->content >
+										*(int *)stack_a->top->next->content)
 		{
 			execute_action(sort_result, sa);
 			is_sorted = 0;
@@ -88,7 +88,7 @@ static int		loop_down_if_swap(t_sort_result *sort_result,
 		}
 		else
 		{
-			if (!is_sorted && *(int *)stack_ptr->top_a->prev->content <=
+			if (!is_sorted && *(int *)stack_a->top->prev->content <=
 												(int)(sort_result->median * factor))
 				break ;
 			execute_rr_action(sort_result);
@@ -100,15 +100,15 @@ static int		loop_down_if_swap(t_sort_result *sort_result,
 }
 
 static int		loop_up_if_swap(t_sort_result *sort_result,
-													t_stack_ptr *stack_ptr)
+													t_stack *stack_a)
 {
 	int				is_sorted;
 
 	is_sorted = 0;
-	while (*(int *)stack_ptr->top_a->content != sort_result->max)
+	while (*(int *)stack_a->top->content != sort_result->max)
 	{
-		if (*(int *)stack_ptr->top_a->next->content <
-											*(int *)stack_ptr->top_a->content)
+		if (*(int *)stack_a->top->next->content <
+											*(int *)stack_a->top->content)
 		{
 			execute_action(sort_result, sa);
 			execute_action(sort_result, rra);
@@ -123,12 +123,12 @@ static int		loop_up_if_swap(t_sort_result *sort_result,
 static int		sort_a(t_sort_result *sort_result)
 {
 	int				is_sorted;
-	t_stack_ptr		*stack_ptr;
+	t_stack			*stack_a;
 
-	stack_ptr = &sort_result->stack_ptr;
-	is_sorted = loop_down_if_swap(sort_result, stack_ptr);
+	stack_a = &sort_result->stack_a;
+	is_sorted = loop_down_if_swap(sort_result, stack_a);
 	if (!is_sorted)
-		is_sorted = loop_up_if_swap(sort_result, stack_ptr);
+		is_sorted = loop_up_if_swap(sort_result, stack_a);
 	return (is_sorted);
 }
 
@@ -177,16 +177,16 @@ void			bubble_sort_v2_5(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
 	int				is_sorted;
-	t_stack_ptr		*stack_ptr;
+	t_stack			*stack_a;
 
-	stack_ptr = &sort_result->stack_ptr;
+	stack_a = &sort_result->stack_a;
 	if (sort_result->min != sort_result->max)
 	{
 		split_one_stack_to_two_v5(sort_result);
 		is_sorted = 0;
 		while (!is_sorted && sort_result->total_num_of_actions < 80000)
 			is_sorted = sort_a(sort_result);
-		while (*(int *)stack_ptr->top_a->prev->content != sort_result->max)
+		while (*(int *)stack_a->top->prev->content != sort_result->max)
 			execute_action(sort_result, ra);
 		sort_b(sort_result);
 		move_stack_b_to_a(sort_result);

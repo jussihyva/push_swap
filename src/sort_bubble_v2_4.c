@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 10:21:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/02 17:51:04 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:05:04 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ static void		execute_rr_action(t_sort_result *sort_result)
 static void		sort_a(t_sort_result *sort_result)
 {
 	int				is_sorted;
-	t_stack_ptr		*stack_ptr;
+	t_stack			*stack_a;
 
-	stack_ptr = &sort_result->stack_ptr;
-	while (*(int *)stack_ptr->top_a->content != sort_result->max)
+	stack_a = &sort_result->stack_a;
+	while (*(int *)stack_a->top->content != sort_result->max)
 	{
-		if (*(int *)stack_ptr->top_a->content > *(int *)stack_ptr->top_a->next->content)
+		if (*(int *)stack_a->top->content > *(int *)stack_a->top->next->content)
 			execute_action(sort_result, sa);
 		execute_rr_action(sort_result);
 	}
@@ -83,9 +83,9 @@ static void		sort_a(t_sort_result *sort_result)
 	while (!is_sorted)
 	{
 		is_sorted = 1;
-		while (*(int *)stack_ptr->top_a->content != sort_result->max)
+		while (*(int *)stack_a->top->content != sort_result->max)
 		{
-			if (*(int *)stack_ptr->top_a->content > *(int *)stack_ptr->top_a->next->content)
+			if (*(int *)stack_a->top->content > *(int *)stack_a->top->next->content)
 			{
 				execute_action(sort_result, sa);
 				is_sorted = 0;

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 07:06:42 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/03 08:13:57 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,18 +125,18 @@ static void				stack_sort(t_input_data *input,
 			(t_move_action *)ft_memalloc(sizeof(*sort_result.action_list) * 200000);
 	sort_result.stack = ft_intdup(input->int_array, input->int_array_size);
 	sort_result.stack_a_size = input->int_array_size;
-	sort_result.stack_a = ft_lstmap(input->int_list, ft_lstcpy);
-	elem = sort_result.stack_a;
+	sort_result.stack_a.int_lst = ft_lstmap(input->int_list, ft_lstcpy);
+	elem = sort_result.stack_a.int_lst;
 	while (elem->next)
 		elem = elem->next;
-	sort_result.stack_a->prev = elem;
-	elem->next = sort_result.stack_a;
+	sort_result.stack_a.int_lst->prev = elem;
+	elem->next = sort_result.stack_a.int_lst;
 	sort_result.stack_b = NULL;
 	sort_result.median = input->median;
 	sort_result.min = input->min;
 	sort_result.max = input->max;
 	sort_result.average = input->average;
-	sort_result.stack_ptr.top_a = sort_result.stack_a->prev;
+	sort_result.stack_a.top = sort_result.stack_a.int_lst->prev;
 	sort_result.stack_ptr.top_b = NULL;
 	step_prt_down(&sort_result);
 	((t_sort_function *)function_elem->content)->sort_function(&sort_result,
