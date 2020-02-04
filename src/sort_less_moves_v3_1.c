@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 14:18:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 15:58:00 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 19:33:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,14 +132,16 @@ static t_list	*get_best_move(t_sort_result *sort_result, size_t lst_size)
 	while (++c < lst_size)
 	{
 		if (sort_result->stack_a.move_cost[c].source_forward != -1 &&
-			sort_result->stack_b.move_cost[c].target_dec_forward != -1)
+			sort_result->stack_a.move_cost[c].target_dec_forward != -1)
 		{
 			moves = ft_max(sort_result->stack_a.move_cost[c].source_forward,
-			sort_result->stack_b.move_cost[c].target_dec_forward);
+			sort_result->stack_a.move_cost[c].target_dec_forward);
 			if (best_num_of_moves > moves)
 			{
 				best_num_of_moves = moves;
 				best_move = sort_result->stack_a.move_cost[c].elem;
+				if (!best_move)
+					ft_dprintf(2, "MOI! %lld\n", best_move->content);
 			}
 		}
 	}
@@ -163,8 +165,7 @@ static void		move_and_sort_to_stack_b_v1(t_sort_result *sort_result,
 	{
 		lst_size = sort_result->stack_a.int_lst_size + sort_result->stack_b.int_lst_size;
 		count_move_cost(sort_result);
-		ft_dprintf(2, "Move: %d\n" , *(int *)get_best_move(sort_result, lst_size)->content);
-		next_to_move = stack_a->top;
+		next_to_move = get_best_move(sort_result, lst_size);
 		move_status = 0;
 		while (move_status != (source_stack_ready | target_stack_ready) &&
 				sort_result->total_num_of_actions < 80000)

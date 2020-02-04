@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 15:49:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 19:25:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,9 @@ static void				stack_sort(t_input_data *input,
 		sort_result.stack_b.move_cost[nbr].elem = elem;
 		elem = elem->next;
 	}
+	nbr = *(int *)elem->content;
+	sort_result.stack_a.move_cost[nbr].elem = elem;
+	sort_result.stack_b.move_cost[nbr].elem = elem;
 	sort_result.stack_a.int_lst->prev = elem;
 	elem->next = sort_result.stack_a.int_lst;
 	sort_result.stack_a.median = input->median;
@@ -287,7 +290,7 @@ int						main(int argc, char **argv)
 			max_actions *= 10;
 			elem = elem->next;
 		}
-		sleep(1);
+		sleep(0);
 		print_action_list(result_array);
 		free(result_array);
 		result_array = NULL;
