@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 12:56:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 13:21:40 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@
 # include <limits.h>
 # include "libft.h"
 # include "ft_printf.h"
-
-typedef enum	e_sort_dir
-{
-	asc,
-	dec
-}				s_sort_dir;
 
 typedef enum	e_move_action
 {
@@ -54,8 +48,10 @@ typedef struct s_move_cost
 {
 	long		source_forward;
 	long		source_backward;
-	long		target_forward;
-	long		target_backward;
+	long		target_asc_forward;
+	long		target_asc_backward;
+	long		target_dec_forward;
+	long		target_dec_backward;
 }				t_move_cost;
 
 typedef struct s_stack
