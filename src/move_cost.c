@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:16:59 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 13:20:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 15:21:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static void		target_cost(t_list *start_ptr, t_move_cost *move_cost,
 	{
 		end_int = *(int *)ptr->content;
 		start_int = *(int *)ptr->prev->content;
-		c = ++start_int % lst_size;
-		while (c % lst_size != end_int)
+		c = start_int % lst_size;
+		while (c % lst_size != end_int % lst_size)
 		{
 			move_cost[c].target_asc_forward = cost_cnt;
 			move_cost[c].target_asc_backward = (lst_size - cost_cnt) % lst_size;
@@ -80,8 +80,8 @@ static void		target_cost(t_list *start_ptr, t_move_cost *move_cost,
 		}
 		start_int = *(int *)ptr->content;
 		end_int = *(int *)ptr->prev->content;
-		c = ++start_int % lst_size;
-		while (c % lst_size != end_int)
+		c = start_int % lst_size;
+		while (c % lst_size != end_int % lst_size)
 		{
 			move_cost[c].target_dec_forward = cost_cnt;
 			move_cost[c].target_dec_backward = (lst_size - cost_cnt) % lst_size;
@@ -99,15 +99,14 @@ void			count_move_cost(t_sort_result *sort_result)
 	t_move_cost		*move_cost;
 	size_t			lst_size;
 
+	lst_size = sort_result->stack_a.int_lst_size + sort_result->stack_b.int_lst_size;
 	reset_cost_counters(sort_result);
 	move_cost = sort_result->stack_a.move_cost;
 	start_ptr = sort_result->stack_a.top;
-	lst_size = sort_result->stack_a.int_lst_size;
 	source_cost(start_ptr, move_cost, lst_size);
 	target_cost(start_ptr, move_cost, lst_size);
 	move_cost = sort_result->stack_b.move_cost;
 	start_ptr = sort_result->stack_b.top;
-	lst_size = sort_result->stack_b.int_lst_size;
 	source_cost(start_ptr, move_cost, lst_size);
 	target_cost(start_ptr, move_cost, lst_size);
 	return ;

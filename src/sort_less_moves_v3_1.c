@@ -1,16 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_less_moves_v2_1.c                             :+:      :+:    :+:   */
+/*   sort_less_moves_v3_1.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/02 11:03:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 14:22:38 by jkauppi          ###   ########.fr       */
+/*   Created: 2020/02/04 14:18:32 by jkauppi           #+#    #+#             */
+/*   Updated: 2020/02/04 15:58:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static size_t	ft_max(size_t nbr1, size_t nbr2)
+{
+	return (nbr1 > nbr2 ? nbr1 : nbr2);
+}
 
 static t_list	*select_next_integer(t_sort_result *sort_result)
 {
@@ -114,6 +119,33 @@ static t_stack_status	source_stack_action(t_sort_result *sort_result,
 	return (0);
 }
 
+static t_list	*get_best_move(t_sort_result *sort_result, size_t lst_size)
+{
+	size_t			best_num_of_moves;
+	size_t			moves;
+	t_list			*best_move;
+	size_t			c;
+
+	best_num_of_moves = INT_MAX;
+	c = -1;
+	best_move = sort_result->stack_a.top;
+	while (++c < lst_size)
+	{
+		if (sort_result->stack_a.move_cost[c].source_forward != -1 &&
+			sort_result->stack_b.move_cost[c].target_dec_forward != -1)
+		{
+			moves = ft_max(sort_result->stack_a.move_cost[c].source_forward,
+			sort_result->stack_b.move_cost[c].target_dec_forward);
+			if (best_num_of_moves > moves)
+			{
+				best_num_of_moves = moves;
+				best_move = sort_result->stack_a.move_cost[c].elem;
+			}
+		}
+	}
+	return (best_move);
+}
+
 static void		move_and_sort_to_stack_b_v1(t_sort_result *sort_result,
 																int percentage)
 {
@@ -122,12 +154,16 @@ static void		move_and_sort_to_stack_b_v1(t_sort_result *sort_result,
 	size_t				target_size;
 	t_list				*next_to_move;
 	t_stack_status		move_status;
+	size_t				lst_size;
 
 	stack_b = &sort_result->stack_b;
 	stack_a = &sort_result->stack_a;
 	target_size = stack_a->int_lst_size * percentage / (double)100;
 	while (stack_a->int_lst_size > target_size)
 	{
+		lst_size = sort_result->stack_a.int_lst_size + sort_result->stack_b.int_lst_size;
+		count_move_cost(sort_result);
+		ft_dprintf(2, "Move: %d\n" , *(int *)get_best_move(sort_result, lst_size)->content);
 		next_to_move = stack_a->top;
 		move_status = 0;
 		while (move_status != (source_stack_ready | target_stack_ready) &&
@@ -141,7 +177,7 @@ static void		move_and_sort_to_stack_b_v1(t_sort_result *sort_result,
 	return ;
 }
 
-void			less_moves_sort_v2_1(t_sort_result *sort_result,
+void			less_moves_sort_v3_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
 	t_list				*next_to_move;

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:31:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 14:55:04 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 14:47:27 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		print_action_list(t_list **result_array)
 				ft_putendl("rrr");
 			else if (sort_result->action_list[c] == ss)
 				ft_putendl("ss");
-			sleep(0);
+			sleep(1);
 		}
 //		free(sort_result->stack);
 		free(sort_result->action_list);

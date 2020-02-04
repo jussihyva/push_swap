@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 12:47:17 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 15:49:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ static void				stack_sort(t_input_data *input,
 {
 	t_sort_result	sort_result;
 	t_list			*elem;
+	size_t			nbr;
 
 	init_sort_result(&sort_result);
 	sort_result.action_list =
@@ -193,17 +194,22 @@ static void				stack_sort(t_input_data *input,
 							ft_intdup(input->int_array, input->int_array_size);
 	sort_result.stack_a.int_lst_size = input->int_array_size;
 	sort_result.stack_a.int_lst = ft_lstmap(input->int_list, ft_lstcpy);
-	elem = sort_result.stack_a.int_lst;
-	while (elem->next)
-		elem = elem->next;
-	sort_result.stack_a.int_lst->prev = elem;
-	elem->next = sort_result.stack_a.int_lst;
 	sort_result.stack_a.move_cost =
 			(t_move_cost *)ft_memalloc(sizeof(*sort_result.stack_a.move_cost) *
 											sort_result.stack_a.int_lst_size);
 	sort_result.stack_b.move_cost =
 			(t_move_cost *)ft_memalloc(sizeof(*sort_result.stack_b.move_cost) *
 											sort_result.stack_a.int_lst_size);
+	elem = sort_result.stack_a.int_lst;
+	while (elem->next)
+	{
+		nbr = *(int *)elem->content;
+		sort_result.stack_a.move_cost[nbr].elem = elem;
+		sort_result.stack_b.move_cost[nbr].elem = elem;
+		elem = elem->next;
+	}
+	sort_result.stack_a.int_lst->prev = elem;
+	elem->next = sort_result.stack_a.int_lst;
 	sort_result.stack_a.median = input->median;
 	sort_result.stack_a.average = input->average;
 	sort_result.stack_a.top = sort_result.stack_a.int_lst;
@@ -268,6 +274,8 @@ int						main(int argc, char **argv)
 		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		sort_function.sort_function = (void *)less_moves_sort_v2_1;
 		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v3_1;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		*result_array = NULL;
 		input = prepare_input_data(argc, argv);
@@ -279,7 +287,7 @@ int						main(int argc, char **argv)
 			max_actions *= 10;
 			elem = elem->next;
 		}
-		sleep(0);
+		sleep(1);
 		print_action_list(result_array);
 		free(result_array);
 		result_array = NULL;
