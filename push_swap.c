@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 15:37:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 08:54:22 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,60 @@
 // 	return ;
 // }
 
+static	void			ft_lstswap(t_list *elem1, t_list *elem2)
+{
+	t_list	*tmp;
+
+	tmp = elem1->prev;
+	elem2->prev = tmp;
+	if (tmp)
+	{
+		tmp->next = elem2;
+		elem1->prev->next = elem2;
+	}
+	elem1->next = elem2->next;
+	elem1->prev = elem2;
+	if (elem2->next)
+		elem2->next->prev = elem1;
+	elem2->next = elem1;
+	return ;
+}
+
+static int				cmp_elem(t_list *elem1, t_list *elem2)
+{
+	if (*(int *)elem1->content < *(int *)elem2->content)
+		return (1);
+	else
+		return (0);
+}
+
+static void				ft_lstsort(t_list **list, int cmp(t_list *elem1, t_list *elem2))
+{
+	t_list		*elem;
+	int			is_sorted;
+
+	is_sorted = 0;
+	while (!is_sorted)
+	{
+		elem = *list;
+		is_sorted = 1;
+		while (elem)
+		{
+			if (elem->next && !cmp(elem, elem->next))
+			{
+				if (*list == elem)
+					*list = elem->next;
+				ft_lstswap(elem, elem->next);
+				is_sorted = 0;
+				break ;
+			}
+			else
+				elem = elem->next;
+		}
+	}
+	return ;
+}
+
 static t_list			*ft_lstcpy(t_list *elem)
 {
 	t_list		*new_elem;
@@ -27,6 +81,7 @@ static t_list			*ft_lstcpy(t_list *elem)
 	new_elem = ft_lstnew(elem->content, elem->content_size);
 	return (new_elem);
 }
+
 static void				add_to_list(t_list **list, int *integer)
 {
 	t_list		*elem;
@@ -103,6 +158,8 @@ static t_input_data		*prepare_input_data(int argc, char **argv)
 	string_to_array(s, input);
 	ft_strdel(&s);
 	sorted_array = ft_intsort(input->int_array, input->int_array_size);
+	input->int_list_sorted = ft_lstmap(input->int_list, ft_lstcpy);
+	ft_lstsort(&input->int_list_sorted, cmp_elem);
 	input->median = sorted_array[(input->int_array_size + 1) / 2 - 1];
 	free(sorted_array);
 	sorted_array = NULL;

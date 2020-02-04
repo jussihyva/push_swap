@@ -6,11 +6,11 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/04 07:11:37 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/04 07:49:12 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME1				=	checker_1
+NAME1				=	checker
 NAME2				=	push_swap
 
 HEADER_FILE1		=	checker.h

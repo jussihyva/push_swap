@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 15:27:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 07:43:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct	s_input_data
 	int				*int_array;
 	size_t			int_array_size;
 	t_list			*int_list;
+	t_list			*int_list_sorted;
 	int				min;
 	int				max;
 	int				average;
