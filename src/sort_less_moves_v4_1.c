@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_less_moves_v3_1.c                             :+:      :+:    :+:   */
+/*   sort_less_moves_v4_1.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/04 14:18:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 20:14:17 by jkauppi          ###   ########.fr       */
+/*   Created: 2020/02/04 19:49:14 by jkauppi           #+#    #+#             */
+/*   Updated: 2020/02/04 19:50:12 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ static void		move_and_sort_to_stack_b_v1(t_sort_result *sort_result,
 	while (stack_a->int_lst_size > target_size)
 	{
 		lst_size = sort_result->stack_a.int_lst_size + sort_result->stack_b.int_lst_size;
-		count_move_cost_v1(sort_result);
+		count_move_cost_v2(sort_result);
 		next_to_move = get_best_move(sort_result, lst_size);
 		move_status = 0;
 		while (move_status != (source_stack_ready | target_stack_ready) &&
@@ -178,7 +178,7 @@ static void		move_and_sort_to_stack_b_v1(t_sort_result *sort_result,
 	return ;
 }
 
-void			less_moves_sort_v3_1(t_sort_result *sort_result,
+void			less_moves_sort_v4_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
 	t_list				*next_to_move;
@@ -187,9 +187,6 @@ void			less_moves_sort_v3_1(t_sort_result *sort_result,
 	move_and_sort_to_stack_b_v1(sort_result, 50);
 	while (*(int *)sort_result->stack_b.top->content != sort_result->stack_b.max)
 		execute_action(sort_result, rb);
-	// move_and_sort_to_stack_b_v1(sort_result, 0);
-	// while (*(int *)sort_result->stack_b.top->content != sort_result->stack_b.max)
-	// 	execute_action(sort_result, rb);
 //	move_max_to_top(sort_result, &sort_result->stack_b, sort_result->stack_b.max, rrb);
 	move_all_to_stack_b_v1(sort_result);
 	while (sort_result->stack_b.top)
