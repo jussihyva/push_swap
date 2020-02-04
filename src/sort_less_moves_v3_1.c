@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 14:18:32 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 20:14:17 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 20:26:23 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,36 @@ static void		move_and_sort_to_stack_b_v1(t_sort_result *sort_result,
 	return ;
 }
 
+// static void		move_and_sort_to_stack_a_v1(t_sort_result *sort_result,
+// 																int percentage)
+// {
+// 	t_stack				*stack_a;
+// 	t_stack				*stack_b;
+// 	size_t				target_size;
+// 	t_list				*next_to_move;
+// 	t_stack_status		move_status;
+// 	size_t				lst_size;
+
+// 	stack_b = &sort_result->stack_b;
+// 	stack_a = &sort_result->stack_a;
+// 	target_size = stack_b->int_lst_size * percentage / (double)100;
+// 	while (stack_b->int_lst_size > target_size)
+// 	{
+// 		lst_size = sort_result->stack_a.int_lst_size + sort_result->stack_b.int_lst_size;
+// 		count_move_cost_v1_2(sort_result);
+// 		next_to_move = get_best_move(sort_result, lst_size);
+// 		move_status = 0;
+// 		while (move_status != (source_stack_ready | target_stack_ready) &&
+// 				sort_result->total_num_of_actions < 80000)
+// 		{
+// 			move_status |= source_stack_action(sort_result, stack_b, next_to_move, rb);
+// 			move_status |= target_stack_action_dec(sort_result, stack_a, next_to_move, ra);
+// 		}
+// 		execute_action(sort_result, pa);
+// 	}
+// 	return ;
+// }
+
 void			less_moves_sort_v3_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
@@ -191,6 +221,7 @@ void			less_moves_sort_v3_1(t_sort_result *sort_result,
 	// while (*(int *)sort_result->stack_b.top->content != sort_result->stack_b.max)
 	// 	execute_action(sort_result, rb);
 //	move_max_to_top(sort_result, &sort_result->stack_b, sort_result->stack_b.max, rrb);
+//	move_and_sort_to_stack_a_v1(sort_result, 0);
 	move_all_to_stack_b_v1(sort_result);
 	while (sort_result->stack_b.top)
 	{

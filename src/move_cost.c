@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:16:59 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 19:57:58 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 20:24:54 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,26 @@ void			count_move_cost_v1(t_sort_result *sort_result)
 	// lst_size = sort_result->stack_b.int_lst_size;
 	// source_cost(start_ptr, move_cost, lst_size);
 	// target_cost(&sort_result->stack_b, &sort_result->stack_a);
+	return ;
+}
+
+void			count_move_cost_v1_2(t_sort_result *sort_result)
+{
+	t_list			*start_ptr;
+	t_move_cost		*move_cost;
+	size_t			lst_size;
+
+	reset_cost_counters(sort_result);
+	// move_cost = sort_result->stack_a.move_cost;
+	// start_ptr = sort_result->stack_a.top;
+	// lst_size = sort_result->stack_a.int_lst_size;
+	// source_cost(start_ptr, move_cost, lst_size);
+	// target_cost_v1(&sort_result->stack_a, &sort_result->stack_b);
+	move_cost = sort_result->stack_b.move_cost;
+	start_ptr = sort_result->stack_b.top;
+	lst_size = sort_result->stack_b.int_lst_size;
+	source_cost(start_ptr, move_cost, lst_size);
+	target_cost_v1(&sort_result->stack_b, &sort_result->stack_a);
 	return ;
 }
 

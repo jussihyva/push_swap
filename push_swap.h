@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 19:52:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 20:24:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,5 +181,6 @@ void			min_max(t_sort_result *sort_result);
 void			move_max_to_top(t_sort_result *sort_result, t_stack *stack,
 												int max, t_move_action action);
 void            count_move_cost_v1(t_sort_result *sort_result);
+void            count_move_cost_v1_2(t_sort_result *sort_result);
 void            count_move_cost_v2(t_sort_result *sort_result);
 #endif
