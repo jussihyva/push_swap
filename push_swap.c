@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 10:36:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 12:47:17 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void			set_order(t_list *elem)
 {
 	static int		order_num;
 
-	order_num++;
 	*(int *)elem->content = order_num;
+	order_num++;
 }
 
 static void			ft_lstswap(t_list *elem1, t_list *elem2)
@@ -187,8 +187,10 @@ static void				stack_sort(t_input_data *input,
 
 	init_sort_result(&sort_result);
 	sort_result.action_list =
-			(t_move_action *)ft_memalloc(sizeof(*sort_result.action_list) * 200000);
-	sort_result.stack_array = ft_intdup(input->int_array, input->int_array_size);
+			(t_move_action *)ft_memalloc(sizeof(*sort_result.action_list) *
+																		200000);
+	sort_result.stack_array =
+							ft_intdup(input->int_array, input->int_array_size);
 	sort_result.stack_a.int_lst_size = input->int_array_size;
 	sort_result.stack_a.int_lst = ft_lstmap(input->int_list, ft_lstcpy);
 	elem = sort_result.stack_a.int_lst;
@@ -196,15 +198,18 @@ static void				stack_sort(t_input_data *input,
 		elem = elem->next;
 	sort_result.stack_a.int_lst->prev = elem;
 	elem->next = sort_result.stack_a.int_lst;
+	sort_result.stack_a.move_cost =
+			(t_move_cost *)ft_memalloc(sizeof(*sort_result.stack_a.move_cost) *
+											sort_result.stack_a.int_lst_size);
+	sort_result.stack_b.move_cost =
+			(t_move_cost *)ft_memalloc(sizeof(*sort_result.stack_b.move_cost) *
+											sort_result.stack_a.int_lst_size);
 	sort_result.stack_a.median = input->median;
-	sort_result.stack_a.min = input->min;
-	sort_result.stack_a.max = input->max;
-	sort_result.stack_b.min = INT_MAX;
-	sort_result.stack_b.max = INT_MIN;
 	sort_result.stack_a.average = input->average;
-	sort_result.stack_a.top = sort_result.stack_a.int_lst->prev;
+	sort_result.stack_a.top = sort_result.stack_a.int_lst;
 	sort_result.stack_b.top = NULL;
-	step_prt_down(&sort_result);
+	min_max(&sort_result);
+	count_move_cost(&sort_result);
 	((t_sort_function *)function_elem->content)->sort_function(&sort_result,
 													result_array, max_actions);
 //	free(sort_result.action_list);
@@ -270,7 +275,7 @@ int						main(int argc, char **argv)
 		while (elem)
 		{
 			stack_sort(input, elem, result_array, &max_actions);
-			dprintf(2, "MAX: %5lu\n", max_actions);
+			ft_dprintf(2, "MAX: %5lu\n", max_actions);
 			max_actions *= 10;
 			elem = elem->next;
 		}

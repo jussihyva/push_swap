@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 07:43:28 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 12:56:54 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@
 # include <limits.h>
 # include "libft.h"
 # include "ft_printf.h"
-# include <stdio.h>
+
+typedef enum	e_sort_dir
+{
+	asc,
+	dec
+}				s_sort_dir;
 
 typedef enum	e_move_action
 {
@@ -45,15 +50,24 @@ typedef enum	e_stack_status
 	target_stack_ready = 0x02
 }				t_stack_status;
 
+typedef struct s_move_cost
+{
+	long		source_forward;
+	long		source_backward;
+	long		target_forward;
+	long		target_backward;
+}				t_move_cost;
+
 typedef struct s_stack
 {
-	t_list		*top;
-	t_list		*int_lst;
-	size_t		int_lst_size;
-	int			min;
-	int			max;
-	int			average;
-	int			median;
+	t_list			*top;
+	t_list			*int_lst;
+	size_t			int_lst_size;
+	int				min;
+	int				max;
+	int				average;
+	int				median;
+	t_move_cost		*move_cost;
 }				t_stack;
 
 typedef struct	s_input_data
@@ -87,7 +101,6 @@ typedef struct	s_sort_function
 														size_t *max_actions);
 }				t_sort_function;
 
-int				ft_printf(const char *format, ...);
 void			bubble_sort_v1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			bubble_sort_v2(t_sort_result *sort_result,
@@ -166,5 +179,5 @@ void			less_moves_sort_v2_1(t_sort_result *sort_result,
 void			min_max(t_sort_result *sort_result);
 void			move_max_to_top(t_sort_result *sort_result, t_stack *stack,
 												int max, t_move_action action);
-
+void            count_move_cost(t_sort_result *sort_result);
 #endif

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/04 07:49:12 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/04 11:19:26 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ SRC_FILES_NAME		=	ft_intswap.c ft_arraydel.c ft_intsort.c ft_intdup.c \
 						sort_bubble_v2_1.c sort_bubble_v2_2.c sort_bubble_v2_3.c sort_bubble_v2_4.c sort_bubble_v2_5.c \
 						sort_bubble_v3_1.c \
 						sort_less_moves_v1_1.c sort_less_moves_v1_2.c sort_less_moves_v1_3.c sort_less_moves_v1_4.c \
-						sort_less_moves_v2_1.c
+						sort_less_moves_v2_1.c \
+						move_cost.c
 
 OBJ_FILES			=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(SRC_FILES_NAME)))
 
@@ -70,6 +71,7 @@ $(OBJ_FOLDER):
 
 libft:
 	@make -C $(LIBFT_FOLDER)
+	@make -C $(LIBFT_FOLDER) clean
 
 clean:
 	@\rm -f $(OBJ_FOLDER)/*.o

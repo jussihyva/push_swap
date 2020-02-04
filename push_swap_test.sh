@@ -1,3 +1,4 @@
+CHECKER="../42-push_swap/checker"
 make
 clear
 echo -e "Evaluation?  \033[1;32m-->[y/n]<--\033[0m"
@@ -28,28 +29,28 @@ if [ $k == "y" ]; then
 	read next
 	clear
 	echo -e "1 must display \033[1;31mError\033[0m"
-	./checker 1 2 43 k
+	$CHECKER 1 2 43 k
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	
 	echo -e "2 must display \033[1;31mError\033[0m"
-	./checker 0 0 1 2 3
+	$CHECKER 0 0 1 2 3
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	
 	echo -e "3 must display \033[1;31mError\033[0m"
-	./checker 12 0 15 2147483648
+	$CHECKER 12 0 15 2147483648
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	
 	echo -e "4 must display \033[1;31mError\033[0m"
 	echo -e "give invalid action and press enter"
-	./checker 3 1 2
+	$CHECKER 3 1 2
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	clear
 	echo -e " must display \033[1;33mNothing\033[0m"
-	./checker
+	$CHECKER
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	clear
@@ -57,27 +58,27 @@ if [ $k == "y" ]; then
 	echo " "
 	echo -e " must display \033[1;31mKO\033[0m"
 	echo -e " give commands \033[1;31msa, pb, rrr\033[0m and C - d"
-	./checker 0 9 1 8 2 7 3 6 4 5
+	$CHECKER 0 9 1 8 2 7 3 6 4 5
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	
 	echo -e "4 must display \033[1;31mKO\033[0m"
 	echo -e " give commands that doesn't order the list and C - d"
-	echo "./checker 0 1 2 3 4 5 6 8 9 7"
-	./checker 0 1 2 3 4 5 6 8 9 7
+	echo "$CHECKER 0 1 2 3 4 5 6 8 9 7"
+	$CHECKER 0 1 2 3 4 5 6 8 9 7
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	clear
 	echo -e "4 must display \033[1;32mOK\033[0m"
 	echo -e "pres C - d"
-	./checker 0 1 2
+	$CHECKER 0 1 2
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	ne="y"
 	while [ $ne == "y" ]; do
 		echo -e "4 must display \033[1;32mOK\033[0m"
 		echo -e " give commands \033[1;31mpb ra pb ra sa ra pa pa\033[0m and C - d"
-		./checker 0 9 1 8 2
+		$CHECKER 0 9 1 8 2
 		echo  -e "\033[33;7mTry again?\033[0m\033[1;32m-->[y/n]<--\033[0m"
 		read ne
 	done
@@ -104,7 +105,7 @@ if [ $k == "y" ]; then
 	clear
 	echo -e "4 must display \033[1;32mOK\033[0m"
 	echo -e "and size 2 or 3"
-	ARG="2 1 0"; ./push_swap $ARG | ./checker $ARG
+	ARG="2 1 0"; ./push_swap $ARG | $CHECKER $ARG
 	echo " "
 	ARG="2 1 0"; ./push_swap $ARG
 	echo  -e "\033[33;7mpress enter\033[0m"
@@ -112,7 +113,7 @@ if [ $k == "y" ]; then
 
 	echo -e "4 must display \033[1;32mOK\033[0m"
 	echo -e "and size no more that 12. Kudos if 8"
-	ARG="1 5 2 4 3"; ./push_swap $ARG | ./checker $ARG
+	ARG="1 5 2 4 3"; ./push_swap $ARG | $CHECKER $ARG
 	echo " "
 	ARG="1 5 2 4 3"; ./push_swap $ARG
 	echo  -e "\033[33;7mpress enter\033[0m"
@@ -136,7 +137,7 @@ while [ $x -le 500 ]; do
 	if [ $varyn == "y" ]; then
 		echo "$ARG"
 	fi
-	a=$(./push_swap $ARG | ./checker $ARG)
+	a=$(./push_swap $ARG | $CHECKER $ARG)
 	sum+=`./push_swap $ARG | wc -l`
 	hl=`./push_swap $ARG | wc -l`
 	echo "steps $hl"
