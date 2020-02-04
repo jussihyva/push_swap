@@ -6,11 +6,11 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/02 11:18:00 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/04 07:11:37 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME1				=	checker
+NAME1				=	checker_1
 NAME2				=	push_swap
 
 HEADER_FILE1		=	checker.h
@@ -51,7 +51,7 @@ TEST_ARG			=	`ruby -e "puts (1..10000).to_a.shuffle.join(' ')"`
 all: libft $(NAME1) $(NAME2)
 
 $(NAME1): $(OBJ_FILES) $(NAME1).c
-	$(CC) $(CC_FLAGS) $(I_FLAGS) -o $@_1 $@.c $(OBJ_FILES) -L $(LIBFT_FOLDER) -l $(LIBFT) -L $(LIBFTPRINTF_FOLDER) -l $(LIBFTPRINTF)
+	$(CC) $(CC_FLAGS) $(I_FLAGS) -o $@ $@.c $(OBJ_FILES) -L $(LIBFT_FOLDER) -l $(LIBFT) -L $(LIBFTPRINTF_FOLDER) -l $(LIBFTPRINTF)
 
 $(NAME2): $(OBJ_FILES) $(NAME2).c
 	$(CC) $(CC_FLAGS) $(I_FLAGS) -o $@ $@.c $(OBJ_FILES) -L $(LIBFT_FOLDER) -l $(LIBFT) -L $(LIBFTPRINTF_FOLDER) -l $(LIBFTPRINTF)
