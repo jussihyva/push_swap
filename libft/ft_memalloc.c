@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jkauppi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 08:45:35 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 07:16:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2019/11/23 13:43:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,9 @@
 
 void	*ft_memalloc(size_t size)
 {
-	return (malloc(size));
+	void	*mem_area;
+
+	if ((mem_area = malloc(size)))
+		ft_bzero(mem_area, size);
+	return (mem_area);
 }
