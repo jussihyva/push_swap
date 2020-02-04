@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 08:54:22 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/04 10:36:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,15 @@
 // 	return ;
 // }
 
-static	void			ft_lstswap(t_list *elem1, t_list *elem2)
+static void			set_order(t_list *elem)
+{
+	static int		order_num;
+
+	order_num++;
+	*(int *)elem->content = order_num;
+}
+
+static void			ft_lstswap(t_list *elem1, t_list *elem2)
 {
 	t_list	*tmp;
 
@@ -77,8 +85,11 @@ static void				ft_lstsort(t_list **list, int cmp(t_list *elem1, t_list *elem2))
 static t_list			*ft_lstcpy(t_list *elem)
 {
 	t_list		*new_elem;
+	int			dummy;
 
-	new_elem = ft_lstnew(elem->content, elem->content_size);
+	dummy = 56;
+	new_elem = ft_lstnew(&dummy, sizeof(dummy));
+	new_elem->content = elem->content;
 	return (new_elem);
 }
 
@@ -160,6 +171,7 @@ static t_input_data		*prepare_input_data(int argc, char **argv)
 	sorted_array = ft_intsort(input->int_array, input->int_array_size);
 	input->int_list_sorted = ft_lstmap(input->int_list, ft_lstcpy);
 	ft_lstsort(&input->int_list_sorted, cmp_elem);
+	ft_lstiter(input->int_list_sorted, set_order);
 	input->median = sorted_array[(input->int_array_size + 1) / 2 - 1];
 	free(sorted_array);
 	sorted_array = NULL;
