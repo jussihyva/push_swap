@@ -18,6 +18,9 @@ void	*ft_memalloc(size_t size)
 	void	*mem_area;
 
 	if ((mem_area = malloc(size)))
-		ft_bzero(mem_area, size);
+	{
+		mem_area[size - 1] = 0;
+		mem_area[0] = 0;
+	}
 	return (mem_area);
 }
