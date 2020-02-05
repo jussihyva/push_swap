@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:58:33 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 11:01:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 18:06:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			less_moves_sort_v1_1(t_sort_result *sort_result,
 		next_to_move = select_next_integer(sort_result);
 		while (sort_result->stack_b.top != next_to_move)
 		{
-			if (!(sort_result->total_num_of_actions < 80000))
+			if (!(sort_result->total_num_of_actions < MAX_ACTIONS))
 				break ;
 			execute_action(sort_result, rb);
 		}
@@ -50,7 +50,7 @@ void			less_moves_sort_v1_1(t_sort_result *sort_result,
 				while (*(int *)sort_result->stack_a.top->content !=
 								sort_result->stack_a.min)
 				{
-					if (!(sort_result->total_num_of_actions < 80000))
+					if (!(sort_result->total_num_of_actions < MAX_ACTIONS))
 						break ;
 					execute_action(sort_result, ra);
 				}
@@ -62,7 +62,7 @@ void			less_moves_sort_v1_1(t_sort_result *sort_result,
 						*(int *)sort_result->stack_a.top->prev->content <
 								*(int *)sort_result->stack_b.top->content))
 				{
-					if (!(sort_result->total_num_of_actions < 80000))
+					if (!(sort_result->total_num_of_actions < MAX_ACTIONS))
 						break ;
 					execute_action(sort_result, ra);
 				}

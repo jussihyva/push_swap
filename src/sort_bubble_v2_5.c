@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 13:57:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 11:09:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 18:06:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void			bubble_sort_v2_5(t_sort_result *sort_result,
 	{
 		split_one_stack_to_two_v5(sort_result);
 		is_sorted = 0;
-		while (!is_sorted && sort_result->total_num_of_actions < 80000)
+		while (!is_sorted && sort_result->total_num_of_actions < MAX_ACTIONS)
 			is_sorted = sort_a(sort_result);
 		while (*(int *)stack_a->top->prev->content != sort_result->stack_a.max)
 			execute_action(sort_result, ra);

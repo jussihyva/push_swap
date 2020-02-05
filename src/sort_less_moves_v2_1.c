@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 11:03:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 14:22:38 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 18:06:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ static void		move_and_sort_to_stack_b_v1(t_sort_result *sort_result,
 		next_to_move = stack_a->top;
 		move_status = 0;
 		while (move_status != (source_stack_ready | target_stack_ready) &&
-				sort_result->total_num_of_actions < 80000)
+				sort_result->total_num_of_actions < MAX_ACTIONS)
 		{
 			move_status |= source_stack_action(sort_result, stack_a, next_to_move, ra);
 			move_status |= target_stack_action_dec(sort_result, stack_b, next_to_move, rb);
@@ -157,7 +157,7 @@ void			less_moves_sort_v2_1(t_sort_result *sort_result,
 		next_to_move = select_next_integer(sort_result);
 		move_status = 0;
 		while (move_status != (source_stack_ready | target_stack_ready) &&
-				sort_result->total_num_of_actions < 80000)
+				sort_result->total_num_of_actions < MAX_ACTIONS)
 		{
 			move_status |= source_stack_action(sort_result,
 									&sort_result->stack_b, next_to_move, rb);

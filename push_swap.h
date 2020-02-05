@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/05 17:10:20 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 18:07:48 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <limits.h>
 # include "libft.h"
 # include "ft_printf.h"
+# define MAX_ACTIONS 100000
 
 typedef enum	e_sort_group
 {
@@ -197,6 +198,8 @@ void			less_moves_sort_v3_1(t_sort_result *sort_result,
 void			less_moves_sort_v3_2(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			less_moves_sort_v3_3(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
+void			less_moves_sort_v3_4(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			less_moves_sort_v4_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);

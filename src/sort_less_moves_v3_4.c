@@ -1,11 +1,11 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_less_moves_v3_3.c                             :+:      :+:    :+:   */
+/*   sort_less_moves_v3_4.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 13:06:33 by jkauppi           #+#    #+#             */
+/*   Created: 2020/02/05 17:35:58 by jkauppi           #+#    #+#             */
 /*   Updated: 2020/02/05 18:06:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -166,6 +166,32 @@ static void		get_best_move(t_sort_result *sort_result, size_t lst_size)
 				next_move->target_stack_action = rrb;
 			}
 		}
+		if (sort_result->stack_a.move_cost[c].source_rx != -1 &&
+			sort_result->stack_a.move_cost[c].target_dec_rrx != -1)
+		{
+			moves = ft_max(sort_result->stack_a.move_cost[c].source_rx,
+			sort_result->stack_a.move_cost[c].target_dec_rrx);
+			if (best_num_of_moves > moves)
+			{
+				best_num_of_moves = moves;
+				next_move->integer = sort_result->stack_a.move_cost[c].integer;
+				next_move->source_stack_action = ra;
+				next_move->target_stack_action = rrb;
+			}
+		}
+		if (sort_result->stack_a.move_cost[c].source_rrx != -1 &&
+			sort_result->stack_a.move_cost[c].target_dec_rx != -1)
+		{
+			moves = ft_max(sort_result->stack_a.move_cost[c].source_rrx,
+			sort_result->stack_a.move_cost[c].target_dec_rx);
+			if (best_num_of_moves > moves)
+			{
+				best_num_of_moves = moves;
+				next_move->integer = sort_result->stack_a.move_cost[c].integer;
+				next_move->source_stack_action = rra;
+				next_move->target_stack_action = rb;
+			}
+		}
 	}
 	return ;
 }
@@ -257,7 +283,7 @@ static void		move_and_sort_to_stack_a_v1(t_sort_result *sort_result,
 	return ;
 }
 
-void			less_moves_sort_v3_3(t_sort_result *sort_result,
+void			less_moves_sort_v3_4(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
 	t_list				*next_to_move;

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 10:42:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 11:09:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 18:06:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ static int	do_next_action(t_sort_result *sort_result,
 		while (c--)
 			execute_action(sort_result, ra);
 	}
-	else if (sort_result->total_num_of_actions < 80000)
+	else if (sort_result->total_num_of_actions < MAX_ACTIONS)
 	{
 		c = 0;
 		while (!is_sorted && sort_result->action_list_size < *max_actions &&
