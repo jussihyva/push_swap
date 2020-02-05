@@ -109,6 +109,7 @@ typedef struct	s_sort_result
 	size_t			seq_action_counter;
 	size_t			total_num_of_actions;
 	t_next_move		next_move;
+	t_sort_group		sort_group;
 }				t_sort_result;
 
 typedef struct	s_sort_function
