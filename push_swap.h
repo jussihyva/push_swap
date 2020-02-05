@@ -17,6 +17,12 @@
 # include "libft.h"
 # include "ft_printf.h"
 
+typedef enum	e_sort_group
+{
+	group0 = 0,
+	group1 = 1
+}				t_sort_group;
+
 typedef enum	e_move_action
 {
 	null = 0,
@@ -46,13 +52,14 @@ typedef enum	e_stack_status
 
 typedef struct s_move_cost
 {
-	t_list		*elem;
-	long		source_forward;
-	long		source_backward;
-	long		target_asc_forward;
-	long		target_asc_backward;
-	long		target_dec_forward;
-	long		target_dec_backward;
+	t_list		*integer;
+	t_sort_group	sort_group;
+	long		source_rx;
+	long		source_rrx;
+	long		target_asc_rx;
+	long		target_asc_rrx;
+	long		target_dec_rx;
+	long		target_dec_rrx;
 }				t_move_cost;
 
 typedef struct s_stack
