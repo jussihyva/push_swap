@@ -204,6 +204,7 @@ static void				stack_sort(t_input_data *input,
 											sort_result.stack_a.int_lst_size);
 	sort_result.stack_a.move_cost_size = sort_result.stack_a.int_lst_size;
 	sort_result.stack_b.move_cost_size = sort_result.stack_a.int_lst_size;
+	devide_integers_into_groups(sort_result.stack_a.move_cost);
 	elem = sort_result.stack_a.int_lst;
 	while (elem->next)
 	{
@@ -221,6 +222,7 @@ static void				stack_sort(t_input_data *input,
 	sort_result.stack_a.average = input->average;
 	sort_result.stack_a.top = sort_result.stack_a.int_lst;
 	sort_result.stack_b.top = NULL;
+	sort_result.sort_group = sort_group1;
 	min_max(&sort_result);
 	count_move_cost_v3_3(&sort_result);
 	((t_sort_function *)function_elem->content)->sort_function(&sort_result,
