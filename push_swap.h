@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/05 09:54:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 15:47:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,17 @@ typedef enum	e_move_action
 typedef enum	e_stack_status
 {
 	source_stack_ready = 0x01,
-	target_stack_ready = 0x02
+	target_stack_ready = 0x02,
+	stacks_ready = 0x03
 }				t_stack_status;
+
+typedef struct s_next_move
+{
+	t_list			*integer;
+	t_move_action	source_stack_action;
+	t_move_action	target_stack_action;
+}				t_next_move;
+
 
 typedef struct s_move_cost
 {
@@ -72,6 +81,7 @@ typedef struct s_stack
 	int				average;
 	int				median;
 	t_move_cost		*move_cost;
+	int				move_cost_size;
 }				t_stack;
 
 typedef struct	s_input_data
@@ -97,6 +107,7 @@ typedef struct	s_sort_result
 	size_t			action_list_size;
 	size_t			seq_action_counter;
 	size_t			total_num_of_actions;
+	t_next_move		next_move;
 }				t_sort_result;
 
 typedef struct	s_sort_function
@@ -184,6 +195,8 @@ void			less_moves_sort_v3_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			less_moves_sort_v3_2(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
+void			less_moves_sort_v3_3(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
 void			less_moves_sort_v4_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			min_max(t_sort_result *sort_result);
@@ -192,4 +205,5 @@ void			move_max_to_top(t_sort_result *sort_result, t_stack *stack,
 void            count_move_cost_v1(t_sort_result *sort_result);
 void            count_move_cost_v1_2(t_sort_result *sort_result);
 void            count_move_cost_v2(t_sort_result *sort_result);
+void            count_move_cost_v3_3(t_sort_result *sort_result);
 #endif
