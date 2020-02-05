@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:35:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/05 18:06:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 18:42:46 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,26 +56,26 @@ static t_list	*select_next_integer(t_sort_result *sort_result)
 	return (selected);
 }
 
-static t_stack_status	target_stack_action_asc(t_sort_result *sort_result,
-					t_stack *stack, t_list *next_to_move, t_move_action action)
+static t_stack_status	target_stack_action_asc_v2(t_sort_result *sort_result,
+					t_stack *stack)
 {
 	if (stack->top)
 	{
-		if (*(int *)next_to_move->content > stack->max ||
-			*(int *)next_to_move->content < stack->min)
+		if (*(int *)sort_result->next_move.integer->content > stack->max ||
+			*(int *)sort_result->next_move.integer->content < stack->min)
 		{
 			if (*(int *)stack->top->content != stack->min)
 			{
-				execute_action(sort_result, action);
+				execute_action(sort_result, sort_result->next_move.target_stack_action);
 				return (0);
 			}
 		}
 		else
 		{
-			if (!(*(int *)stack->top->content > *(int *)next_to_move->content &&
-				*(int *)stack->top->prev->content < *(int *)next_to_move->content))
+			if (!(*(int *)stack->top->content > *(int *)sort_result->next_move.integer->content &&
+				*(int *)stack->top->prev->content < *(int *)sort_result->next_move.integer->content))
 			{
-				execute_action(sort_result, action);
+				execute_action(sort_result, sort_result->next_move.target_stack_action);
 				return (0);
 			}
 		}
@@ -196,16 +196,16 @@ static void		get_best_move(t_sort_result *sort_result, size_t lst_size)
 	return ;
 }
 
-static t_list	*get_best_move_b(t_sort_result *sort_result, size_t lst_size)
+static void		get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size)
 {
 	size_t			best_num_of_moves;
 	size_t			moves;
-	t_list			*best_move;
 	size_t			c;
+	t_next_move		*next_move;
 
 	best_num_of_moves = INT_MAX;
 	c = -1;
-	best_move = sort_result->stack_b.top;
+	next_move = &sort_result->next_move;
 	while (++c < lst_size)
 	{
 		if (sort_result->stack_b.move_cost[c].source_rx != -1 &&
@@ -216,11 +216,52 @@ static t_list	*get_best_move_b(t_sort_result *sort_result, size_t lst_size)
 			if (best_num_of_moves > moves)
 			{
 				best_num_of_moves = moves;
-				best_move = sort_result->stack_b.move_cost[c].integer;
+				next_move->integer = sort_result->stack_b.move_cost[c].integer;
+				next_move->source_stack_action = rb;
+				next_move->target_stack_action = ra;
+			}
+		}
+		if (sort_result->stack_b.move_cost[c].source_rrx != -1 &&
+			sort_result->stack_b.move_cost[c].target_asc_rrx != -1)
+		{
+			moves = ft_max(sort_result->stack_b.move_cost[c].source_rrx,
+			sort_result->stack_b.move_cost[c].target_asc_rrx);
+			if (best_num_of_moves > moves)
+			{
+				best_num_of_moves = moves;
+				next_move->integer = sort_result->stack_b.move_cost[c].integer;
+				next_move->source_stack_action = rrb;
+				next_move->target_stack_action = rra;
+			}
+		}
+		if (sort_result->stack_b.move_cost[c].source_rx != -1 &&
+			sort_result->stack_b.move_cost[c].target_asc_rrx != -1)
+		{
+			moves = ft_max(sort_result->stack_b.move_cost[c].source_rx,
+			sort_result->stack_b.move_cost[c].target_asc_rrx);
+			if (best_num_of_moves > moves)
+			{
+				best_num_of_moves = moves;
+				next_move->integer = sort_result->stack_b.move_cost[c].integer;
+				next_move->source_stack_action = rb;
+				next_move->target_stack_action = rra;
+			}
+		}
+		if (sort_result->stack_b.move_cost[c].source_rrx != -1 &&
+			sort_result->stack_b.move_cost[c].target_asc_rx != -1)
+		{
+			moves = ft_max(sort_result->stack_b.move_cost[c].source_rrx,
+			sort_result->stack_b.move_cost[c].target_asc_rx);
+			if (best_num_of_moves > moves)
+			{
+				best_num_of_moves = moves;
+				next_move->integer = sort_result->stack_b.move_cost[c].integer;
+				next_move->source_stack_action = rrb;
+				next_move->target_stack_action = ra;
 			}
 		}
 	}
-	return (best_move);
+	return ;
 }
 
 static void		move_and_sort_to_stack_b_v1(t_sort_result *sort_result,
@@ -258,29 +299,55 @@ static void		move_and_sort_to_stack_a_v1(t_sort_result *sort_result,
 	t_stack				*stack_a;
 	t_stack				*stack_b;
 	size_t				target_size;
-	t_list				*next_to_move;
 	t_stack_status		move_status;
 	size_t				lst_size;
 
-	return ;
+//	return ;
 	stack_b = &sort_result->stack_b;
 	stack_a = &sort_result->stack_a;
 	target_size = stack_b->int_lst_size * percentage / (double)100;
 	while (stack_b->int_lst_size > target_size)
 	{
 		lst_size = sort_result->stack_a.int_lst_size + sort_result->stack_b.int_lst_size;
-		count_move_cost_v3_3(sort_result);
-		next_to_move = get_best_move_b(sort_result, lst_size);
+		count_move_cost_b_v3_3(sort_result);
+		get_best_move_b_v2(sort_result, lst_size);
 		move_status = 0;
 		while (move_status != (source_stack_ready | target_stack_ready) &&
 				sort_result->total_num_of_actions < MAX_ACTIONS)
 		{
-			move_status |= source_stack_action(sort_result, stack_b, next_to_move, rb);
-			move_status |= target_stack_action_asc(sort_result, stack_a, next_to_move, ra);
+			move_status |= source_stack_action_v2(sort_result, stack_b);
+			move_status |= target_stack_action_asc_v2(sort_result, stack_a);
 		}
 		execute_action(sort_result, pa);
 	}
 	return ;
+}
+
+static t_stack_status	target_stack_action_asc(t_sort_result *sort_result,
+					t_stack *stack, t_list *next_to_move, t_move_action action)
+{
+	if (stack->top)
+	{
+		if (*(int *)next_to_move->content > stack->max ||
+			*(int *)next_to_move->content < stack->min)
+		{
+			if (*(int *)stack->top->content != stack->min)
+			{
+				execute_action(sort_result, action);
+				return (0);
+			}
+		}
+		else
+		{
+			if (!(*(int *)stack->top->content > *(int *)next_to_move->content &&
+				*(int *)stack->top->prev->content < *(int *)next_to_move->content))
+			{
+				execute_action(sort_result, action);
+				return (0);
+			}
+		}
+	}
+	return (target_stack_ready);
 }
 
 void			less_moves_sort_v3_4(t_sort_result *sort_result,

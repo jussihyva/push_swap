@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/05 18:07:48 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 18:43:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,4 +210,6 @@ void            count_move_cost_v1(t_sort_result *sort_result);
 void            count_move_cost_v1_2(t_sort_result *sort_result);
 void            count_move_cost_v2(t_sort_result *sort_result);
 void            count_move_cost_v3_3(t_sort_result *sort_result);
+void            count_move_cost_b_v3_3(t_sort_result *sort_result);
+
 #endif
