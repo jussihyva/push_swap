@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:16:59 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 20:24:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 11:55:26 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ static void		reset_cost_counters(t_sort_result *sort_result)
 	c = -1;
 	while (++c < lst_size)
 	{
-		sort_result->stack_a.move_cost[c].source_forward = -1;
-		sort_result->stack_a.move_cost[c].source_backward = -1;
-		sort_result->stack_a.move_cost[c].target_asc_forward = -1;
-		sort_result->stack_a.move_cost[c].target_asc_backward = -1;
-		sort_result->stack_a.move_cost[c].target_dec_forward = -1;
-		sort_result->stack_a.move_cost[c].target_dec_backward = -1;
-		sort_result->stack_b.move_cost[c].source_forward = -1;
-		sort_result->stack_b.move_cost[c].source_backward = -1;
-		sort_result->stack_b.move_cost[c].target_asc_forward = -1;
-		sort_result->stack_b.move_cost[c].target_asc_backward = -1;
-		sort_result->stack_b.move_cost[c].target_dec_forward = -1;
-		sort_result->stack_b.move_cost[c].target_dec_backward = -1;
+		sort_result->stack_a.move_cost[c].source_rx = -1;
+		sort_result->stack_a.move_cost[c].source_rrx = -1;
+		sort_result->stack_a.move_cost[c].target_asc_rx = -1;
+		sort_result->stack_a.move_cost[c].target_asc_rrx = -1;
+		sort_result->stack_a.move_cost[c].target_dec_rx = -1;
+		sort_result->stack_a.move_cost[c].target_dec_rrx = -1;
+		sort_result->stack_b.move_cost[c].source_rx = -1;
+		sort_result->stack_b.move_cost[c].source_rrx = -1;
+		sort_result->stack_b.move_cost[c].target_asc_rx = -1;
+		sort_result->stack_b.move_cost[c].target_asc_rrx = -1;
+		sort_result->stack_b.move_cost[c].target_dec_rx = -1;
+		sort_result->stack_b.move_cost[c].target_dec_rrx = -1;
 	}
 	return ;
 }
@@ -42,13 +42,16 @@ static void		source_cost(t_list *start_ptr, t_move_cost *move_cost,
 {
 	t_list			*ptr;
 	size_t			cost_cnt;
+	int				first_lap;
 
 	ptr = start_ptr;
 	cost_cnt = 0;
-	while (ptr && ptr->next != start_ptr)
+	first_lap = 1;
+	while (ptr && (ptr != start_ptr || first_lap)) 
 	{
-		move_cost[*(int *)ptr->content].source_forward = cost_cnt;
-		move_cost[*(int *)ptr->content].source_backward =
+		first_lap = 0;
+		move_cost[*(int *)ptr->content].source_rx = cost_cnt;
+		move_cost[*(int *)ptr->content].source_rrx =
 											(lst_size - cost_cnt) % lst_size;
 		cost_cnt++;
 		ptr = ptr->next;
@@ -64,19 +67,22 @@ static void		target_cost_v1(t_stack *source_stack, t_stack *tartget_stack)
 	int				end_int;
 	int				c;
 	size_t			lst_size;
+	int				first_lap;
 
 	lst_size = tartget_stack->int_lst_size + source_stack->int_lst_size;
 	cost_cnt = 0;
 	ptr = tartget_stack->top;
-	while (ptr && ptr->next != tartget_stack->top)
+	first_lap = 1;
+	while (ptr && (ptr != tartget_stack->top || first_lap)) 
 	{
+		first_lap = 0;
 		end_int = *(int *)ptr->content;
 		start_int = *(int *)ptr->prev->content;
 		c = (start_int + 1) % lst_size;
 		while (c % lst_size != end_int % lst_size)
 		{
-			source_stack->move_cost[c].target_asc_forward = cost_cnt;
-			source_stack->move_cost[c].target_asc_backward =
+			source_stack->move_cost[c].target_asc_rx = cost_cnt;
+			source_stack->move_cost[c].target_asc_rrx =
 											(lst_size - cost_cnt) % lst_size;
 			c = (c + 1) % lst_size;
 		}
@@ -85,8 +91,8 @@ static void		target_cost_v1(t_stack *source_stack, t_stack *tartget_stack)
 		c = (start_int + 1) % lst_size;
 		while (c % lst_size != end_int % lst_size)
 		{
-			source_stack->move_cost[c].target_dec_forward = cost_cnt;
-			source_stack->move_cost[c].target_dec_backward =
+			source_stack->move_cost[c].target_dec_rx = cost_cnt;
+			source_stack->move_cost[c].target_dec_rrx =
 											(lst_size - cost_cnt) % lst_size;
 			c = (c + 1) % lst_size;
 		}
@@ -104,12 +110,15 @@ static void		target_cost_v2(t_stack *source_stack, t_stack *tartget_stack)
 	int				end_int;
 	int				c;
 	size_t			lst_size;
+	int				first_lap;
 
 	lst_size = tartget_stack->int_lst_size + source_stack->int_lst_size;
 	cost_cnt = 0;
 	ptr = tartget_stack->top;
-	while (ptr && ptr->next != tartget_stack->top)
+	first_lap = 1;
+	while (ptr && (ptr != tartget_stack->top || first_lap)) 
 	{
+		first_lap = 0;
 		end_int = *(int *)ptr->content;
 		start_int = *(int *)ptr->prev->content;
 		c = (start_int + 1) % lst_size;
@@ -117,8 +126,8 @@ static void		target_cost_v2(t_stack *source_stack, t_stack *tartget_stack)
 		{
 			if (c < 50)
 			{
-				source_stack->move_cost[c].target_asc_forward = cost_cnt;
-				source_stack->move_cost[c].target_asc_backward =
+				source_stack->move_cost[c].target_asc_rx = cost_cnt;
+				source_stack->move_cost[c].target_asc_rrx =
 												(lst_size - cost_cnt) % lst_size;
 			}
 			c = (c + 1) % lst_size;
@@ -130,8 +139,8 @@ static void		target_cost_v2(t_stack *source_stack, t_stack *tartget_stack)
 		{
 			if (c < 50)
 			{
-				source_stack->move_cost[c].target_dec_forward = cost_cnt;
-				source_stack->move_cost[c].target_dec_backward =
+				source_stack->move_cost[c].target_dec_rx = cost_cnt;
+				source_stack->move_cost[c].target_dec_rrx =
 											(lst_size - cost_cnt) % lst_size;
 			}
 			c = (c + 1) % lst_size;

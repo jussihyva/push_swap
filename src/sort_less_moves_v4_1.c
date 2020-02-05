@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:49:14 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 19:50:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 09:41:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,18 +128,18 @@ static t_list	*get_best_move(t_stack *stack, size_t lst_size)
 
 	best_num_of_moves = INT_MAX;
 	c = -1;
-	best_move = stack.top;
+	best_move = stack->top;
 	while (++c < lst_size)
 	{
-		if (stack.move_cost[c].source_forward != -1 &&
-			stack.move_cost[c].target_dec_forward != -1)
+		if (stack->move_cost[c].source_rx != -1 &&
+			stack->move_cost[c].target_dec_rx != -1)
 		{
-			moves = ft_max(stack.move_cost[c].source_forward,
-			stack.move_cost[c].target_dec_forward);
+			moves = ft_max(stack->move_cost[c].source_rx,
+			stack->move_cost[c].target_dec_rx);
 			if (best_num_of_moves > moves)
 			{
 				best_num_of_moves = moves;
-				best_move = stack.move_cost[c].elem;
+				best_move = stack->move_cost[c].integer;
 			}
 		}
 	}
@@ -163,7 +163,7 @@ static void		move_and_sort_to_stack_b_v1(t_sort_result *sort_result,
 	{
 		lst_size = sort_result->stack_a.int_lst_size + sort_result->stack_b.int_lst_size;
 		count_move_cost_v2(sort_result);
-		next_to_move = get_best_move(sort_result->stack_a, lst_size);
+		next_to_move = get_best_move(&sort_result->stack_a, lst_size);
 		move_status = 0;
 		while (move_status != (source_stack_ready | target_stack_ready) &&
 				sort_result->total_num_of_actions < 80000)

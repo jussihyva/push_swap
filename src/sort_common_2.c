@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 11:14:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 10:39:21 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,39 @@ static void		count_num_of_consecutive(t_sort_result *sort_result)
 	return ;
 }
 
+static void		optimize_rb_rrb(t_sort_result *sort_result)
+{
+	t_move_action	last_action;
+	size_t			c;
+
+	last_action = sort_result->action_list[sort_result->action_list_size - 1];
+	while ((last_action == rb || last_action == rrb) &&
+		(size_t)sort_result->stack_b.int_lst_size > 0 &&
+		sort_result->seq_action_counter >= (size_t)sort_result->stack_b.int_lst_size)
+	{
+		sort_result->action_list_size -= sort_result->stack_b.int_lst_size;
+		count_num_of_consecutive(sort_result);
+		last_action = sort_result->action_list[sort_result->action_list_size - 1];
+	}
+	if ((last_action == rb || last_action == rrb) &&
+		sort_result->seq_action_counter > (size_t)sort_result->stack_b.int_lst_size / 2)
+	{
+		sort_result->action_list_size -= sort_result->seq_action_counter;
+		c = 0;
+		while (c++ < (size_t)sort_result->stack_b.int_lst_size -
+												sort_result->seq_action_counter)
+		{
+			if (last_action == rb)
+				sort_result->action_list[sort_result->action_list_size] = rrb;
+			else
+				sort_result->action_list[sort_result->action_list_size] = rb;
+			sort_result->action_list_size++;
+		}
+		count_num_of_consecutive(sort_result);
+	}
+	return ;
+}
+
 void			optimize_last_actions(t_sort_result *sort_result)
 {
 	size_t			c;
@@ -73,15 +106,7 @@ void			optimize_last_actions(t_sort_result *sort_result)
 			sort_result->action_list_size -= sort_result->stack_a.int_lst_size;
 			count_num_of_consecutive(sort_result);
 		}
-		last_action = sort_result->action_list[sort_result->action_list_size - 1];
-		while ((last_action == rb || last_action == rrb) &&
-			(size_t)sort_result->stack_b.int_lst_size > 2 &&
-			sort_result->seq_action_counter >= (size_t)sort_result->stack_b.int_lst_size)
-		{
-			sort_result->action_list_size -= sort_result->stack_b.int_lst_size;
-			count_num_of_consecutive(sort_result);
-			last_action = sort_result->action_list[sort_result->action_list_size - 1];
-		}
+		optimize_rb_rrb(sort_result);
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
 		if ((last_action == rr || last_action == rrr) &&
 			sort_result->seq_action_counter == (size_t)sort_result->stack_b.int_lst_size &&
@@ -92,7 +117,7 @@ void			optimize_last_actions(t_sort_result *sort_result)
 		}
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
 		if ((last_action == ra || last_action == rra) &&
-			(size_t)sort_result->stack_a.int_lst_size > 2 &&
+			(size_t)sort_result->stack_a.int_lst_size > 0 &&
 			sort_result->seq_action_counter > (size_t)sort_result->stack_a.int_lst_size / 2)
 		{
 			sort_result->action_list_size -= sort_result->seq_action_counter;
@@ -123,23 +148,6 @@ void			optimize_last_actions(t_sort_result *sort_result)
 		// 	}
 		// 	count_num_of_consecutive(sort_result);
 		// }
-		last_action = sort_result->action_list[sort_result->action_list_size - 1];
-		if ((last_action == rb || last_action == rrb) &&
-			sort_result->seq_action_counter > (size_t)sort_result->stack_b.int_lst_size / 2)
-		{
-			sort_result->action_list_size -= sort_result->seq_action_counter;
-			c = 0;
-			while (c++ < (size_t)sort_result->stack_b.int_lst_size -
-													sort_result->seq_action_counter)
-			{
-				if (last_action == rb)
-					sort_result->action_list[sort_result->action_list_size] = rrb;
-				else
-					sort_result->action_list[sort_result->action_list_size] = rb;
-				sort_result->action_list_size++;
-			}
-			count_num_of_consecutive(sort_result);
-		}
 	}
 	return ;
 }
@@ -153,6 +161,8 @@ void			add_action(t_sort_result *sort_result, t_move_action action)
 	if (last_action &&
 		((last_action == ra && action == rra) ||
 		(last_action == rra && action == ra) ||
+		(last_action == rb && action == rrb) ||
+		(last_action == rrb && action == rb) ||
 		(last_action == sa && action == sa)))
 	{
 		sort_result->action_list_size--;
@@ -164,6 +174,15 @@ void			add_action(t_sort_result *sort_result, t_move_action action)
 	{
 		sort_result->action_list_size--;
 		sort_result->action_list[sort_result->action_list_size] = rr;
+		sort_result->action_list_size++;
+		count_num_of_consecutive(sort_result);
+	}
+	else if (last_action &&
+		((last_action == rra && action == rrb) ||
+		(last_action == rrb && action == rra)))
+	{
+		sort_result->action_list_size--;
+		sort_result->action_list[sort_result->action_list_size] = rrr;
 		sort_result->action_list_size++;
 		count_num_of_consecutive(sort_result);
 	}

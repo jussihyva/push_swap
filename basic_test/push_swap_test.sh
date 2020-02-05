@@ -1,5 +1,6 @@
-CHECKER="../42-push_swap/checker"
-make
+CHECKER="../../42-push_swap/checker"
+PUSH_SWAP="../push_swap"
+make -C ..
 clear
 echo -e "Evaluation?  \033[1;32m-->[y/n]<--\033[0m"
 read k
@@ -86,36 +87,36 @@ if [ $k == "y" ]; then
 	read next
 	clear
 	echo -e "4 must display \033[1;33mnothing\033[0m"
-	echo "./push_swap 42"
-	./push_swap 42
+	echo "$PUSH_SWAP 42"
+	$PUSH_SWAP 42
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	
 	echo -e "4 must display \033[1;33mnothing\033[0m"
-	echo "./push_swap 0 1 2 3"
-	./push_swap 0 1 2 3
+	echo "$PUSH_SWAP 0 1 2 3"
+	$PUSH_SWAP 0 1 2 3
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	
 	echo -e "4 must display \033[1;33mnothing\033[0m"
-	echo "./push_swap 0 1 2 3 4 5 6 7 8 9"
-	./push_swap 0 1 2 3 4 5 6 7 8 9
+	echo "$PUSH_SWAP 0 1 2 3 4 5 6 7 8 9"
+	$PUSH_SWAP 0 1 2 3 4 5 6 7 8 9
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	clear
 	echo -e "4 must display \033[1;32mOK\033[0m"
 	echo -e "and size 2 or 3"
-	ARG="2 1 0"; ./push_swap $ARG | $CHECKER $ARG
+	ARG="2 1 0"; $PUSH_SWAP $ARG | $CHECKER $ARG
 	echo " "
-	ARG="2 1 0"; ./push_swap $ARG
+	ARG="2 1 0"; $PUSH_SWAP $ARG
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 
 	echo -e "4 must display \033[1;32mOK\033[0m"
 	echo -e "and size no more that 12. Kudos if 8"
-	ARG="1 5 2 4 3"; ./push_swap $ARG | $CHECKER $ARG
+	ARG="1 5 2 4 3"; $PUSH_SWAP $ARG | $CHECKER $ARG
 	echo " "
-	ARG="1 5 2 4 3"; ./push_swap $ARG
+	ARG="1 5 2 4 3"; $PUSH_SWAP $ARG
 	echo  -e "\033[33;7mpress enter\033[0m"
 	read next
 	clear
@@ -137,9 +138,9 @@ while [ $x -le 500 ]; do
 	if [ $varyn == "y" ]; then
 		echo "$ARG"
 	fi
-	a=$(./push_swap $ARG | $CHECKER $ARG)
-	sum+=`./push_swap $ARG | wc -l`
-	hl=`./push_swap $ARG | wc -l`
+	a=$($PUSH_SWAP $ARG | $CHECKER $ARG)
+	sum+=`$PUSH_SWAP $ARG | wc -l`
+	hl=`$PUSH_SWAP $ARG | wc -l`
 	echo "steps $hl"
 		if [ $high -lt $hl ]; then
 			high=hl
