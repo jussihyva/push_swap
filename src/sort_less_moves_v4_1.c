@@ -119,7 +119,7 @@ static t_stack_status	source_stack_action(t_sort_result *sort_result,
 	return (0);
 }
 
-static t_list	*get_best_move(t_sort_result *sort_result, size_t lst_size)
+static t_list	*get_best_move(t_stack *stack, size_t lst_size)
 {
 	size_t			best_num_of_moves;
 	size_t			moves;
@@ -128,20 +128,18 @@ static t_list	*get_best_move(t_sort_result *sort_result, size_t lst_size)
 
 	best_num_of_moves = INT_MAX;
 	c = -1;
-	best_move = sort_result->stack_a.top;
+	best_move = stack.top;
 	while (++c < lst_size)
 	{
-		if (sort_result->stack_a.move_cost[c].source_forward != -1 &&
-			sort_result->stack_a.move_cost[c].target_dec_forward != -1)
+		if (stack.move_cost[c].source_forward != -1 &&
+			stack.move_cost[c].target_dec_forward != -1)
 		{
-			moves = ft_max(sort_result->stack_a.move_cost[c].source_forward,
-			sort_result->stack_a.move_cost[c].target_dec_forward);
+			moves = ft_max(stack.move_cost[c].source_forward,
+			stack.move_cost[c].target_dec_forward);
 			if (best_num_of_moves > moves)
 			{
 				best_num_of_moves = moves;
-				best_move = sort_result->stack_a.move_cost[c].elem;
-				if (!best_move)
-					ft_dprintf(2, "MOI! %lld\n", best_move->content);
+				best_move = stack.move_cost[c].elem;
 			}
 		}
 	}
@@ -165,7 +163,7 @@ static void		move_and_sort_to_stack_b_v1(t_sort_result *sort_result,
 	{
 		lst_size = sort_result->stack_a.int_lst_size + sort_result->stack_b.int_lst_size;
 		count_move_cost_v2(sort_result);
-		next_to_move = get_best_move(sort_result, lst_size);
+		next_to_move = get_best_move(sort_result->stack_a, lst_size);
 		move_status = 0;
 		while (move_status != (source_stack_ready | target_stack_ready) &&
 				sort_result->total_num_of_actions < 80000)
