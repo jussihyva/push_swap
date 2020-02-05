@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 13:06:33 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/05 16:17:19 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 17:20:26 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,8 +162,8 @@ static void		get_best_move(t_sort_result *sort_result, size_t lst_size)
 			{
 				best_num_of_moves = moves;
 				next_move->integer = sort_result->stack_a.move_cost[c].integer;
-				next_move->source_stack_action = ra;
-				next_move->target_stack_action = rb;
+				next_move->source_stack_action = rra;
+				next_move->target_stack_action = rrb;
 			}
 		}
 	}

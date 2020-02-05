@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/05 16:14:41 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/05 17:13:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ void			step_prt_down_b(t_sort_result *sort_result)
 	return ;
 }
 
+void			step_prt_up_b(t_sort_result *sort_result)
+{
+	t_stack			*stack_b;
+
+	stack_b = &sort_result->stack_b;
+	if (sort_result->stack_b.int_lst_size)
+		stack_b->top = stack_b->top->prev;
+	return ;
+}
+
 static void		count_num_of_consecutive(t_sort_result *sort_result)
 {
 	size_t			c;
@@ -64,7 +74,6 @@ static void		optimize_rb_rrb(t_sort_result *sort_result)
 	t_move_action	last_action;
 	size_t			c;
 
-	return ;
 	last_action = sort_result->action_list[sort_result->action_list_size - 1];
 	while ((last_action == rb || last_action == rrb) &&
 		(size_t)sort_result->stack_b.int_lst_size > 0 &&
