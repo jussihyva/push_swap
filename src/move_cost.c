@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:16:59 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 20:27:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 21:00:34 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void		source_cost_v3(t_list *start_ptr, t_move_cost *move_cost,
 	t_list			*ptr;
 	size_t			cost_cnt;
 	int				first_lap;
+	int				integer;
 
 	ptr = start_ptr;
 	cost_cnt = 0;
@@ -72,7 +73,8 @@ static void		source_cost_v3(t_list *start_ptr, t_move_cost *move_cost,
 	while (ptr && (ptr != start_ptr || first_lap)) 
 	{
 		first_lap = 0;
-		if (sort_group == none || sort_group == move_cost->sort_group)
+		integer = *(int *)ptr->content;
+		if (sort_group == none || sort_group == move_cost[integer].sort_group)
 		{
 			move_cost[*(int *)ptr->content].source_rx = cost_cnt;
 			move_cost[*(int *)ptr->content].source_rrx =

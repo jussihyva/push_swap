@@ -156,6 +156,7 @@ while [ $x -le 500 ]; do
 				echo "$ARG"
 			fi
 			(( fails++ ))
+			exit
 		fi
 		(( x++ )); done
 echo " "

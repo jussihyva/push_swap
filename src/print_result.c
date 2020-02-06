@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:31:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 16:49:42 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 21:21:54 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void		print_action_list(t_list **result_array)
 	c = -1;
 	if (sort_result)
 	{
-		sleep(0);
 		while (++c < sort_result->action_list_size)
 		{
 			if (sort_result->action_list[c] == sa)

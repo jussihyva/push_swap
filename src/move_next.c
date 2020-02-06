@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:49:15 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 20:19:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 21:35:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,125 @@ t_stack_status		target_stack_action_dec_v3_1(t_sort_result *sort_result,
 	return (target_stack_ready);
 }
 
-static	void		check_rx_rx(t_move_cost *move_cost, t_next_move *next_move)
+static	void		check_rx_rx(t_move_cost *move_cost, t_next_move *next_move,
+												t_stack_name source_stack_namme)
 {
 	size_t			moves;
 
-	if (move_cost->source_rx != -1 && move_cost->target_dec_rx != -1)
+	if ((source_stack_namme == a && move_cost->source_rx != -1 && move_cost->target_dec_rx != -1) ||
+		(source_stack_namme == b && move_cost->source_rx != -1 && move_cost->target_asc_rx != -1))
 	{
-		moves = ft_max(move_cost->source_rx, move_cost->target_dec_rx);
+		if (source_stack_namme == a)
+			moves = ft_max(move_cost->source_rx, move_cost->target_dec_rx);
+		else
+			moves = ft_max(move_cost->source_rx, move_cost->target_asc_rx);
 		if (next_move->best_num_of_moves > moves)
 		{
 			next_move->best_num_of_moves = moves;
 			next_move->integer = move_cost->integer;
-			next_move->source_stack_action = ra;
-			next_move->target_stack_action = rb;
+			if (source_stack_namme == a)
+			{
+				next_move->source_stack_action = ra;
+				next_move->target_stack_action = rb;
+			}
+			else
+			{
+				next_move->source_stack_action = rb;
+				next_move->target_stack_action = ra;
+			}
+		}
+	}
+	return ;
+}
+
+static	void		check_rrx_rrx(t_move_cost *move_cost, t_next_move *next_move,
+												t_stack_name source_stack_namme)
+{
+	size_t			moves;
+
+	if ((source_stack_namme == a && move_cost->source_rrx != -1 && move_cost->target_dec_rrx != -1) ||
+		(source_stack_namme == b && move_cost->source_rrx != -1 && move_cost->target_asc_rrx != -1))
+	{
+		if (source_stack_namme == a)
+			moves = ft_max(move_cost->source_rrx, move_cost->target_dec_rrx);
+		else
+			moves = ft_max(move_cost->source_rrx, move_cost->target_asc_rrx);
+		if (next_move->best_num_of_moves > moves)
+		{
+			next_move->best_num_of_moves = moves;
+			next_move->integer = move_cost->integer;
+			if (source_stack_namme == a)
+			{
+				next_move->source_stack_action = rra;
+				next_move->target_stack_action = rrb;
+			}
+			else
+			{
+				next_move->source_stack_action = rrb;
+				next_move->target_stack_action = rra;
+			}
+		}
+	}
+	return ;
+}
+
+static	void		check_rx_rrx(t_move_cost *move_cost, t_next_move *next_move,
+												t_stack_name source_stack_namme)
+{
+	size_t			moves;
+
+	if ((source_stack_namme == a && move_cost->source_rx != -1 && move_cost->target_dec_rrx != -1) ||
+		(source_stack_namme == b && move_cost->source_rx != -1 && move_cost->target_asc_rrx != -1))
+	{
+		if (source_stack_namme == a)
+			moves = ft_max(move_cost->source_rx, move_cost->target_dec_rrx);
+		else
+			moves = ft_max(move_cost->source_rx, move_cost->target_asc_rrx);
+		if (next_move->best_num_of_moves > moves)
+		{
+			next_move->best_num_of_moves = moves;
+			next_move->integer = move_cost->integer;
+			if (source_stack_namme == a)
+			{
+				next_move->source_stack_action = ra;
+				next_move->target_stack_action = rrb;
+			}
+			else
+			{
+				next_move->source_stack_action = rb;
+				next_move->target_stack_action = rra;
+			}
+		}
+	}
+	return ;
+}
+
+static	void		check_rrx_rx(t_move_cost *move_cost, t_next_move *next_move,
+												t_stack_name source_stack_namme)
+{
+	size_t			moves;
+
+	if ((source_stack_namme == a && move_cost->source_rrx != -1 && move_cost->target_dec_rx != -1) ||
+		(source_stack_namme == b && move_cost->source_rrx != -1 && move_cost->target_asc_rx != -1))
+	{
+		if (source_stack_namme == a)
+			moves = ft_max(move_cost->source_rrx, move_cost->target_dec_rx);
+		else
+			moves = ft_max(move_cost->source_rrx, move_cost->target_asc_rx);
+		if (next_move->best_num_of_moves > moves)
+		{
+			next_move->best_num_of_moves = moves;
+			next_move->integer = move_cost->integer;
+			if (source_stack_namme == a)
+			{
+				next_move->source_stack_action = rra;
+				next_move->target_stack_action = rb;
+			}
+			else
+			{
+				next_move->source_stack_action = rrb;
+				next_move->target_stack_action = ra;
+			}
 		}
 	}
 	return ;
@@ -114,7 +220,10 @@ int					get_next_move(t_sort_result *sort_result,
 	c = -1;
 	while (++c < (size_t)sort_result->move_cost_size)
 	{
-		check_rx_rx(&sort_result->move_cost[c], next_move);
+		check_rx_rx(&sort_result->move_cost[c], next_move, source_stack_namme);
+		check_rrx_rrx(&sort_result->move_cost[c], next_move, source_stack_namme);
+		check_rx_rrx(&sort_result->move_cost[c], next_move, source_stack_namme);
+		check_rrx_rx(&sort_result->move_cost[c], next_move, source_stack_namme);
 	}
 	if (next_move->integer)
 		return (1);

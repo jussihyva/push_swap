@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 20:24:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 21:36:29 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,8 +286,8 @@ int						main(int argc, char **argv)
 		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		// sort_function.sort_function = (void *)less_moves_sort_v3_4;
 		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-//		sort_function.sort_function = (void *)less_moves_sort_v4_1;
-//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v4_1;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		sort_function.sort_function = (void *)less_moves_sort_v4_2;
 		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
