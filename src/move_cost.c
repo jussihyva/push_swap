@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:16:59 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 16:43:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 20:27:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,31 @@ static void		source_cost(t_list *start_ptr, t_move_cost *move_cost,
 		move_cost[*(int *)ptr->content].source_rx = cost_cnt;
 		move_cost[*(int *)ptr->content].source_rrx =
 											(lst_size - cost_cnt) % lst_size;
+		cost_cnt++;
+		ptr = ptr->next;
+	}
+	return ;
+}
+
+static void		source_cost_v3(t_list *start_ptr, t_move_cost *move_cost,
+									size_t lst_size, t_sort_group sort_group)
+{
+	t_list			*ptr;
+	size_t			cost_cnt;
+	int				first_lap;
+
+	ptr = start_ptr;
+	cost_cnt = 0;
+	first_lap = 1;
+	while (ptr && (ptr != start_ptr || first_lap)) 
+	{
+		first_lap = 0;
+		if (sort_group == none || sort_group == move_cost->sort_group)
+		{
+			move_cost[*(int *)ptr->content].source_rx = cost_cnt;
+			move_cost[*(int *)ptr->content].source_rrx =
+											(lst_size - cost_cnt) % lst_size;
+		}
 		cost_cnt++;
 		ptr = ptr->next;
 	}
@@ -307,5 +332,23 @@ void			count_move_cost_b_v3_3(t_sort_result *sort_result)
 	lst_size = sort_result->stack_b.int_lst_size;
 	source_cost(start_ptr, move_cost, lst_size);
 	target_cost_v3_3(sort_result, b, &sort_result->stack_a);
+	return ;
+}
+
+void	count_move_cost_v4_1(t_sort_result *sort_result,
+								t_stack_name source_stack_namme,
+								t_sort_group sort_group, t_sort_mode sort_mode)
+{
+	t_stack			*source_stack;
+	t_stack			*target_stack;
+
+	set_stacks(sort_result, source_stack_namme, &source_stack, &target_stack);
+	reset_cost_counters(sort_result);
+	source_cost_v3(source_stack->top, sort_result->move_cost,
+										source_stack->int_lst_size, sort_group);
+	if (sort_mode == none)
+		set_all_target_costs_to_zero(sort_result);
+	else
+		target_cost_v3_3(sort_result, b, target_stack);
 	return ;
 }

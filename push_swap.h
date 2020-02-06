@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 14:09:31 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 20:17:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,13 @@
 # include <limits.h>
 # include "libft.h"
 # include "ft_printf.h"
-# define MAX_ACTIONS 100000
+# define MAX_ACTIONS 200000
+
+typedef enum	e_sort_mode
+{
+	no_sort,
+	sort_v1
+}				t_sort_mode;
 
 typedef enum	e_stack_name
 {
@@ -26,8 +32,9 @@ typedef enum	e_stack_name
 
 typedef enum	e_sort_group
 {
-	group0 = 0,
-	group1 = 1
+	none = 0,
+	group1 = 1,
+	group2 = 2
 }				t_sort_group;
 
 typedef enum	e_move_action
@@ -61,6 +68,7 @@ typedef enum	e_stack_status
 typedef struct s_next_move
 {
 	t_list			*integer;
+	size_t			best_num_of_moves;
 	t_move_action	source_stack_action;
 	t_move_action	target_stack_action;
 }				t_next_move;
@@ -210,6 +218,8 @@ void			less_moves_sort_v3_4(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			less_moves_sort_v4_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
+void			less_moves_sort_v4_2(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
 void			min_max(t_sort_result *sort_result);
 void			move_max_to_top(t_sort_result *sort_result, t_stack *stack,
 												int max, t_move_action action);
@@ -218,5 +228,24 @@ void            count_move_cost_v1_2(t_sort_result *sort_result);
 void            count_move_cost_v2(t_sort_result *sort_result);
 void            count_move_cost_v3_3(t_sort_result *sort_result);
 void            count_move_cost_b_v3_3(t_sort_result *sort_result);
+void			devide_integers_into_groups_v1(t_sort_result *sort_result);
+void			move_group_to_another_stack_v1(t_sort_result *sort_result,
+					t_stack_name a, t_sort_group group1, t_sort_mode no_sort);
+int				get_next_move(t_sort_result *sort_result,
+								t_stack_name source_stack_namme,
+								t_sort_group sort_group, t_sort_mode sort_mode);
+t_stack_status	source_stack_action_v3_1(t_sort_result *sort_result,
+																t_stack *stack);
+t_stack_status	target_stack_action_asc_v3_1(t_sort_result *sort_result,
+																t_stack *stack);
+t_stack_status	target_stack_action_dec_v3_1(t_sort_result *sort_result,
+																t_stack *stack);
+void			count_move_cost_v4_1(t_sort_result *sort_result,
+								t_stack_name source_stack_namme,
+								t_sort_group sort_group, t_sort_mode sort_mode);
+void			set_stacks(t_sort_result *sort_result,
+							t_stack_name source_stack_namme,
+							t_stack **source_stack, t_stack **target_stack);
+size_t			ft_max(size_t nbr1, size_t nbr2);
 
 #endif

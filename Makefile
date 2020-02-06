@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/05 17:37:12 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/06 19:47:57 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,10 @@ SRC_FILES_NAME		=	ft_intswap.c ft_arraydel.c ft_intsort.c ft_intdup.c \
 						sort_less_moves_v1_1.c sort_less_moves_v1_2.c sort_less_moves_v1_3.c sort_less_moves_v1_4.c \
 						sort_less_moves_v2_1.c \
 						sort_less_moves_v3_1.c sort_less_moves_v3_2.c sort_less_moves_v3_3.c sort_less_moves_v3_4.c \
-						sort_less_moves_v4_1.c \
-						move_cost.c
+						sort_less_moves_v4_1.c sort_less_moves_v4_2.c \
+						group_integers.c \
+						move_cost.c move_next.c \
+						move_pa_pb_functions.c
 
 OBJ_FILES			=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(SRC_FILES_NAME)))
 

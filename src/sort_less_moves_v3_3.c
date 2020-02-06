@@ -6,16 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 13:06:33 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 10:40:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 20:21:22 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static size_t	ft_max(size_t nbr1, size_t nbr2)
-{
-	return (nbr1 > nbr2 ? nbr1 : nbr2);
-}
 
 static t_list	*select_next_integer(t_sort_result *sort_result)
 {

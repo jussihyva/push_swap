@@ -6,16 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:49:14 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 17:02:00 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 20:21:34 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static size_t	ft_max(size_t nbr1, size_t nbr2)
-{
-	return (nbr1 > nbr2 ? nbr1 : nbr2);
-}
 
 static t_stack_status	target_stack_action_asc_v2(t_sort_result *sort_result,
 					t_stack *stack)
@@ -283,20 +278,20 @@ static void		move_and_sort_all_to_stack_a_v1(t_sort_result *sort_result)
 	return ;
 }
 
-static void		devide_integers_into_groups_v1(t_sort_result *sort_result)
+static void		devide_integers_into_groups(t_sort_result *sort_result)
 {
 	int			c;
 
 	c = -1;
 	while (++c < sort_result->move_cost_size)
-		sort_result->move_cost->sort_group = group0;
+		sort_result->move_cost->sort_group = none;
 	return ;
 }
 
 void			less_moves_sort_v4_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
-	devide_integers_into_groups_v1(sort_result);
+	devide_integers_into_groups(sort_result);
 	move_and_sort_to_stack_b_v1(sort_result, 0);
 	move_max_to_top(sort_result, &sort_result->stack_b, sort_result->stack_b.max, rrb);
 	move_all_to_stack_b_v1(sort_result);

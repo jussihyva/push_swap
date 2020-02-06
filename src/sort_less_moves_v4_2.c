@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_less_moves_v3_4.c                             :+:      :+:    :+:   */
+/*   sort_less_moves_v4_2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/05 17:35:58 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 20:21:27 by jkauppi          ###   ########.fr       */
+/*   Created: 2020/02/06 18:07:15 by jkauppi           #+#    #+#             */
+/*   Updated: 2020/02/06 20:19:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ static void		get_best_move(t_sort_result *sort_result, size_t lst_size)
 		if (sort_result->move_cost[c].source_rx != -1 &&
 			sort_result->move_cost[c].target_dec_rrx != -1)
 		{
-			moves = ft_max(sort_result->move_cost[c].source_rx,
-			sort_result->move_cost[c].target_dec_rrx);
+			moves = sort_result->move_cost[c].source_rx +
+					sort_result->move_cost[c].target_dec_rrx;
 			if (best_num_of_moves > moves)
 			{
 				best_num_of_moves = moves;
@@ -129,8 +129,8 @@ static void		get_best_move(t_sort_result *sort_result, size_t lst_size)
 		if (sort_result->move_cost[c].source_rrx != -1 &&
 			sort_result->move_cost[c].target_dec_rx != -1)
 		{
-			moves = ft_max(sort_result->move_cost[c].source_rrx,
-			sort_result->move_cost[c].target_dec_rx);
+			moves = sort_result->move_cost[c].source_rrx +
+				sort_result->move_cost[c].target_dec_rx;
 			if (best_num_of_moves > moves)
 			{
 				best_num_of_moves = moves;
@@ -149,7 +149,9 @@ static void		get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size)
 	size_t			moves;
 	size_t			c;
 	t_next_move		*next_move;
+	t_move_cost		*move_cost;
 
+	move_cost = sort_result->move_cost;
 	best_num_of_moves = INT_MAX;
 	c = -1;
 	next_move = &sort_result->next_move;
@@ -184,8 +186,8 @@ static void		get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size)
 		if (sort_result->move_cost[c].source_rx != -1 &&
 			sort_result->move_cost[c].target_asc_rrx != -1)
 		{
-			moves = ft_max(sort_result->move_cost[c].source_rx,
-			sort_result->move_cost[c].target_asc_rrx);
+			moves = sort_result->move_cost[c].source_rx +
+				sort_result->move_cost[c].target_asc_rrx;
 			if (best_num_of_moves > moves)
 			{
 				best_num_of_moves = moves;
@@ -197,8 +199,8 @@ static void		get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size)
 		if (sort_result->move_cost[c].source_rrx != -1 &&
 			sort_result->move_cost[c].target_asc_rx != -1)
 		{
-			moves = ft_max(sort_result->move_cost[c].source_rrx,
-			sort_result->move_cost[c].target_asc_rx);
+			moves = sort_result->move_cost[c].source_rrx +
+				sort_result->move_cost[c].target_asc_rx;
 			if (best_num_of_moves > moves)
 			{
 				best_num_of_moves = moves;
@@ -272,16 +274,17 @@ static void		move_and_sort_to_stack_a_v1(t_sort_result *sort_result,
 
 static void		move_and_sort_all_to_stack_a_v1(t_sort_result *sort_result)
 {
-	move_and_sort_to_stack_a_v1(sort_result, 100);
+	move_and_sort_to_stack_a_v1(sort_result, 0);
 	return ;
 }
 
-void			less_moves_sort_v3_4(t_sort_result *sort_result,
+void			less_moves_sort_v4_2(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
+	devide_integers_into_groups_v1(sort_result);
 	move_and_sort_to_stack_b_v1(sort_result, 0);
 	move_max_to_top(sort_result, &sort_result->stack_b, sort_result->stack_b.max, rrb);
-	move_all_to_stack_b_v1(sort_result);
+	move_group_to_another_stack_v1(sort_result, a, group1, no_sort);
 	move_and_sort_to_stack_a_v1(sort_result, 100);
 	if (sort_result->stack_b.top)
 		move_and_sort_all_to_stack_a_v1(sort_result);
