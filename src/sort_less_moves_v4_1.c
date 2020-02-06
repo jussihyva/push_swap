@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:49:14 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 10:39:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 15:43:27 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,9 @@ static void		get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size)
 	size_t			moves;
 	size_t			c;
 	t_next_move		*next_move;
+	t_move_cost		*move_cost;
 
+	move_cost = sort_result->move_cost;
 	best_num_of_moves = INT_MAX;
 	c = -1;
 	next_move = &sort_result->next_move;

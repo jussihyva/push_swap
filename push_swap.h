@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 10:37:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 14:09:31 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # include "libft.h"
 # include "ft_printf.h"
 # define MAX_ACTIONS 100000
+
+typedef enum	e_stack_name
+{
+	a,
+	b
+}				t_stack_name;
 
 typedef enum	e_sort_group
 {
