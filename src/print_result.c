@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:31:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 07:54:20 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 11:09:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		print_action_list(t_list **result_array)
 	{
 		if (!sort_result)
 			sort_result = (t_sort_result *)elem->content;
-		else if (((t_sort_result *)elem->content)->action_list_size <
+		else if (((t_sort_result *)elem->content)->action_list_size <=
 												sort_result->action_list_size)
 			sort_result = (t_sort_result *)elem->content;
 		else

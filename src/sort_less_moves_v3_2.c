@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 09:52:07 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/05 18:06:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 10:40:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,26 +132,26 @@ static t_list	*get_best_move(t_sort_result *sort_result, size_t lst_size)
 	best_move = sort_result->stack_a.top;
 	while (++c < lst_size)
 	{
-		if (sort_result->stack_a.move_cost[c].source_rx != -1 &&
-			sort_result->stack_a.move_cost[c].target_dec_rx != -1)
+		if (sort_result->move_cost[c].source_rx != -1 &&
+			sort_result->move_cost[c].target_dec_rx != -1)
 		{
-			moves = ft_max(sort_result->stack_a.move_cost[c].source_rx,
-			sort_result->stack_a.move_cost[c].target_dec_rx);
+			moves = ft_max(sort_result->move_cost[c].source_rx,
+			sort_result->move_cost[c].target_dec_rx);
 			if (best_num_of_moves > moves)
 			{
 				best_num_of_moves = moves;
-				best_move = sort_result->stack_a.move_cost[c].integer;
+				best_move = sort_result->move_cost[c].integer;
 			}
 		}
-		if (sort_result->stack_a.move_cost[c].source_rrx != -1 &&
-			sort_result->stack_a.move_cost[c].target_dec_rrx != -1)
+		if (sort_result->move_cost[c].source_rrx != -1 &&
+			sort_result->move_cost[c].target_dec_rrx != -1)
 		{
-			moves = ft_max(sort_result->stack_a.move_cost[c].source_rrx,
-			sort_result->stack_a.move_cost[c].target_dec_rrx);
+			moves = ft_max(sort_result->move_cost[c].source_rrx,
+			sort_result->move_cost[c].target_dec_rrx);
 			if (best_num_of_moves > moves)
 			{
 				best_num_of_moves = moves;
-				best_move = sort_result->stack_a.move_cost[c].integer;
+				best_move = sort_result->move_cost[c].integer;
 			}
 		}
 	}
@@ -170,15 +170,15 @@ static t_list	*get_best_move_b(t_sort_result *sort_result, size_t lst_size)
 	best_move = sort_result->stack_b.top;
 	while (++c < lst_size)
 	{
-		if (sort_result->stack_b.move_cost[c].source_rx != -1 &&
-			sort_result->stack_b.move_cost[c].target_asc_rx != -1)
+		if (sort_result->move_cost[c].source_rx != -1 &&
+			sort_result->move_cost[c].target_asc_rx != -1)
 		{
-			moves = ft_max(sort_result->stack_b.move_cost[c].source_rx,
-			sort_result->stack_b.move_cost[c].target_asc_rx);
+			moves = ft_max(sort_result->move_cost[c].source_rx,
+			sort_result->move_cost[c].target_asc_rx);
 			if (best_num_of_moves > moves)
 			{
 				best_num_of_moves = moves;
-				best_move = sort_result->stack_b.move_cost[c].integer;
+				best_move = sort_result->move_cost[c].integer;
 			}
 		}
 	}

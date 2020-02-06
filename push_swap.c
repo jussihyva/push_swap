@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 08:34:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 11:10:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,26 +196,21 @@ static void				stack_sort(t_input_data *input,
 	sort_result.stack_b.int_lst_size = 0;
 	sort_result.stack_a.int_lst = ft_lstmap(input->int_list, ft_lstcpy);
 	sort_result.stack_b.int_lst = NULL;
-	sort_result.stack_a.move_cost =
-			(t_move_cost *)ft_memalloc(sizeof(*sort_result.stack_a.move_cost) *
+	sort_result.move_cost =
+			(t_move_cost *)ft_memalloc(sizeof(*sort_result.move_cost) *
 											sort_result.stack_a.int_lst_size);
-	sort_result.stack_b.move_cost =
-			(t_move_cost *)ft_memalloc(sizeof(*sort_result.stack_b.move_cost) *
-											sort_result.stack_a.int_lst_size);
-	sort_result.stack_a.move_cost_size = sort_result.stack_a.int_lst_size;
-	sort_result.stack_b.move_cost_size = sort_result.stack_a.int_lst_size;
-//	devide_integers_into_groups(sort_result.stack_a.move_cost);
+	sort_result.move_cost_size = sort_result.stack_a.int_lst_size;
 	elem = sort_result.stack_a.int_lst;
 	while (elem->next)
 	{
 		nbr = *(int *)elem->content;
-		sort_result.stack_a.move_cost[nbr].integer = elem;
-		sort_result.stack_b.move_cost[nbr].integer = elem;
+		sort_result.move_cost[nbr].integer = elem;
+		sort_result.move_cost[nbr].integer = elem;
 		elem = elem->next;
 	}
 	nbr = *(int *)elem->content;
-	sort_result.stack_a.move_cost[nbr].integer = elem;
-	sort_result.stack_b.move_cost[nbr].integer = elem;
+	sort_result.move_cost[nbr].integer = elem;
+	sort_result.move_cost[nbr].integer = elem;
 	sort_result.stack_a.int_lst->prev = elem;
 	elem->next = sort_result.stack_a.int_lst;
 	sort_result.stack_a.median = input->median;
@@ -263,16 +258,16 @@ int						main(int argc, char **argv)
 						// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 				//		sort_function.sort_function = (void *)bubble_sort_v2_1;
 				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-//		sort_function.sort_function = (void *)bubble_sort_v2_2;
-//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)bubble_sort_v2_3;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)bubble_sort_v2_4;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)bubble_sort_v2_5;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-//		sort_function.sort_function = (void *)bubble_sort_v3_1;
-//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				//		sort_function.sort_function = (void *)bubble_sort_v2_2;
+				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				//		sort_function.sort_function = (void *)bubble_sort_v2_3;
+				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				//		sort_function.sort_function = (void *)bubble_sort_v2_4;
+				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				//		sort_function.sort_function = (void *)bubble_sort_v2_5;
+				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				//		sort_function.sort_function = (void *)bubble_sort_v3_1;
+				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		sort_function.sort_function = (void *)less_moves_sort_v1_1;
 		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		sort_function.sort_function = (void *)less_moves_sort_v1_2;
@@ -291,8 +286,8 @@ int						main(int argc, char **argv)
 		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		sort_function.sort_function = (void *)less_moves_sort_v3_4;
 		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)less_moves_sort_v4_1;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v4_1;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
 		*result_array = NULL;
 		input = prepare_input_data(argc, argv);
