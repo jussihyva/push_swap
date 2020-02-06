@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/05 17:44:38 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 08:34:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ static void				stack_sort(t_input_data *input,
 											sort_result.stack_a.int_lst_size);
 	sort_result.stack_a.move_cost_size = sort_result.stack_a.int_lst_size;
 	sort_result.stack_b.move_cost_size = sort_result.stack_a.int_lst_size;
-	devide_integers_into_groups(sort_result.stack_a.move_cost);
+//	devide_integers_into_groups(sort_result.stack_a.move_cost);
 	elem = sort_result.stack_a.int_lst;
 	while (elem->next)
 	{
@@ -222,7 +222,7 @@ static void				stack_sort(t_input_data *input,
 	sort_result.stack_a.average = input->average;
 	sort_result.stack_a.top = sort_result.stack_a.int_lst;
 	sort_result.stack_b.top = NULL;
-	sort_result.sort_group = sort_group1;
+	sort_result.sort_group = group1;
 	min_max(&sort_result);
 	count_move_cost_v3_3(&sort_result);
 	((t_sort_function *)function_elem->content)->sort_function(&sort_result,
@@ -247,48 +247,48 @@ int						main(int argc, char **argv)
 	{
 		max_actions = 20000;
 		sort_function_list = (t_list **)ft_memalloc(sizeof(*sort_function_list));
-		// sort_function.sort_function = (void *)bubble_sort_v1;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)bubble_sort_v1;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 						// sort_function.sort_function = (void *)random_sort_v1;
 						// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)bubble_sort_v2;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)bubble_sort_v3;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)insertion_sort_v1;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)random_sort_v2;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)bubble_sort_v2;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)bubble_sort_v3;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)insertion_sort_v1;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				//		sort_function.sort_function = (void *)random_sort_v2;
+				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 						// sort_function.sort_function = (void *)random_sort_v3;
 						// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)bubble_sort_v2_1;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)bubble_sort_v2_2;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				//		sort_function.sort_function = (void *)bubble_sort_v2_1;
+				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+//		sort_function.sort_function = (void *)bubble_sort_v2_2;
+//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		// sort_function.sort_function = (void *)bubble_sort_v2_3;
 		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		// sort_function.sort_function = (void *)bubble_sort_v2_4;
 		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		// sort_function.sort_function = (void *)bubble_sort_v2_5;
 		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)bubble_sort_v3_1;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)less_moves_sort_v1_1;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)less_moves_sort_v1_2;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)less_moves_sort_v1_3;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)less_moves_sort_v1_4;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)less_moves_sort_v2_1;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)less_moves_sort_v3_1;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)less_moves_sort_v3_2;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)less_moves_sort_v3_3;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+//		sort_function.sort_function = (void *)bubble_sort_v3_1;
+//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v1_1;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v1_2;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v1_3;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v1_4;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v2_1;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v3_1;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v3_2;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v3_3;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		sort_function.sort_function = (void *)less_moves_sort_v3_4;
 		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		// sort_function.sort_function = (void *)less_moves_sort_v4_1;
