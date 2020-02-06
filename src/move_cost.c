@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:16:59 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 16:05:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 16:43:06 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,18 +173,24 @@ static void		set_target_asc_cost(t_sort_result *sort_result,
 	return ;
 }
 
-static void		set_target_dec_cost(t_sort_result *sort_result, int start, int end, size_t cost)
+static void		set_target_dec_cost(t_sort_result *sort_result,
+								t_stack_name stack_name, t_list *ptr, size_t cost)
 {
 	int			c;
 	int			size;
+	int			start;
+	int			end;
 
-	size = sort_result->move_cost_size;
-	c = (start + 1) % size;
-	while (c % size != end % size)
+	end = *(int *)ptr->content;
+	start = *(int *)ptr->prev->content;
+	size = stack_name == a ? sort_result->stack_b.int_lst_size :
+												sort_result->stack_a.int_lst_size;
+	c = (start + 1) % sort_result->move_cost_size;
+	while (c % sort_result->move_cost_size != end % sort_result->move_cost_size)
 	{
 		sort_result->move_cost[c].target_dec_rx = (size - cost) % size;
 		sort_result->move_cost[c].target_dec_rrx = cost;
-		c = (c + 1) % size;
+		c = (c + 1) % sort_result->move_cost_size;
 	}
 	return ;
 }
@@ -208,8 +214,6 @@ static void		target_cost_v3_3(t_sort_result *sort_result, t_stack_name stack_nam
 {
 	t_list			*ptr;
 	size_t			cost_cnt;
-	int				start_int;
-	int				end_int;
 	int				first_lap;
 
 	cost_cnt = 0;
@@ -221,9 +225,7 @@ static void		target_cost_v3_3(t_sort_result *sort_result, t_stack_name stack_nam
 		{
 			first_lap = 0;
 			set_target_asc_cost(sort_result, stack_name, ptr, cost_cnt);
-			start_int = *(int *)ptr->content;
-			end_int = *(int *)ptr->prev->content;
-			set_target_dec_cost(sort_result, start_int, end_int, cost_cnt);
+			set_target_dec_cost(sort_result, stack_name, ptr, cost_cnt);
 			cost_cnt++;
 			ptr = ptr->next;
 		}

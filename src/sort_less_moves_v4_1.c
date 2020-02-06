@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:49:14 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 15:43:27 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/06 16:39:21 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,7 +297,7 @@ void			less_moves_sort_v4_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions)
 {
 	devide_integers_into_groups_v1(sort_result);
-	move_and_sort_to_stack_b_v1(sort_result, 100);
+	move_and_sort_to_stack_b_v1(sort_result, 50);
 	move_max_to_top(sort_result, &sort_result->stack_b, sort_result->stack_b.max, rrb);
 	move_all_to_stack_b_v1(sort_result);
 	move_and_sort_to_stack_a_v1(sort_result, 100);
