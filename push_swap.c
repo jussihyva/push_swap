@@ -30,15 +30,9 @@ static void			set_order(t_list *elem)
 
 static void			ft_lstswap(t_list *elem1, t_list *elem2)
 {
-	t_list	*tmp;
-
-	tmp = elem1->prev;
-	elem2->prev = tmp;
-	if (tmp)
-	{
-		tmp->next = elem2;
+	elem2->prev = elem1->prev;
+	if (elem1->prev)
 		elem1->prev->next = elem2;
-	}
 	elem1->next = elem2->next;
 	elem1->prev = elem2;
 	if (elem2->next)
