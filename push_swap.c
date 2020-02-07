@@ -67,7 +67,6 @@ static void				ft_lstsort(t_list **list, int cmp(t_list *elem1, t_list *elem2))
 					*list = elem->next;
 				ft_lstswap(elem, elem->next);
 				is_sorted = 0;
-				break ;
 			}
 			else
 				elem = elem->next;
