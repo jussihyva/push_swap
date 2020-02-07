@@ -139,20 +139,15 @@ static char				*merge_args(char **array, int size)
 	char		*tmp;
 	int			c;
 
-	if (size)
+	c = 0;
+	s = ft_strdup(array[c]);
+	while (++c < size)
 	{
-		c = 0;
-		s = ft_strdup(array[c]);
-		while (++c < size)
-		{
-			tmp = ft_strjoin(s, " ");
-			ft_strdel(&s);
-			s = ft_strjoin(tmp, array[c]);
-			ft_strdel(&tmp);
-		}
+		tmp = ft_strjoin(s, " ");
+		ft_strdel(&s);
+		s = ft_strjoin(tmp, array[c]);
+		ft_strdel(&tmp);
 	}
-	else
-		s = ft_strdup("");
 	return (s);
 }
 
