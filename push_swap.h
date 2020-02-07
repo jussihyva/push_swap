@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 20:17:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/07 12:42:48 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ typedef struct	s_sort_function
 {
 	void	*(*sort_function)(t_sort_result *sort_result, t_list **result_array,
 														size_t *max_actions);
+	size_t			num_of_actions;
 }				t_sort_function;
 
 void			bubble_sort_v1(t_sort_result *sort_result,
@@ -246,6 +247,8 @@ void			count_move_cost_v4_1(t_sort_result *sort_result,
 void			set_stacks(t_sort_result *sort_result,
 							t_stack_name source_stack_namme,
 							t_stack **source_stack, t_stack **target_stack);
+size_t			ft_min(size_t nbr1, size_t nbr2);
 size_t			ft_max(size_t nbr1, size_t nbr2);
+void			del_stack(void *nbr, size_t size);
 
 #endif

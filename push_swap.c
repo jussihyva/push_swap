@@ -6,19 +6,20 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 21:36:29 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/07 12:46:18 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// static void				del_stack(void *nbr, size_t size)
-// {
-// 	(void)size;
-// 	free(nbr);
-// 	nbr = NULL;
-// 	return ;
-// }
+void				del_stack(void *nbr, size_t size)
+{
+	(void)size;
+	(void)nbr;
+//	free(nbr);
+//	nbr = NULL;
+	return ;
+}
 
 static void			set_order(t_list *elem)
 {
@@ -78,10 +79,9 @@ static void				ft_lstsort(t_list **list, int cmp(t_list *elem1, t_list *elem2))
 static t_list			*ft_lstcpy(t_list *elem)
 {
 	t_list		*new_elem;
-	int			dummy;
 
-	dummy = 56;
-	new_elem = ft_lstnew(&dummy, sizeof(dummy));
+	new_elem = ft_lstnew(elem->content, elem->content_size);
+	free(new_elem->content);
 	new_elem->content = elem->content;
 	return (new_elem);
 }
@@ -90,7 +90,7 @@ static void				add_to_list(t_list **list, int *integer)
 {
 	t_list		*elem;
 
-	elem = ft_lstnew(integer, sizeof(*integer));
+	elem = ft_lstnew(integer, sizeof(integer));
 	if (*list)
 		ft_lstadd_e(list, elem);
 	else
@@ -177,7 +177,7 @@ static void				stack_sort(t_input_data *input,
 	init_sort_result(&sort_result);
 	sort_result.action_list =
 			(t_move_action *)ft_memalloc(sizeof(*sort_result.action_list) *
-																		200000);
+																MAX_ACTIONS);
 	sort_result.stack_array =
 							ft_intdup(input->int_array, input->int_array_size);
 	sort_result.stack_a.int_lst_size = input->int_array_size;
@@ -210,17 +210,20 @@ static void				stack_sort(t_input_data *input,
 	count_move_cost_v3_3(&sort_result);
 	((t_sort_function *)function_elem->content)->sort_function(&sort_result,
 													result_array, max_actions);
-//	free(sort_result.action_list);
-//	ft_lstdel(&sort_result.stack_a, *del_stack);
-//	free(sort_result.stack_array);
+	sort_result.stack_a.int_lst->prev->next = NULL;
+	ft_lstdel(&sort_result.stack_a.int_lst, *del_stack);
+	ft_lstdel(&sort_result.stack_b.int_lst, *del_stack);
+	free(sort_result.stack_array);
 	sort_result.stack_array = NULL;
+	free(sort_result.action_list);
+	sort_result.action_list = NULL;
 	return ;
 }
 
 int						main(int argc, char **argv)
 {
 	t_input_data		*input;
-	t_list				**result_array;
+	t_list				*result_array;
 	t_list				**sort_function_list;
 	t_list				*elem;
 	size_t				max_actions;
@@ -228,8 +231,9 @@ int						main(int argc, char **argv)
 
 	if (argc > 1)
 	{
-		max_actions = 20000;
+		max_actions = MAX_ACTIONS / 10;
 		sort_function_list = (t_list **)ft_memalloc(sizeof(*sort_function_list));
+		sort_function.num_of_actions = 0;
 		sort_function.sort_function = (void *)bubble_sort_v1;
 		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 						// sort_function.sort_function = (void *)random_sort_v1;
@@ -274,25 +278,36 @@ int						main(int argc, char **argv)
 		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		// sort_function.sort_function = (void *)less_moves_sort_v3_4;
 		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		sort_function.sort_function = (void *)less_moves_sort_v4_1;
-		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		// sort_function.sort_function = (void *)less_moves_sort_v4_1;
+		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		sort_function.sort_function = (void *)less_moves_sort_v4_2;
 		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		result_array = (t_list **)ft_memalloc(sizeof(*result_array));
-		*result_array = NULL;
+		result_array = NULL;
 		input = prepare_input_data(argc, argv);
 		elem = *sort_function_list;
 		while (elem)
 		{
-			stack_sort(input, elem, result_array, &max_actions);
-			ft_dprintf(2, "MAX: %5lu\n", max_actions);
-			max_actions *= 10;
+			stack_sort(input, elem, &result_array, &max_actions);
+			((t_sort_function *)elem->content)->num_of_actions = max_actions;
+			max_actions = ft_min(MAX_ACTIONS / 2, max_actions * 10);
 			elem = elem->next;
 		}
-		sleep(0);
-		print_action_list(result_array);
-		free(result_array);
-		result_array = NULL;
+		elem = *sort_function_list;
+		ft_dprintf(2, "MAX:  ");
+		while (elem)
+		{
+			max_actions = ((t_sort_function *)elem->content)->num_of_actions;
+			ft_dprintf(2, "%7lu", max_actions);
+			elem = elem->next;
+		}
+		ft_dprintf(2, "\n");
+		sleep(2);
+		print_action_list(&result_array);
+		free(sort_function_list);
+		sort_function_list = NULL;
+		ft_lstdel(&input->int_list_sorted, *del_stack);
+		ft_lstdel(&result_array, *del_stack);
+		free(input);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:49:15 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 21:35:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/07 09:21:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 size_t	ft_max(size_t nbr1, size_t nbr2)
 {
 	return (nbr1 > nbr2 ? nbr1 : nbr2);
+}
+
+size_t	ft_min(size_t nbr1, size_t nbr2)
+{
+	return (nbr1 < nbr2 ? nbr1 : nbr2);
 }
 
 t_stack_status		source_stack_action_v3_1(t_sort_result *sort_result,
@@ -151,9 +156,9 @@ static	void		check_rx_rrx(t_move_cost *move_cost, t_next_move *next_move,
 		(source_stack_namme == b && move_cost->source_rx != -1 && move_cost->target_asc_rrx != -1))
 	{
 		if (source_stack_namme == a)
-			moves = ft_max(move_cost->source_rx, move_cost->target_dec_rrx);
+			moves = move_cost->source_rx + move_cost->target_dec_rrx;
 		else
-			moves = ft_max(move_cost->source_rx, move_cost->target_asc_rrx);
+			moves = move_cost->source_rx + move_cost->target_asc_rrx;
 		if (next_move->best_num_of_moves > moves)
 		{
 			next_move->best_num_of_moves = moves;
@@ -182,9 +187,9 @@ static	void		check_rrx_rx(t_move_cost *move_cost, t_next_move *next_move,
 		(source_stack_namme == b && move_cost->source_rrx != -1 && move_cost->target_asc_rx != -1))
 	{
 		if (source_stack_namme == a)
-			moves = ft_max(move_cost->source_rrx, move_cost->target_dec_rx);
+			moves = move_cost->source_rrx + move_cost->target_dec_rx;
 		else
-			moves = ft_max(move_cost->source_rrx, move_cost->target_asc_rx);
+			moves = move_cost->source_rrx + move_cost->target_asc_rx;
 		if (next_move->best_num_of_moves > moves)
 		{
 			next_move->best_num_of_moves = moves;
