@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:10:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 10:58:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/07 18:41:41 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	do_next_action(t_sort_result *sort_result,
 {
 	int				is_sorted;
 	t_move_action	new_valid_actions;
-	t_sort_result	save_result;
+//	t_sort_result	save_result;
 	size_t			c;
 
 	new_valid_actions = 0;
@@ -55,13 +55,14 @@ static int	do_next_action(t_sort_result *sort_result,
 			execute_action(sort_result, rra);
 			c++;
 		}
-		init_sort_result(&save_result);
-		save_result.action_list = ft_int_array_dup(sort_result->action_list,
-												sort_result->action_list_size);
-		save_result.action_list_size = sort_result->action_list_size;
-		ft_lstadd_e(result_array, ft_lstnew(&save_result, sizeof(save_result)));
-		if (*max_actions > save_result.action_list_size)
-			*max_actions = save_result.action_list_size;
+//		init_sort_result(&save_result);
+//		save_result.action_list = ft_int_array_dup(sort_result->action_list,
+//												sort_result->action_list_size);
+//		save_result.action_list_size = sort_result->action_list_size;
+		save_result(sort_result, max_actions, result_array);
+		// ft_lstadd_e(result_array, ft_lstnew(&save_result, sizeof(save_result)));
+		// if (*max_actions > save_result.action_list_size)
+		// 	*max_actions = save_result.action_list_size;
 		is_sorted = 0;
 		while (c--)
 			execute_action(sort_result, ra);

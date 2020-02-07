@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 08:45:35 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/04 10:17:19 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/07 18:06:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ void	*ft_memalloc(size_t size)
 	void	*mem_area;
 
 	if ((mem_area = malloc(size)))
-	{
-		((char *)mem_area)[size - 1] = 0;
-		((char *)mem_area)[0] = 0;
-	}
+		ft_bzero(mem_area, size);
 	return (mem_area);
 }

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/06 19:47:57 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/07 15:08:00 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC_FOLDER			=	src
 HEADER_FOLDER		=	./
 OBJ_FOLDER			=	obj
 TEST_FOLDER			=	basic_test
-SRC_FILES_NAME		=	ft_intswap.c ft_arraydel.c ft_intsort.c ft_intdup.c \
+SRC_FILES_NAME		=	ft_intswap.c ft_arraydel.c ft_intsort.c ft_intdup.c memory.c \
 						sort_common_1.c sort_common_2.c sort_common_3.c \
 						sort_bubble_v1.c sort_bubble_v2.c sort_bubble_v3.c \
 						sort_insertion_v1.c \

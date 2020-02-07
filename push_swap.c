@@ -6,20 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/07 12:46:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/07 18:42:42 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void				del_stack(void *nbr, size_t size)
-{
-	(void)size;
-	(void)nbr;
-//	free(nbr);
-//	nbr = NULL;
-	return ;
-}
 
 static void			set_order(t_list *elem)
 {
@@ -217,6 +208,8 @@ static void				stack_sort(t_input_data *input,
 	sort_result.stack_array = NULL;
 	free(sort_result.action_list);
 	sort_result.action_list = NULL;
+	free(sort_result.move_cost);
+	sort_result.move_cost = NULL;
 	return ;
 }
 
@@ -236,30 +229,30 @@ int						main(int argc, char **argv)
 		sort_function.num_of_actions = 0;
 		sort_function.sort_function = (void *)bubble_sort_v1;
 		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-						// sort_function.sort_function = (void *)random_sort_v1;
+		sort_function.sort_function = (void *)random_sort_v1;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)bubble_sort_v2;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)bubble_sort_v3;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)insertion_sort_v1;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+						// sort_function.sort_function = (void *)random_sort_v2;
 						// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)bubble_sort_v2;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)bubble_sort_v3;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)insertion_sort_v1;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				//		sort_function.sort_function = (void *)random_sort_v2;
-				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 						// sort_function.sort_function = (void *)random_sort_v3;
 						// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				//		sort_function.sort_function = (void *)bubble_sort_v2_1;
-				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				//		sort_function.sort_function = (void *)bubble_sort_v2_2;
-				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				//		sort_function.sort_function = (void *)bubble_sort_v2_3;
-				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				//		sort_function.sort_function = (void *)bubble_sort_v2_4;
-				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				//		sort_function.sort_function = (void *)bubble_sort_v2_5;
-				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				//		sort_function.sort_function = (void *)bubble_sort_v3_1;
-				//		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				// sort_function.sort_function = (void *)bubble_sort_v2_1;
+				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				// sort_function.sort_function = (void *)bubble_sort_v2_2;
+				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				// sort_function.sort_function = (void *)bubble_sort_v2_3;
+				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				// sort_function.sort_function = (void *)bubble_sort_v2_4;
+				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				// sort_function.sort_function = (void *)bubble_sort_v2_5;
+				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+				// sort_function.sort_function = (void *)bubble_sort_v3_1;
+				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		// sort_function.sort_function = (void *)less_moves_sort_v1_1;
 		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		// sort_function.sort_function = (void *)less_moves_sort_v1_2;
@@ -278,8 +271,8 @@ int						main(int argc, char **argv)
 		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		// sort_function.sort_function = (void *)less_moves_sort_v3_4;
 		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// sort_function.sort_function = (void *)less_moves_sort_v4_1;
-		// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function.sort_function = (void *)less_moves_sort_v4_1;
+		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		sort_function.sort_function = (void *)less_moves_sort_v4_2;
 		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		result_array = NULL;
@@ -289,7 +282,7 @@ int						main(int argc, char **argv)
 		{
 			stack_sort(input, elem, &result_array, &max_actions);
 			((t_sort_function *)elem->content)->num_of_actions = max_actions;
-			max_actions = ft_min(MAX_ACTIONS / 2, max_actions * 10);
+			max_actions = ft_min(MAX_ACTIONS / 2, max_actions);
 			elem = elem->next;
 		}
 		elem = *sort_function_list;
@@ -301,12 +294,13 @@ int						main(int argc, char **argv)
 			elem = elem->next;
 		}
 		ft_dprintf(2, "\n");
-		sleep(2);
+		sleep(0);
 		print_action_list(&result_array);
-		free(sort_function_list);
-		sort_function_list = NULL;
-		ft_lstdel(&input->int_list_sorted, *del_stack);
-		ft_lstdel(&result_array, *del_stack);
+		ft_lstdel(sort_function_list, *del_sort_function_list);
+		ft_lstdel(&input->int_list, *del_int_list);
+		ft_lstdel(&input->int_list_sorted, *del_int_list_sorted);
+		ft_lstdel(&result_array, *del_result_array);
+		free(input->int_array);
 		free(input);
 	}
 	return (0);

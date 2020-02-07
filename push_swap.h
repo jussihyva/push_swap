@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/07 12:42:48 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/07 18:26:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,5 +250,9 @@ void			set_stacks(t_sort_result *sort_result,
 size_t			ft_min(size_t nbr1, size_t nbr2);
 size_t			ft_max(size_t nbr1, size_t nbr2);
 void			del_stack(void *nbr, size_t size);
+void			del_int_list(void *elem, size_t size);
+void			del_int_list_sorted(void *elem, size_t size);
+void			del_sort_function_list(void *elem, size_t size);
+void			del_result_array(void *elem, size_t size);
 
 #endif
