@@ -14,7 +14,13 @@
 
 int			main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
-	return (0);
+	t_sort_result		*sort_result;
+	int			error_code;
+
+	sort_result = initialize_checker();
+	read_optional_parameters(sort_result, argc, argv);
+	read_input_data(sort_result);
+	validate_instructions(sort_result);
+	error_code = print_result(sort_result);
+	return (error_code);
 }
