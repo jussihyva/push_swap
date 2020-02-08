@@ -49,6 +49,6 @@ clear ; ARG=`echo "20 5 2 10 19 3 12 9 11 14 8 6 18 17 1 16 7 15 13 4"` ; time .
 clear ; ARG=`echo "9 14 20 10 2 18 7 11 5 16 19 4 3 1 12 6 17 13 8 15"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
 clear ; ARG=`echo "81 83 56 45 8 97 93 17 1 73 53 47 75 15 0 89 30 71 34 46 43 65 99 33 67 25 98 22 2 77 4 35 21 57 18 69 24 11 74 91 54 63 60 94 61 58 78 39 12 36 27 48 51 80 41 3 10 55 44 84 59 87 29 20 49 23 90 26 31 66 72 42 82 95 62 7 52 50 16 76 92 5 96 40 28 79 70 85 86 6 38 68 64 14 19 13 32 88 37 9"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
 clear ; ARG=`echo "4 3 1 0 2"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
-
+clear ; ARG=`echo "77 33 47 79 66 81 43 26 19 25 18 89 70 85 55 93 5 78 63 39 10 12 34 83 75 95 50 24 0 68 36 99 72 13 69 28 92 84 9 7 21 45 8 49 3 52 56 48 29 58 71 40 35 91 57 96 86 54 67 51 32 27 11 38 97 62 42 87 4 30 74 94 23 17 61 88 46 65 90 76 31 73 37 53 41 80 6 1 22 60 44 98 20 59 64 14 15 82 2 16"` ; time ./push_swap $ARG | ../42-push_swap/checker -vcat $ARG
 
 clear ; ARG=`ruby -e 'printf Array.new(5) { rand(-999999...999999) }.uniq.map { |i| i.to_s}.join(" ")'` ; time ./push_swap $ARG |  ../42-push_swap/checker -vcat $ARG ; echo $ARG

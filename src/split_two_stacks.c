@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 12:13:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/03 13:11:50 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/07 20:41:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 void		move_all_to_stack_b_v1(t_sort_result *sort_result)
 {
 	while (sort_result->stack_a.int_lst_size)
+		execute_action(sort_result, pb);
+	return ;
+}
+
+void		move_all_to_stack_b_v4_1(t_sort_result *sort_result)
+{
+	while (sort_result->stack_a.int_lst_size > 2)
 		execute_action(sort_result, pb);
 	return ;
 }

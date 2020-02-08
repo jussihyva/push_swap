@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:24:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 21:09:41 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/07 21:53:26 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void			move_group_to_another_stack_v1(t_sort_result *sort_result,
 	t_stack				*target_stack;
 
 	set_stacks(sort_result, source_stack_namme, &source_stack, &target_stack);
+	sort_result->sort_group = sort_group;
 	while (get_next_move(sort_result, source_stack_namme, sort_group, sort_mode))
 	{
 		move_status = 0;

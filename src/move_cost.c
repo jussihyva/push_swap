@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 11:16:59 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 21:00:34 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/08 13:31:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,10 @@ static void		set_target_asc_cost(t_sort_result *sort_result,
 	while (c % sort_result->move_cost_size != end % sort_result->move_cost_size)
 	{
 		sort_result->move_cost[c].target_asc_rx = cost;
-		sort_result->move_cost[c].target_asc_rrx = (size - cost) % size;
+		if (size)
+			sort_result->move_cost[c].target_asc_rrx = (size - cost) % size;
+		else
+			sort_result->move_cost[c].target_asc_rrx = cost;
 		c = (c + 1) % sort_result->move_cost_size;
 	}
 	return ;
@@ -215,7 +218,10 @@ static void		set_target_dec_cost(t_sort_result *sort_result,
 	c = (start + 1) % sort_result->move_cost_size;
 	while (c % sort_result->move_cost_size != end % sort_result->move_cost_size)
 	{
-		sort_result->move_cost[c].target_dec_rx = (size - cost) % size;
+		if (size)
+			sort_result->move_cost[c].target_dec_rx = (size - cost) % size;
+		else
+			sort_result->move_cost[c].target_dec_rx = cost;
 		sort_result->move_cost[c].target_dec_rrx = cost;
 		c = (c + 1) % sort_result->move_cost_size;
 	}
@@ -344,11 +350,14 @@ void	count_move_cost_v4_1(t_sort_result *sort_result,
 	t_stack			*source_stack;
 	t_stack			*target_stack;
 
+	(void)sort_group;
 	set_stacks(sort_result, source_stack_namme, &source_stack, &target_stack);
 	reset_cost_counters(sort_result);
 	source_cost_v3(source_stack->top, sort_result->move_cost,
 										source_stack->int_lst_size, sort_group);
 	if (sort_mode == none)
+		set_all_target_costs_to_zero(sort_result);
+	else if (sort_mode == sort_v2)
 		set_all_target_costs_to_zero(sort_result);
 	else
 		target_cost_v3_3(sort_result, b, target_stack);

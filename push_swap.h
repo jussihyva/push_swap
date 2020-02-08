@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/07 18:26:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/08 14:06:30 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 typedef enum	e_sort_mode
 {
 	no_sort,
-	sort_v1
+	sort_v1,
+	sort_v2
 }				t_sort_mode;
 
 typedef enum	e_stack_name
@@ -34,7 +35,15 @@ typedef enum	e_sort_group
 {
 	none = 0,
 	group1 = 1,
-	group2 = 2
+	group2 = 2,
+	group3 = 3,
+	group4 = 4,
+	group5 = 5,
+	group6 = 6,
+	group7 = 7,
+	group8 = 8,
+	group9 = 9,
+	group10 = 10
 }				t_sort_group;
 
 typedef enum	e_move_action
@@ -187,6 +196,7 @@ void			move_all_to_stack_b_v1(t_sort_result *sort_result);
 void			move_all_to_stack_b_v2(t_sort_result *sort_result);
 void			move_all_to_stack_b_v3(t_sort_result *sort_result);
 void			move_all_to_stack_b_v4(t_sort_result *sort_result);
+void			move_all_to_stack_b_v4_1(t_sort_result *sort_result);
 void			bubble_sort_v2_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			bubble_sort_v2_2(t_sort_result *sort_result,
@@ -221,6 +231,10 @@ void			less_moves_sort_v4_1(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void			less_moves_sort_v4_2(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
+void			less_moves_sort_v4_3(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
+void			less_moves_sort_v4_4(t_sort_result *sort_result,
+									t_list **result_array, size_t *max_actions);
 void			min_max(t_sort_result *sort_result);
 void			move_max_to_top(t_sort_result *sort_result, t_stack *stack,
 												int max, t_move_action action);
@@ -230,6 +244,8 @@ void            count_move_cost_v2(t_sort_result *sort_result);
 void            count_move_cost_v3_3(t_sort_result *sort_result);
 void            count_move_cost_b_v3_3(t_sort_result *sort_result);
 void			devide_integers_into_groups_v1(t_sort_result *sort_result);
+void			devide_integers_into_groups_v2(t_sort_result *sort_result);
+void			devide_integers_into_groups_v3(t_sort_result *sort_result);
 void			move_group_to_another_stack_v1(t_sort_result *sort_result,
 					t_stack_name a, t_sort_group group1, t_sort_mode no_sort);
 int				get_next_move(t_sort_result *sort_result,

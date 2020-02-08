@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:49:15 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/07 09:21:58 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/07 23:18:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,8 +226,8 @@ int					get_next_move(t_sort_result *sort_result,
 	while (++c < (size_t)sort_result->move_cost_size)
 	{
 		check_rx_rx(&sort_result->move_cost[c], next_move, source_stack_namme);
-		check_rrx_rrx(&sort_result->move_cost[c], next_move, source_stack_namme);
 		check_rx_rrx(&sort_result->move_cost[c], next_move, source_stack_namme);
+		check_rrx_rrx(&sort_result->move_cost[c], next_move, source_stack_namme);
 		check_rrx_rx(&sort_result->move_cost[c], next_move, source_stack_namme);
 	}
 	if (next_move->integer)
