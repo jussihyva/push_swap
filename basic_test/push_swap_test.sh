@@ -138,27 +138,34 @@ while [ $x -le 500 ]; do
 	if [ $varyn == "y" ]; then
 		echo "$ARG"
 	fi
-	a=$($PUSH_SWAP $ARG | $CHECKER $ARG)
-	sum+=`$PUSH_SWAP $ARG | wc -l`
-	hl=`$PUSH_SWAP $ARG | wc -l`
+	r=$($PUSH_SWAP $ARG)
+	if [ -z "$r" ]
+	then
+		a=$(sleep 0 | $CHECKER $ARG)
+		hl=0
+	else
+		a=$(echo "$r" | $CHECKER $ARG)
+		hl=$(echo "$r" | wc -l)
+	fi
+	sum+=$hl
 	echo "steps $hl"
-		if [ $high -lt $hl ]; then
-			high=hl
+	if [ $high -lt $hl ]; then
+		high=hl
+	fi
+	if [ $low -gt $hl ]; then
+		low=hl
+	fi
+	if [ $a == "OK" ]; then
+		echo -e "\033[1;32m$a\033[0m"
+	else
+		echo -e "\033[1;31m$a\033[0m"
+		echo -e "\033[1;32m$r\033[0m"
+		if [ $varyn != "y" ]; then
+			echo "$ARG"
 		fi
-		if [ $low -gt $hl ]; then
-			low=hl
-		fi
-		if [ $a == "OK" ]; then
-			echo -e "\033[1;32m$a\033[0m"
-		else
-			echo -e "\033[1;31m$a\033[0m"
-			if [ $varyn != "y" ]; then
-				echo "$ARG"
-			fi
-			(( fails++ ))
-			exit
-		fi
-		(( x++ )); done
+		(( fails++ ))
+	fi
+	(( x++ )); done
 echo " "
 echo "_____________________"
 declare -i med=$(( sum/500 ))
@@ -187,4 +194,4 @@ if [ $nb ==  500 ]; then
 	echo "- Less than 11500: 1"
 fi
 echo "_____________________"
-echo "jhakala"
+echo "jhakala/jkauppi"

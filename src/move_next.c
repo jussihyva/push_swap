@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:49:15 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/07 23:18:19 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/09 12:43:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,13 +222,16 @@ int					get_next_move(t_sort_result *sort_result,
 	next_move->source_stack_action = null;
 	next_move->target_stack_action = null;
 	next_move->best_num_of_moves = INT_MAX;
-	c = -1;
-	while (++c < (size_t)sort_result->move_cost_size)
+	if (source_stack_namme == b || sort_result->stack_a.int_lst_size > 2)
 	{
-		check_rx_rx(&sort_result->move_cost[c], next_move, source_stack_namme);
-		check_rx_rrx(&sort_result->move_cost[c], next_move, source_stack_namme);
-		check_rrx_rrx(&sort_result->move_cost[c], next_move, source_stack_namme);
-		check_rrx_rx(&sort_result->move_cost[c], next_move, source_stack_namme);
+		c = -1;
+		while (++c < (size_t)sort_result->move_cost_size)
+		{
+			check_rx_rx(&sort_result->move_cost[c], next_move, source_stack_namme);
+			check_rx_rrx(&sort_result->move_cost[c], next_move, source_stack_namme);
+			check_rrx_rrx(&sort_result->move_cost[c], next_move, source_stack_namme);
+			check_rrx_rx(&sort_result->move_cost[c], next_move, source_stack_namme);
+		}
 	}
 	if (next_move->integer)
 		return (1);
