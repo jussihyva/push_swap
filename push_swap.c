@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/09 12:14:42 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/09 19:22:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,64 +75,6 @@ static t_list			*ft_lstcpy(t_list *elem)
 	free(new_elem->content);
 	new_elem->content = elem->content;
 	return (new_elem);
-}
-
-static void				add_to_list(t_list **list, int *integer)
-{
-	t_list		*elem;
-
-	elem = ft_lstnew(integer, sizeof(integer));
-	if (*list)
-		ft_lstadd_e(list, elem);
-	else
-		*list = elem;
-}
-
-static void				string_to_array(char *s, t_input_data *input)
-{
-	int			*stack;
-	size_t		i;
-	char		**str_array;
-
-	input->min = INT_MAX;
-	input->max = INT_MIN;
-	stack = NULL;
-	if ((str_array = ft_strsplit(s, ' ')))
-	{
-		while (*(str_array + input->int_array_size))
-			input->int_array_size++;
-		i = input->int_array_size;
-		stack = (int *)ft_memalloc(sizeof(*stack) * input->int_array_size);
-		while (i--)
-		{
-			stack[i] = ft_atoi(str_array[input->int_array_size - i - 1]);
-			add_to_list(&input->int_list, stack + i);
-			input->min = input->min > stack[i] ? stack[i] : input->min;
-			input->max = input->max < stack[i] ? stack[i] : input->max;
-		}
-		input->average = (input->max - input->min) / 2;
-		ft_arraydel(str_array);
-	}
-	input->int_array = stack;
-	return ;
-}
-
-static char				*merge_args(char **array, int size)
-{
-	char		*s;
-	char		*tmp;
-	int			c;
-
-	c = 0;
-	s = ft_strdup(array[c]);
-	while (++c < size)
-	{
-		tmp = ft_strjoin(s, " ");
-		ft_strdel(&s);
-		s = ft_strjoin(tmp, array[c]);
-		ft_strdel(&tmp);
-	}
-	return (s);
 }
 
 static t_input_data		*prepare_input_data(int argc, char **argv)

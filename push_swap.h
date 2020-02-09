@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/08 14:06:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/09 20:03:10 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,5 +270,7 @@ void			del_int_list(void *elem, size_t size);
 void			del_int_list_sorted(void *elem, size_t size);
 void			del_sort_function_list(void *elem, size_t size);
 void			del_result_array(void *elem, size_t size);
+char			*merge_args(char **array, int size);
+int				string_to_array(char *s, t_input_data *input);
 
 #endif
