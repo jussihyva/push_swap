@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 07:30:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/10 08:57:07 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/10 10:34:10 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,14 @@ int				ft_strtoi(const char *str, char **endptr, int base)
 	start_ptr = str;
 	while (ft_isspace(*str))
 		str++;
-	if (start_ptr != str)
-		errno = EINVAL;
+	errno = start_ptr != str ? EINVAL : errno;
 	neg = *str == '-' ? -1 : 1;
 	str += (*str == '-' || *str == '+') ? 1 : 0;
 	nbr = 0;
+	start_ptr = str;
 	while (add_digit(&nbr, *str))
 		str++;
+	errno = start_ptr == str ? EINVAL : errno;
 	if ((neg * nbr) > INT_MAX || (neg * nbr) < INT_MIN)
 	{
 		errno = ERANGE;

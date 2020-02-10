@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:37:12 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/10 08:56:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/10 12:46:57 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,31 +42,53 @@ static void		add_to_list(t_list **list, int *integer)
 		*list = elem;
 }
 
-int				string_to_array(char *s, t_input_data *input)
+static int		is_dublicate(int integer, int *stack, size_t size)
 {
-	int			*stack;
+	size_t		c;
+
+	c = 0;
+	while (c < size && stack[c] != integer)
+		c++;
+	if (c < size)
+		return (1);
+	return (0);
+}
+
+static int		conv_and_save(t_input_data *input, char **str_array)
+{
 	size_t		i;
-	char		**str_array;
+	int			*stack;
 	char		*endptr;
 
-	stack = NULL;
 	endptr = NULL;
+	stack = (int *)ft_memalloc(sizeof(*stack) * input->int_array_size);
+	i = input->int_array_size;
+	while (stack && i--)
+	{
+		stack[i] = ft_strtoi(str_array[input->int_array_size - i - 1],
+																&endptr, 10);
+		if (errno || (endptr && *endptr) || is_dublicate(stack[i], &stack[i + 1],
+												input->int_array_size - i - 1))
+			return (1);
+		add_to_list(&input->int_list, stack + i);
+		input->int_array = stack;
+	}
+	return (0);
+}
+
+int				string_to_array(char *s, t_input_data *input)
+{
+	char		**str_array;
+	int			result;
+
+	result = 0;
+	input->int_array = NULL;
 	if ((str_array = ft_strsplit(s, ' ')))
 	{
 		while (*(str_array + input->int_array_size))
 			input->int_array_size++;
-		i = input->int_array_size;
-		stack = (int *)ft_memalloc(sizeof(*stack) * input->int_array_size);
-		while (i--)
-		{
-			stack[i] = ft_strtoi(str_array[input->int_array_size - i - 1],
-																&endptr, 10);
-			if (errno || (endptr && *endptr))
-				return (1);
-			add_to_list(&input->int_list, stack + i);
-		}
+		result = conv_and_save(input, str_array);
 		ft_arraydel(str_array);
 	}
-	input->int_array = stack;
-	return (0);
+	return (result);
 }
