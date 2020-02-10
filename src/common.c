@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:37:12 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/10 12:46:57 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/10 13:08:42 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static int		conv_and_save(t_input_data *input, char **str_array)
 	{
 		stack[i] = ft_strtoi(str_array[input->int_array_size - i - 1],
 																&endptr, 10);
-		if (errno || (endptr && *endptr) || is_dublicate(stack[i], &stack[i + 1],
-												input->int_array_size - i - 1))
+		if (errno || (endptr && *endptr) || is_dublicate(stack[i],
+								&stack[i + 1], input->int_array_size - i - 1))
 			return (1);
 		add_to_list(&input->int_list, stack + i);
 		input->int_array = stack;
