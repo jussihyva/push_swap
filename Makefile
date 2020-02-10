@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/09 18:39:28 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/10 08:05:31 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,8 @@ SRC_FOLDER			=	src
 HEADER_FOLDER		=	./
 OBJ_FOLDER			=	obj
 TEST_FOLDER			=	basic_test
-SRC_FILES_NAME		=	ft_intswap.c ft_arraydel.c ft_intsort.c ft_intdup.c memory.c \
-						sort_common_1.c sort_common_2.c sort_common_3.c \
+SRC_FILES_NAME		=	ft_intswap.c ft_arraydel.c ft_intsort.c ft_intdup.c ft_strtoi.c \
+						sort_common_1.c sort_common_2.c sort_common_3.c memory.c \
 						sort_bubble_v1.c sort_bubble_v2.c sort_bubble_v3.c \
 						sort_insertion_v1.c \
 						sort_random_v1.c sort_random_v2.c sort_random_v3.c \
@@ -88,7 +88,7 @@ fclean: clean
 re: fclean all
 
 norm:
-	norminette ./*.[ch] $(SRC_FOLDER)/*.[ch]
+	norminette ./che*.[ch] $(SRC_FOLDER)/checker*.[ch]  $(SRC_FOLDER)/comm*.[ch] $(SRC_FOLDER)/ft_s*.[ch]
 
 test: | $(TEST_FOLDER)
 #	./push_swap $(TEST_ARG)

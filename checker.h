@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:53 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/09 19:19:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/10 08:03:38 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include "libft.h"
 # include "push_swap.h"
+# include <errno.h>
 
 typedef enum	e_attr_flags
 {
@@ -42,11 +43,12 @@ typedef struct	s_checker_input
 	t_list		**instrution_list;
 }				t_checker_input;
 
-int			read_optional_attributes(int valid_opt_flags, int *argc,
+int				read_optional_attributes(int valid_opt_flags, int *argc,
 									char ***argv, t_opt_attr *opt_attr);
-int			read_integer_values(t_checker_input *input_data, int argc,
+int				read_integer_values(t_checker_input *input_data, int argc,
 																char **argv);
-char		*merge_args(char **array, int size);
-int			string_to_array(char *s, t_input_data *input);
+char			*merge_args(char **array, int size);
+int				string_to_array(char *s, t_input_data *input);
+int				ft_strtoi(const char *str, char **endptr, int base);
 
 #endif

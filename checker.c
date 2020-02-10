@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:03 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/09 18:30:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/10 08:19:30 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,12 @@ static t_validation_result		read_input_data(t_checker_input *input_data,
 	valid_opt_flags = instruction_file;
 	parameter_array = (void *)ft_memalloc(sizeof(*parameter_array) * 3);
 	if (read_optional_attributes(valid_opt_flags, &argc, &argv, &opt_attr))
-		result = read_integer_values(input_data, argc, argv);
+	{
+		if (argc)
+			result = read_integer_values(input_data, argc, argv);
+		else
+			result = no_param;
+	}
 	else
 		result = error;
 	return (result);
