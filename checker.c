@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:03 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/10 08:19:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/10 13:53:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static t_validation_result		validate_instructions(
 	t_list				*elem;
 
 	(void)instruction;
+	ft_printf("%d\n", *(int *)input_data->stack_a.int_lst->content);
+	ft_printf("%d\n", input_data->stack_b.int_lst);
 	if (input_data->instrution_list)
 	{
 		elem = *input_data->instrution_list;

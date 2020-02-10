@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:53 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/10 08:03:38 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/10 13:47:29 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct	s_checker_input
 {
 	t_list		*integer_list;
 	t_list		**instrution_list;
+	t_stack		stack_a;
+	t_stack		stack_b;
 }				t_checker_input;
 
 int				read_optional_attributes(int valid_opt_flags, int *argc,

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 07:30:16 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/10 10:34:10 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/10 13:36:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ int				ft_strtoi(const char *str, char **endptr, int base)
 		nbr = 0;
 	}
 	set_endptr(endptr, str);
-	return (neg ? (int)(nbr * -1) : (int)nbr);
+	return (neg == 1 ? (int)nbr : (int)(nbr * -1));
 }
