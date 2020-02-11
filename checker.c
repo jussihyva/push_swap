@@ -6,21 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:03 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/11 12:43:04 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/11 13:14:23 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
-
-static t_checker_input			*initialize_checker(void)
-{
-	t_checker_input			*input_data;
-
-	input_data = (t_checker_input *)ft_memalloc(sizeof(*input_data));
-	input_data->instrution_list = NULL;
-	input_data->integer_list = NULL;
-	return (input_data);
-}
 
 static t_validation_result		validate_result(t_checker_input *input_data)
 {
@@ -70,7 +60,6 @@ static t_validation_result		read_input_data(t_checker_input *input_data,
 	int						valid_opt_flags;
 	t_opt_attr				opt_attr;
 	t_validation_result		result;
-	t_list					*elem;
 
 	valid_opt_flags = instruction_file;
 	if (read_optional_attributes(valid_opt_flags, &argc, &argv, &opt_attr))
@@ -82,11 +71,7 @@ static t_validation_result		read_input_data(t_checker_input *input_data,
 	}
 	else
 		result = error;
-	elem = input_data->stack_a.int_lst;
-	while (elem->next)
-		elem = elem->next;
-	input_data->stack_a.int_lst->prev = elem;
-	elem->next = input_data->stack_a.int_lst;
+	activate_linked_list_loop(input_data->stack_a.int_lst);
 	input_data->stack_a.top = input_data->stack_a.int_lst;
 	if (result == ok && validate_result(input_data) != ok)
 		result = read_instructions(input_data);

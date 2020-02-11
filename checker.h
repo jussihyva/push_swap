@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:53 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/10 13:47:29 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/11 13:15:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,42 @@
 # include "push_swap.h"
 # include <errno.h>
 
-typedef enum	e_attr_flags
+typedef enum		e_attr_flags
 {
 	instruction_file = 1,
 	result
-}				t_attr_flags;
+}					t_attr_flags;
 
-typedef struct	s_opt_attr
+typedef struct		s_opt_attr
 {
 	t_attr_flags	attr_flags;
 	char			*instruction_file;
-}				t_opt_attr;
+}					t_opt_attr;
 
-typedef enum	e_validation_result
+typedef enum		e_validation_result
 {
 	no_param,
 	ok,
 	ko,
 	error
-}				t_validation_result;
+}					t_validation_result;
 
-typedef struct	s_checker_input
+typedef struct		s_checker_input
 {
 	t_list		*integer_list;
 	t_list		**instrution_list;
 	t_stack		stack_a;
 	t_stack		stack_b;
-}				t_checker_input;
+}					t_checker_input;
 
-int				read_optional_attributes(int valid_opt_flags, int *argc,
+t_checker_input		*initialize_checker(void);
+int					read_optional_attributes(int valid_opt_flags, int *argc,
 									char ***argv, t_opt_attr *opt_attr);
-int				read_integer_values(t_checker_input *input_data, int argc,
+int					read_integer_values(t_checker_input *input_data, int argc,
 																char **argv);
-char			*merge_args(char **array, int size);
-int				string_to_array(char *s, t_input_data *input);
-int				ft_strtoi(const char *str, char **endptr, int base);
+char				*merge_args(char **array, int size);
+int					string_to_array(char *s, t_input_data *input);
+int					ft_strtoi(const char *str, char **endptr, int base);
+void				activate_linked_list_loop(t_list *int_lst);
 
 #endif

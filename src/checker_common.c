@@ -6,13 +6,35 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:43:05 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/11 09:25:31 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/11 13:15:17 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-int			read_optional_attributes(int valid_opt_flags, int *argc,
+t_checker_input		*initialize_checker(void)
+{
+	t_checker_input			*input_data;
+
+	input_data = (t_checker_input *)ft_memalloc(sizeof(*input_data));
+	input_data->instrution_list = NULL;
+	input_data->integer_list = NULL;
+	return (input_data);
+}
+
+void				activate_linked_list_loop(t_list *int_lst)
+{
+	t_list					*elem;
+
+	elem = int_lst;
+	while (elem->next)
+		elem = elem->next;
+	int_lst->prev = elem;
+	elem->next = int_lst;
+	return ;
+}
+
+int					read_optional_attributes(int valid_opt_flags, int *argc,
 									char ***argv, t_opt_attr *opt_attr)
 {
 	int			result;
@@ -38,7 +60,7 @@ int			read_optional_attributes(int valid_opt_flags, int *argc,
 	return (result);
 }
 
-int			read_integer_values(t_checker_input *input_data, int argc,
+int					read_integer_values(t_checker_input *input_data, int argc,
 																	char **argv)
 {
 	t_validation_result		result;
