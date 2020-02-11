@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:53 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/11 16:58:19 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/11 17:39:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct			s_checker_input
 	t_stack		stack_b;
 }						t_checker_input;
 
-t_sort_result			*initialize_checker(void);
 int						read_optional_attributes(int valid_opt_flags, int *argc,
 									char ***argv, t_opt_attr *opt_attr);
 int						read_integer_values(t_sort_result *input_data,

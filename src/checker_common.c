@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:43:05 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/11 16:59:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/11 17:38:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,6 @@ t_validation_result		str_to_move_action(char *str, t_move_action *action)
 	else
 		result = error;
 	return (result);
-}
-
-t_sort_result			*initialize_checker(void)
-{
-	t_sort_result			*input_data;
-
-	input_data = (t_sort_result *)ft_memalloc(sizeof(*input_data));
-	// input_data->instrution_list = NULL;
-	// input_data->integer_list = NULL;
-	return (input_data);
 }
 
 int						read_optional_attributes(int valid_opt_flags, int *argc,

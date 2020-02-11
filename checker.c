@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:03 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/11 17:31:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/11 17:37:57 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,19 @@ static t_validation_result		validate_result(t_sort_result *input_data)
 }
 
 static t_validation_result		read_instructions(t_sort_result *input_data,
-																		int fd)
+															t_opt_attr opt_attr)
 {
 	int						chars;
 	char					*line;
 	t_validation_result		result;
 	t_move_action			action;
+	int						fd;
 
+	fd = 0;
+	if (opt_attr.attr_flags & instruction_file)
+	{
+		fd = open(opt_attr.instruction_file, O_RDONLY);
+	}
 	line = NULL;
 	while ((chars = ft_get_next_line(fd, &line)) > 0)
 	{
@@ -62,7 +68,6 @@ static t_validation_result		read_input_data(t_sort_result *input_data,
 	int						valid_opt_flags;
 	t_opt_attr				opt_attr;
 	t_validation_result		result;
-	int						fd;
 
 	valid_opt_flags = instruction_file;
 	if (read_optional_attributes(valid_opt_flags, &argc, &argv, &opt_attr))
@@ -78,14 +83,7 @@ static t_validation_result		read_input_data(t_sort_result *input_data,
 	input_data->stack_a.top = input_data->stack_a.int_lst;
 	input_data->stack_b.top = NULL;
 	if (result == ok && validate_result(input_data) != ok)
-	{
-		fd = 0;
-		if (opt_attr.attr_flags & instruction_file)
-		{
-			fd = open(opt_attr.instruction_file, O_RDONLY);
-		}
-		result = read_instructions(input_data, fd);
-	}
+		result = read_instructions(input_data, opt_attr);
 	if (opt_attr.attr_flags & instruction_file)
 		free(opt_attr.instruction_file);
 	return (result);
