@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/09 12:13:55 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/11 17:12:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void			init_sort_result(t_sort_result *sort_result)
 	sort_result->action_list_size = 0;
 	sort_result->action_list = NULL;
 	sort_result->total_num_of_actions = 0;
+	sort_result->action_list =
+			(t_move_action *)ft_memalloc(sizeof(*sort_result->action_list) *
+																MAX_ACTIONS);
 	return ;
 }
 
@@ -47,7 +50,7 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 		add_action(sort_result, action);
 	if (action == sa || action == sb || action == ss)
 	{
-		if (action == sa || action == ss)
+		if ((action == sa || action == ss) && stack_a->int_lst_size)
 		{
 			stack_a->top->next->next->prev = stack_a->top; /* -1 */
 			tmp_ptr = stack_a->top->next->next; /* 0 */
@@ -58,7 +61,7 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 			stack_a->top->prev = stack_a->top->next->prev; /* 5 */
 			stack_a->top->next->prev = stack_a->top; /* 4 */
 		}
-		if (action == sb || action == ss)
+		if ((action == sb || action == ss) && stack_b->int_lst_size)
 		{
 			stack_b->top->next->next->prev = stack_b->top; /* -1 */
 			tmp_ptr = stack_b->top->next->next; /* 0 */

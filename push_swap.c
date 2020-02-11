@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/11 13:00:38 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/11 17:11:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,6 @@ static void				stack_sort(t_input_data *input,
 	size_t			nbr;
 
 	init_sort_result(&sort_result);
-	sort_result.action_list =
-			(t_move_action *)ft_memalloc(sizeof(*sort_result.action_list) *
-																MAX_ACTIONS);
 	sort_result.stack_array =
 							ft_intdup(input->int_array, input->int_array_size);
 	sort_result.stack_a.int_lst_size = input->int_array_size;
