@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:03 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/10 13:53:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/11 09:37:06 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static t_validation_result		read_input_data(t_checker_input *input_data,
 														int argc, char **argv)
 {
 	int						valid_opt_flags;
-	void					*parameter_array;
 	t_opt_attr				opt_attr;
 	t_validation_result		result;
 
@@ -32,7 +31,6 @@ static t_validation_result		read_input_data(t_checker_input *input_data,
 	input_data->integer_list = NULL;
 	result = ok;
 	valid_opt_flags = instruction_file;
-	parameter_array = (void *)ft_memalloc(sizeof(*parameter_array) * 3);
 	if (read_optional_attributes(valid_opt_flags, &argc, &argv, &opt_attr))
 	{
 		if (argc)
@@ -42,6 +40,8 @@ static t_validation_result		read_input_data(t_checker_input *input_data,
 	}
 	else
 		result = error;
+	if (opt_attr.attr_flags & instruction_file)
+		free(opt_attr.instruction_file);
 	return (result);
 }
 
@@ -62,7 +62,6 @@ static t_validation_result		validate_instructions(
 			elem = elem->next;
 		}
 	}
-	(void)input_data;
 	return (ok);
 }
 
@@ -96,5 +95,6 @@ int								main(int argc, char **argv)
 	if (result == ok)
 		result = validate_instructions(input_data);
 	return_code = print_result(result);
+	ft_lstdel(&input_data->stack_a.int_lst, *del_int_list);
 	return (return_code);
 }

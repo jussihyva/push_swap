@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:02:28 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/07 17:39:32 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/11 09:39:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ void				del_stack(void *elem, size_t size)
 void				del_int_list(void *elem, size_t size)
 {
 	(void)size;
-	(void)elem;
+	if (elem)
+	{
+		free(elem);
+		elem = NULL;
+	}
 	return ;
 }
 
 void				del_int_list_sorted(void *elem, size_t size)
 {
 	(void)size;
-	if (elem)
-	{
-		free(elem);
-		elem = NULL;
-	}
+	(void)elem;
 	return ;
 }
 

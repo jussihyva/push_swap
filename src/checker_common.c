@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:43:05 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/10 13:49:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/11 09:25:31 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ int			read_integer_values(t_checker_input *input_data, int argc,
 	ft_strdel(&integer_string);
 	input_data->stack_a.int_lst = input->int_list;
 	input_data->stack_b.int_lst = NULL;
+	free(input->int_array);
+	free(input);
 	return (result);
 }
