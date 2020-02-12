@@ -55,3 +55,19 @@ clear ; ARG=`echo "386 638 299 192 244 73 557 43 393 270 184 917 132 536 432 207
 
 
 clear ; ARG=`ruby -e 'printf Array.new(5) { rand(-999999...999999) }.uniq.map { |i| i.to_s}.join(" ")'` ; time ./push_swap $ARG |  ../42-push_swap/checker -vcat $ARG ; echo $ARG
+
+./push_swap 12 34
+./push_swap
+./push_swap 12ee
+./push_swap ee13
+./push_swap dd34gg
+./push_swap 12 dd45
+./push_swap ”12 56”
+./push_swap ””
+./push_swap ”-”
+./push_swap ”- 13”
+./push_swap - 12
+
+cat newline | ./checker 12 5
+cat no_newline | ./checker 12 5
+
