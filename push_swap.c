@@ -6,13 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 13:09:40 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 15:15:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void			set_order(t_list *elem)
+static void					set_order(t_list *elem)
 {
 	static int		order_num;
 
@@ -20,7 +20,7 @@ static void			set_order(t_list *elem)
 	order_num++;
 }
 
-static void			ft_lstswap(t_list *elem1, t_list *elem2)
+static void					ft_lstswap(t_list *elem1, t_list *elem2)
 {
 	elem2->prev = elem1->prev;
 	if (elem1->prev)
@@ -33,7 +33,7 @@ static void			ft_lstswap(t_list *elem1, t_list *elem2)
 	return ;
 }
 
-static int				cmp_elem(t_list *elem1, t_list *elem2)
+static int					cmp_elem(t_list *elem1, t_list *elem2)
 {
 	if (*(int *)elem1->content < *(int *)elem2->content)
 		return (1);
@@ -41,7 +41,8 @@ static int				cmp_elem(t_list *elem1, t_list *elem2)
 		return (0);
 }
 
-static void				ft_lstsort(t_list **list, int cmp(t_list *elem1, t_list *elem2))
+static void					ft_lstsort(t_list **list, int cmp(t_list *elem1,
+																t_list *elem2))
 {
 	t_list		*elem;
 	int			is_sorted;
@@ -67,7 +68,7 @@ static void				ft_lstsort(t_list **list, int cmp(t_list *elem1, t_list *elem2))
 	return ;
 }
 
-static t_list			*ft_lstcpy(t_list *elem)
+static t_list				*ft_lstcpy(t_list *elem)
 {
 	t_list		*new_elem;
 
@@ -77,21 +78,17 @@ static t_list			*ft_lstcpy(t_list *elem)
 	return (new_elem);
 }
 
-static t_validation_result		prepare_input_data(t_input_data *input, int argc,
-																	char **argv)
+static t_validation_result	prepare_input_data(t_input_data *input,
+														int argc, char **argv)
 {
 	int						*sorted_array;
 	t_validation_result		result;
 
-//	s = merge_args(argv + 1, argc - 1);
 	input->int_array_size = 0;
 	input->int_list = NULL;
-
 	result = read_integer_values(input, argc, argv);
 	if (result == error)
 		return (result);
-//	string_to_array(s, input);
-//	ft_strdel(&s);
 	sorted_array = ft_intsort(input->int_array, input->int_array_size);
 	input->int_list_sorted = ft_lstmap(input->int_list, ft_lstcpy);
 	ft_lstsort(&input->int_list_sorted, cmp_elem);
@@ -102,7 +99,7 @@ static t_validation_result		prepare_input_data(t_input_data *input, int argc,
 	return (result);
 }
 
-static void				stack_sort(t_input_data *input,
+static void					stack_sort(t_input_data *input,
 		t_list *function_elem,
 							t_list **result_array, size_t *max_actions)
 {
@@ -155,123 +152,84 @@ static void				stack_sort(t_input_data *input,
 	return ;
 }
 
-int						main(int argc, char **argv)
+static void					execute_algorithms(t_list **sort_function_list,
+									t_input_data *input, t_list **result_array,
+									t_opt_attr opt_attr)
+{
+	t_list					*elem;
+	size_t					max_actions;
+
+	max_actions = MAX_ACTIONS / 10;
+	elem = *sort_function_list;
+	while (elem)
+	{
+		stack_sort(input, elem, result_array, &max_actions);
+		((t_sort_function *)elem->content)->num_of_actions = max_actions;
+		max_actions = ft_min(MAX_ACTIONS / 2, max_actions * 2);
+		elem = elem->next;
+	}
+	elem = *sort_function_list;
+	if (opt_attr.attr_flags & verbose)
+	{
+		ft_dprintf(2, "Detailed sort result:  ");
+		while (elem)
+		{
+			max_actions = ((t_sort_function *)elem->content)->num_of_actions;
+			ft_dprintf(2, "%7lu", max_actions);
+			elem = elem->next;
+		}
+		ft_dprintf(2, "\n");
+	}
+	return ;
+}
+
+static t_validation_result	read_input_date(t_input_data *input, int *argc,
+											char ***argv, t_opt_attr *opt_attr)
+{
+	t_validation_result		result;
+	int						valid_opt_flags;
+
+	valid_opt_flags = verbose;
+	--(*argc);
+	++(*argv);
+	if (read_optional_attributes(valid_opt_flags, argc, argv, opt_attr))
+	{
+		if (argc)
+		{
+			result = prepare_input_data(input, *argc, *argv);
+		}
+		else
+			result = no_param;
+	}
+	else
+		result = error;
+	return (result);
+}
+
+int							main(int argc, char **argv)
 {
 	t_input_data			*input;
 	t_list					*result_array;
 	t_list					**sort_function_list;
-	t_list					*elem;
-	size_t					max_actions;
-	t_sort_function			sort_function;
 	t_validation_result		result;
-	int						valid_opt_flags;
 	t_opt_attr				opt_attr;
 
 	if (argc > 1)
 	{
-		valid_opt_flags = verbose;
-		--argc;
-		++argv;
-		if (read_optional_attributes(valid_opt_flags, &argc, &argv, &opt_attr))
-		{
-			if (argc)
-			{
-				input = (t_input_data *)ft_memalloc(sizeof(*input));
-				result = prepare_input_data(input, argc, argv);
-			}
-			else
-				result = no_param;
-		}
-		else
-			result = error;
+		input = (t_input_data *)ft_memalloc(sizeof(*input));
+		result = read_input_date(input, &argc, &argv, &opt_attr);
 		if (result != ok)
 		{
 			print_result(result);
 			return (1);
 		}
-		max_actions = MAX_ACTIONS / 10;
-		sort_function_list = (t_list **)ft_memalloc(sizeof(*sort_function_list));
-		sort_function.num_of_actions = 0;
-		sort_function.sort_function = (void *)bubble_sort_v1;
-		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		sort_function.sort_function = (void *)random_sort_v1;
-		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		sort_function.sort_function = (void *)bubble_sort_v2;
-		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		sort_function.sort_function = (void *)bubble_sort_v3;
-		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		sort_function.sort_function = (void *)insertion_sort_v1;
-		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-						// sort_function.sort_function = (void *)random_sort_v2;
-						// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-						// sort_function.sort_function = (void *)random_sort_v3;
-						// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				// sort_function.sort_function = (void *)bubble_sort_v2_1;
-				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				// sort_function.sort_function = (void *)bubble_sort_v2_2;
-				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				// sort_function.sort_function = (void *)bubble_sort_v2_3;
-				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				// sort_function.sort_function = (void *)bubble_sort_v2_4;
-				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				// sort_function.sort_function = (void *)bubble_sort_v2_5;
-				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-				// sort_function.sort_function = (void *)bubble_sort_v3_1;
-				// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// 	sort_function.sort_function = (void *)less_moves_sort_v1_1;
-		// 	ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// 	sort_function.sort_function = (void *)less_moves_sort_v1_2;
-		// 	ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// 	sort_function.sort_function = (void *)less_moves_sort_v1_3;
-		// 	ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// 	sort_function.sort_function = (void *)less_moves_sort_v1_4;
-		// 	ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// 	sort_function.sort_function = (void *)less_moves_sort_v2_1;
-		// 	ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// 	sort_function.sort_function = (void *)less_moves_sort_v3_1;
-		// 	ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// 	sort_function.sort_function = (void *)less_moves_sort_v3_2;
-		// 	ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// 	sort_function.sort_function = (void *)less_moves_sort_v3_3;
-		// 	ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		// 	sort_function.sort_function = (void *)less_moves_sort_v3_4;
-		// 	ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		sort_function.sort_function = (void *)less_moves_sort_v4_1;
-		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		sort_function.sort_function = (void *)less_moves_sort_v4_2;
-		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		sort_function.sort_function = (void *)less_moves_sort_v4_3;
-		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-		sort_function.sort_function = (void *)less_moves_sort_v4_4;
-		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
+		sort_function_list =
+							(t_list **)ft_memalloc(sizeof(*sort_function_list));
+		add_sort_algorithms(sort_function_list);
 		result_array = NULL;
-		elem = *sort_function_list;
-		while (elem)
-		{
-			stack_sort(input, elem, &result_array, &max_actions);
-			((t_sort_function *)elem->content)->num_of_actions = max_actions;
-			max_actions = ft_min(MAX_ACTIONS / 2, max_actions * 2);
-			elem = elem->next;
-		}
-		elem = *sort_function_list;
-		if (opt_attr.attr_flags & verbose)
-		{
-			ft_dprintf(2, "Detailed sort result:  ");
-			while (elem)
-			{
-				max_actions = ((t_sort_function *)elem->content)->num_of_actions;
-				ft_dprintf(2, "%7lu", max_actions);
-				elem = elem->next;
-			}
-			ft_dprintf(2, "\n");
-		}
+		execute_algorithms(sort_function_list, input, &result_array, opt_attr);
 		print_action_list(&result_array);
-		ft_lstdel(sort_function_list, *del_sort_function_list);
-		ft_lstdel(&input->int_list, *del_int_list);
-		ft_lstdel(&input->int_list_sorted, *del_int_list_sorted);
-		ft_lstdel(&result_array, *del_result_array);
-		free(input->int_array);
-		free(input);
+		releasse_memory(sort_function_list, input, result_array);
 	}
 	return (0);
 }

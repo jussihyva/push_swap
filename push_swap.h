@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 10:44:15 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 15:10:20 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,5 +297,12 @@ int				read_integer_values(t_input_data *input,
 int				print_result(t_validation_result result);
 int				read_optional_attributes(int valid_opt_flags, int *argc,
 											char ***argv, t_opt_attr *opt_attr);
+void			add_bubble_sort_algorithms(t_list **sort_function_list);
+void			add_random_algorithms(t_list **sort_function_list);
+void			add_insertion_algorithms(t_list **sort_function_list);
+void			add_less_moves_sort_algorithms(t_list **sort_function_list);
+void			add_sort_algorithms(t_list **sort_function_list);
+void			releasse_memory(t_list **sort_function_list,
+									t_input_data *input, t_list *result_array);
 
 #endif

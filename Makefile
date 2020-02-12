@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/11 14:57:09 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/12 13:40:01 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ SRC_FILES_NAME		=	ft_intswap.c ft_arraydel.c ft_intsort.c ft_intdup.c ft_strtoi.
 						sort_less_moves_v4_1.c sort_less_moves_v4_2.c sort_less_moves_v4_3.c sort_less_moves_v4_4.c \
 						group_integers.c \
 						move_cost.c move_next.c \
-						move_pa_pb_functions.c \
+						move_pa_pb_functions.c sort_add_algorithms.c \
 						common_1.c common_2.c checker_common.c
 
 OBJ_FILES			=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(SRC_FILES_NAME)))
@@ -87,9 +87,10 @@ fclean: clean
 re: fclean all
 
 norm:
-	norminette ./che*.[ch] $(SRC_FOLDER)/checker*.[ch]  $(SRC_FOLDER)/comm*.[ch] $(SRC_FOLDER)/ft_s*.[ch]
+	norminette ./*.[ch] $(SRC_FOLDER)/*.[ch]
 
 test: | $(TEST_FOLDER)
+	echo '$(TEST_ARG)'
 	./push_swap $(TEST_ARG)
 	./push_swap 1 2 8 4 -5
 
