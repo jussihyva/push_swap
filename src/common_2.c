@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:44:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 10:56:26 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 12:05:27 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ void					activate_linked_list_loop(t_list *int_lst)
 	t_list					*elem;
 
 	elem = int_lst;
-	while (elem->next)
-		elem = elem->next;
-	int_lst->prev = elem;
-	elem->next = int_lst;
+	if (elem)
+	{
+		while (elem && elem->next)
+			elem = elem->next;
+		int_lst->prev = elem;
+		elem->next = int_lst;
+	}
 	return ;
 }
 
@@ -40,7 +43,8 @@ int						read_optional_attributes(int valid_opt_flags, int *argc,
 	opt_attr->attr_flags = 0;
 	opt_attr->instruction_file = NULL;
 	result = 1;
-	if ((valid_opt_flags & instruction_file) && *argc && ft_strequ(*argv[0], "-f"))
+	if ((valid_opt_flags & instruction_file) && *argc &&
+													ft_strequ(*argv[0], "-f"))
 	{
 		(*argc)--;
 		(*argv)++;

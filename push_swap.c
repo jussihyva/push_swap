@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 11:02:00 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 13:09:40 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ int						main(int argc, char **argv)
 			if (argc)
 			{
 				input = (t_input_data *)ft_memalloc(sizeof(*input));
-				result = prepare_input_data(input, --argc, ++argv);
+				result = prepare_input_data(input, argc, argv);
 			}
 			else
 				result = no_param;
@@ -254,15 +254,17 @@ int						main(int argc, char **argv)
 			elem = elem->next;
 		}
 		elem = *sort_function_list;
-		ft_dprintf(2, "MAX:  ");
-		while (elem)
+		if (opt_attr.attr_flags & verbose)
 		{
-			max_actions = ((t_sort_function *)elem->content)->num_of_actions;
-			ft_dprintf(2, "%7lu", max_actions);
-			elem = elem->next;
+			ft_dprintf(2, "Detailed sort result:  ");
+			while (elem)
+			{
+				max_actions = ((t_sort_function *)elem->content)->num_of_actions;
+				ft_dprintf(2, "%7lu", max_actions);
+				elem = elem->next;
+			}
+			ft_dprintf(2, "\n");
 		}
-		ft_dprintf(2, "\n");
-		sleep(0);
 		print_action_list(&result_array);
 		ft_lstdel(sort_function_list, *del_sort_function_list);
 		ft_lstdel(&input->int_list, *del_int_list);

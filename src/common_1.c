@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   common.c                                           :+:      :+:    :+:   */
+/*   common_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:37:12 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/10 13:37:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 12:54:47 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,15 @@ static int		conv_and_save(t_input_data *input, char **str_array)
 	size_t		i;
 	int			*stack;
 	char		*endptr;
+	char		*s;
 
 	endptr = NULL;
 	stack = (int *)ft_memalloc(sizeof(*stack) * input->int_array_size);
 	i = input->int_array_size;
 	while (stack && i--)
 	{
-		stack[i] = ft_strtoi(str_array[input->int_array_size - i - 1],
-																&endptr, 10);
+		s = str_array[input->int_array_size - i - 1];
+		stack[i] = ft_strtoi(s, &endptr, 10);
 		if (errno || (endptr && *endptr) || is_dublicate(stack[i],
 								&stack[i + 1], input->int_array_size - i - 1))
 			return (1);

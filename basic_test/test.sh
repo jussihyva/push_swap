@@ -72,3 +72,7 @@ cat newline | ./checker 12 5
 cat no_newline | ./checker 12 5
 
 echo "rr\nrb" | ./checker 12 18 1
+./checker "-v" "99" "21474836" "47"
+./checker "" "99" "21474836" "47"
+./checker " 90" "99" "21474836" "47"
+./checker "90 " "99" "21474836" "47"

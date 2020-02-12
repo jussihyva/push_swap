@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:03 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 10:36:00 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 12:38:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,8 @@ int								main(int argc, char **argv)
 	return_code = print_result(result);
 	if (sort_result.stack_a.int_lst_size)
 	{
-		sort_result.stack_a.top->prev->next = NULL;
+		if (sort_result.stack_a.top)
+			sort_result.stack_a.top->prev->next = NULL;
 		ft_lstdel(&sort_result.stack_a.int_lst, *del_int_list);
 	}
 	return (return_code);
