@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:03 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 12:38:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 17:17:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ static void						save_to_sort_result(t_input_data *input,
 	return ;
 }
 
-static t_validation_result		read_input_data(t_sort_result *sort_result,
+static t_validation_result		read_input_data_checker(
+													t_sort_result *sort_result,
 														int argc, char **argv)
 {
 	int						valid_opt_flags;
@@ -110,7 +111,7 @@ int								main(int argc, char **argv)
 	int						return_code;
 
 	init_sort_result(&sort_result);
-	result = read_input_data(&sort_result, --argc, ++argv);
+	result = read_input_data_checker(&sort_result, --argc, ++argv);
 	if (result == ok)
 		result = validate_result(&sort_result);
 	return_code = print_result(result);

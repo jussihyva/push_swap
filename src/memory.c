@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 15:02:28 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 15:09:04 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 16:49:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,18 @@ void				releasse_memory(t_list **sort_function_list,
 	ft_lstdel(&result_array, *del_result_array);
 	free(input->int_array);
 	free(input);
+	return ;
+}
+
+void				release_sort_result(t_sort_result *sort_result)
+{
+	ft_lstdel(&sort_result->stack_a.int_lst, *del_stack);
+	ft_lstdel(&sort_result->stack_b.int_lst, *del_stack);
+	free(sort_result->stack_array);
+	sort_result->stack_array = NULL;
+	free(sort_result->action_list);
+	sort_result->action_list = NULL;
+	free(sort_result->move_cost);
+	sort_result->move_cost = NULL;
 	return ;
 }
