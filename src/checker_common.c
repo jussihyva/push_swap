@@ -28,6 +28,52 @@ static int				str_to_rx_move_action(char *str, t_move_action *action)
 	return (result);
 }
 
+static int				str_to_rrx_move_action(char *str, t_move_action *action)
+{
+	int						result;
+
+	result = 1;
+	if (ft_strequ(str, "rra"))
+		*action = rra;
+	else if (ft_strequ(str, "rrb"))
+		*action = rrb;
+	else if (ft_strequ(str, "rrr"))
+		*action = rrr;
+	else
+		result = 0;
+	return (result);
+}
+
+static int				str_to_sx_move_action(char *str, t_move_action *action)
+{
+	int						result;
+
+	result = 1;
+	if (ft_strequ(str, "sa"))
+		*action = sa;
+	else if (ft_strequ(str, "sb"))
+		*action = sb;
+	else if (ft_strequ(str, "ss"))
+		*action = ss;
+	else
+		result = 0;
+	return (result);
+}
+
+static int				str_to_px_move_action(char *str, t_move_action *action)
+{
+	int						result;
+
+	result = 1;
+	if (ft_strequ(str, "pa"))
+		*action = pa;
+	else if (ft_strequ(str, "pb"))
+		*action = pb;
+	else
+		result = 0;
+	return (result);
+}
+
 t_validation_result		str_to_move_action(char *str, t_move_action *action)
 {
 	t_validation_result		result;
@@ -35,22 +81,12 @@ t_validation_result		str_to_move_action(char *str, t_move_action *action)
 	result = ok;
 	if (str_to_rx_move_action(str, action))
 		;
-	else if (ft_strequ(str, "rra"))
-		*action = rra;
-	else if (ft_strequ(str, "rrb"))
-		*action = rrb;
-	else if (ft_strequ(str, "rrr"))
-		*action = rrr;
-	else if (ft_strequ(str, "sa"))
-		*action = sa;
-	else if (ft_strequ(str, "sb"))
-		*action = sb;
-	else if (ft_strequ(str, "ss"))
-		*action = ss;
-	else if (ft_strequ(str, "pa"))
-		*action = pa;
-	else if (ft_strequ(str, "pb"))
-		*action = pb;
+	else if (str_to_rrx_move_action(str, action))
+		;
+	else if (str_to_sx_move_action(str, action))
+		;
+	else if (str_to_px_move_action(str, action))
+		;
 	else
 		result = error;
 	return (result);
