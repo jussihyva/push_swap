@@ -71,3 +71,4 @@ clear ; ARG=`ruby -e 'printf Array.new(5) { rand(-999999...999999) }.uniq.map { 
 cat newline | ./checker 12 5
 cat no_newline | ./checker 12 5
 
+echo "rr\nrb" | ./checker 12 18 1

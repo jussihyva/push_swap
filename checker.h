@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:53 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/11 17:39:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 09:57:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,6 @@
 # include <errno.h>
 # include <fcntl.h>
 
-typedef enum			e_attr_flags
-{
-	instruction_file = 1,
-	result
-}						t_attr_flags;
-
-typedef struct			s_opt_attr
-{
-	t_attr_flags	attr_flags;
-	char			*instruction_file;
-}						t_opt_attr;
-
-typedef enum			e_validation_result
-{
-	no_param,
-	ok,
-	ko,
-	error
-}						t_validation_result;
-
 typedef struct			s_checker_input
 {
 	t_list		*integer_list;
@@ -48,8 +28,8 @@ typedef struct			s_checker_input
 
 int						read_optional_attributes(int valid_opt_flags, int *argc,
 									char ***argv, t_opt_attr *opt_attr);
-int						read_integer_values(t_sort_result *input_data,
-														int argc, char **argv);
+int						read_integer_values(t_input_data *input, int argc,
+																char **argv);
 char					*merge_args(char **array, int size);
 int						string_to_array(char *s, t_input_data *input);
 int						ft_strtoi(const char *str, char **endptr, int base);

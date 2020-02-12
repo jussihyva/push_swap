@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 10:54:38 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 08:25:30 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 10:34:16 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static void		optimize_rb_rrb(t_sort_result *sort_result)
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
 	}
 	if ((last_action == rb || last_action == rrb) &&
+		(size_t)sort_result->stack_b.int_lst_size > 0 &&
 		sort_result->seq_action_counter > (size_t)sort_result->stack_b.int_lst_size / 2)
 	{
 		sort_result->action_list_size -= sort_result->seq_action_counter;
@@ -111,6 +112,7 @@ void			optimize_last_actions(t_sort_result *sort_result)
 	{
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
 		if ((last_action == ra || last_action == rra) &&
+			(size_t)sort_result->stack_a.int_lst_size > 0 &&
 			sort_result->seq_action_counter == (size_t)sort_result->stack_a.int_lst_size)
 		{
 			sort_result->action_list_size -= sort_result->stack_a.int_lst_size;
@@ -144,20 +146,6 @@ void			optimize_last_actions(t_sort_result *sort_result)
 			count_num_of_consecutive(sort_result);
 		}
 		last_action = sort_result->action_list[sort_result->action_list_size - 1];
-		// if ((last_action == rr) &&
-		// 	sort_result->seq_action_counter > (size_t)sort_result->stack_a.int_lst_size / 2 &&
-		// 	(size_t)sort_result->stack_a.int_lst_size == (size_t)sort_result->stack_b.int_lst_size)
-		// {
-		// 	sort_result->action_list_size -= sort_result->seq_action_counter;
-		// 	c = 0;
-		// 	while (c++ < (size_t)sort_result->stack_a.int_lst_size -
-		// 											sort_result->seq_action_counter)
-		// 	{
-		// 		sort_result->action_list[sort_result->action_list_size] = rrr;
-		// 		sort_result->action_list_size++;
-		// 	}
-		// 	count_num_of_consecutive(sort_result);
-		// }
 	}
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/09 20:03:10 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 10:44:15 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,32 @@
 # include "ft_printf.h"
 # define MAX_ACTIONS 200000
 
+typedef enum			e_attr_flags
+{
+	instruction_file = 0x01,
+	verbose = 0x02
+}						t_attr_flags;
+
+typedef enum			e_validation_result
+{
+	no_param,
+	ok,
+	ko,
+	error
+}						t_validation_result;
+
 typedef enum	e_sort_mode
 {
 	no_sort,
 	sort_v1,
 	sort_v2
 }				t_sort_mode;
+
+typedef struct			s_opt_attr
+{
+	t_attr_flags	attr_flags;
+	char			*instruction_file;
+}						t_opt_attr;
 
 typedef enum	e_stack_name
 {
@@ -272,5 +292,10 @@ void			del_sort_function_list(void *elem, size_t size);
 void			del_result_array(void *elem, size_t size);
 char			*merge_args(char **array, int size);
 int				string_to_array(char *s, t_input_data *input);
+int				read_integer_values(t_input_data *input,
+														int argc, char **argv);
+int				print_result(t_validation_result result);
+int				read_optional_attributes(int valid_opt_flags, int *argc,
+											char ***argv, t_opt_attr *opt_attr);
 
 #endif

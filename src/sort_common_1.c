@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/11 17:12:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 09:24:42 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ void			init_sort_result(t_sort_result *sort_result)
 	sort_result->seq_action_counter = 0;
 	sort_result->stack_a.int_lst_size = 0;
 	sort_result->stack_b.int_lst_size = 0;
+	sort_result->stack_a.int_lst = NULL;
+	sort_result->stack_b.int_lst = NULL;
+	sort_result->stack_a.top = NULL;
+	sort_result->stack_b.top = NULL;
 	sort_result->stack_a.average = 0;
 	sort_result->action_list_size = 0;
 	sort_result->action_list = NULL;

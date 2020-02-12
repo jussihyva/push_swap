@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/11 17:11:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 11:02:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,21 @@ static t_list			*ft_lstcpy(t_list *elem)
 	return (new_elem);
 }
 
-static t_input_data		*prepare_input_data(int argc, char **argv)
+static t_validation_result		prepare_input_data(t_input_data *input, int argc,
+																	char **argv)
 {
-	t_input_data	*input;
-	char			*s;
-	int				*sorted_array;
+	int						*sorted_array;
+	t_validation_result		result;
 
-	input = (t_input_data *)ft_memalloc(sizeof(*input));
-	s = merge_args(argv + 1, argc - 1);
+//	s = merge_args(argv + 1, argc - 1);
 	input->int_array_size = 0;
 	input->int_list = NULL;
-	string_to_array(s, input);
-	ft_strdel(&s);
+
+	result = read_integer_values(input, argc, argv);
+	if (result == error)
+		return (result);
+//	string_to_array(s, input);
+//	ft_strdel(&s);
 	sorted_array = ft_intsort(input->int_array, input->int_array_size);
 	input->int_list_sorted = ft_lstmap(input->int_list, ft_lstcpy);
 	ft_lstsort(&input->int_list_sorted, cmp_elem);
@@ -96,7 +99,7 @@ static t_input_data		*prepare_input_data(int argc, char **argv)
 	input->median = sorted_array[(input->int_array_size + 1) / 2 - 1];
 	free(sorted_array);
 	sorted_array = NULL;
-	return (input);
+	return (result);
 }
 
 static void				stack_sort(t_input_data *input,
@@ -154,15 +157,38 @@ static void				stack_sort(t_input_data *input,
 
 int						main(int argc, char **argv)
 {
-	t_input_data		*input;
-	t_list				*result_array;
-	t_list				**sort_function_list;
-	t_list				*elem;
-	size_t				max_actions;
-	t_sort_function		sort_function;
+	t_input_data			*input;
+	t_list					*result_array;
+	t_list					**sort_function_list;
+	t_list					*elem;
+	size_t					max_actions;
+	t_sort_function			sort_function;
+	t_validation_result		result;
+	int						valid_opt_flags;
+	t_opt_attr				opt_attr;
 
 	if (argc > 1)
 	{
+		valid_opt_flags = verbose;
+		--argc;
+		++argv;
+		if (read_optional_attributes(valid_opt_flags, &argc, &argv, &opt_attr))
+		{
+			if (argc)
+			{
+				input = (t_input_data *)ft_memalloc(sizeof(*input));
+				result = prepare_input_data(input, --argc, ++argv);
+			}
+			else
+				result = no_param;
+		}
+		else
+			result = error;
+		if (result != ok)
+		{
+			print_result(result);
+			return (1);
+		}
 		max_actions = MAX_ACTIONS / 10;
 		sort_function_list = (t_list **)ft_memalloc(sizeof(*sort_function_list));
 		sort_function.num_of_actions = 0;
@@ -219,7 +245,6 @@ int						main(int argc, char **argv)
 		sort_function.sort_function = (void *)less_moves_sort_v4_4;
 		ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 		result_array = NULL;
-		input = prepare_input_data(argc, argv);
 		elem = *sort_function_list;
 		while (elem)
 		{
