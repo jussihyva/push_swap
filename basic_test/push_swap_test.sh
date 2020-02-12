@@ -1,5 +1,6 @@
-CHECKER="../../42-push_swap/checker"
-PUSH_SWAP="../push_swap"
+CHECKER="../checker"
+PUSH_SWAP="../push_swap -v"
+LOOP=200
 make -C ..
 clear
 echo -e "Evaluation?  \033[1;32m-->[y/n]<--\033[0m"
@@ -133,7 +134,7 @@ declare -i high=0
 declare -i low=99999
 declare -i hl=0
 declare -i fails=0
-while [ $x -le 500 ]; do
+while [ $x -le $LOOP ]; do
 	ARG=$(printf '%s ' `seq 0 $((nb-1)) | sort -R`)
 	if [ $varyn == "y" ]; then
 		echo "$ARG"
@@ -168,13 +169,13 @@ while [ $x -le 500 ]; do
 	(( x++ )); done
 echo " "
 echo "_____________________"
-declare -i med=$(( sum/500 ))
+declare -i med=$(( sum/$LOOP ))
 echo "number: $nb"
-echo "test: 100"
+echo "test: $LOOP"
 echo "fails: $fails"
 echo "high: $high"
 echo "low: $low"
-echo "avarage: $med ($sum / 500)"
+echo "avarage: $med ($sum / $LOOP)"
 if [ $nb ==  5 ]; then
 	echo "- Less than 13: pass"
 	echo "- Precisely 8: Kudos"

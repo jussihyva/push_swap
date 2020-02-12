@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:49:14 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/06 20:21:34 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 19:19:22 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,16 @@ static void		get_best_move(t_sort_result *sort_result, size_t lst_size)
 	return ;
 }
 
+static size_t			save_next_move(size_t moves, t_next_move *next_move,
+					t_move_action source_action, t_move_action target_action,
+														t_move_cost move_cost)
+{
+	next_move->integer = move_cost.integer;
+	next_move->source_stack_action = source_action;
+	next_move->target_stack_action = target_action;
+	return (moves);
+}
+
 static void		get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size)
 {
 	size_t			best_num_of_moves;
@@ -157,19 +167,24 @@ static void		get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size)
 	next_move = &sort_result->next_move;
 	while (++c < lst_size)
 	{
-		if (sort_result->move_cost[c].source_rx != -1 &&
-			sort_result->move_cost[c].target_asc_rx != -1)
-		{
-			moves = ft_max(sort_result->move_cost[c].source_rx,
-			sort_result->move_cost[c].target_asc_rx);
-			if (best_num_of_moves > moves)
-			{
-				best_num_of_moves = moves;
-				next_move->integer = sort_result->move_cost[c].integer;
-				next_move->source_stack_action = rb;
-				next_move->target_stack_action = ra;
-			}
-		}
+ 		if (move_cost[c].source_rx != -1 && move_cost[c].target_asc_rx != -1)
+ 		{
+ 			if (best_num_of_moves > (moves = ft_max(move_cost[c].source_rx, move_cost[c].target_asc_rx)))
+ 				best_num_of_moves = save_next_move(moves, next_move, rb, ra, move_cost[c]);
+ 		}
+		// if (sort_result->move_cost[c].source_rx != -1 &&
+		// 	sort_result->move_cost[c].target_asc_rx != -1)
+		// {
+		// 	moves = ft_max(sort_result->move_cost[c].source_rx,
+		// 	sort_result->move_cost[c].target_asc_rx);
+		// 	if (best_num_of_moves > moves)
+		// 	{
+		// 		best_num_of_moves = moves;
+		// 		next_move->integer = sort_result->move_cost[c].integer;
+		// 		next_move->source_stack_action = rb;
+		// 		next_move->target_stack_action = ra;
+		// 	}
+		// }
 		if (sort_result->move_cost[c].source_rrx != -1 &&
 			sort_result->move_cost[c].target_asc_rrx != -1)
 		{
