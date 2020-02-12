@@ -62,7 +62,7 @@ $(NAME1): $(OBJ_FILES) $(NAME1).c
 $(NAME2): $(OBJ_FILES) $(NAME2).c
 	$(CC) $(CC_FLAGS) $(I_FLAGS) -o $@ $@.c $(OBJ_FILES) -L $(LIBFT_FOLDER) -l $(LIBFT) -L $(LIBFTPRINTF_FOLDER) -l $(LIBFTPRINTF)
 
-$(OBJ_FILES): $(OBJ_FOLDER)/%.o: $(SRC_FOLDER)/%.c $(HEADER_FILE1) $(HEADER_FILE2) $(LIBFT_FOLDER) | $(OBJ_FOLDER) $(SRC_FOLDER)
+$(OBJ_FILES): $(OBJ_FOLDER)/%.o: $(SRC_FOLDER)/%.c $(HEADER_FILE1) $(HEADER_FILE2) | $(OBJ_FOLDER) $(SRC_FOLDER)
 	$(CC) $(CC_FLAGS) $(I_FLAGS) -c -o $@ $<
 
 $(SRC_FOLDER):
@@ -76,7 +76,6 @@ $(OBJ_FOLDER):
 
 libft:
 	@make -C $(LIBFT_FOLDER)
-	@make -C $(LIBFT_FOLDER) clean
 
 clean:
 	@\rm -f $(OBJ_FOLDER)/*.o
@@ -91,7 +90,7 @@ norm:
 	norminette ./che*.[ch] $(SRC_FOLDER)/checker*.[ch]  $(SRC_FOLDER)/comm*.[ch] $(SRC_FOLDER)/ft_s*.[ch]
 
 test: | $(TEST_FOLDER)
-#	./push_swap $(TEST_ARG)
+	./push_swap $(TEST_ARG)
 	./push_swap 1 2 8 4 -5
 
 .PHONY: all test clean fclean re libft norm
