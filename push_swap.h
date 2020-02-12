@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 17:16:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/12 17:41:21 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,6 @@ void				split_one_stack_to_two_v2(t_sort_result *sort_result);
 void				split_one_stack_to_two_v3(t_sort_result *sort_result);
 void				split_one_stack_to_two_v4(t_sort_result *sort_result);
 void				split_one_stack_to_two_v5(t_sort_result *sort_result);
-void				split_one_stack_to_two_v3_1(t_sort_result *sort_result);
 void				move_all_to_stack_b_v1(t_sort_result *sort_result);
 void				move_all_to_stack_b_v2(t_sort_result *sort_result);
 void				move_all_to_stack_b_v3(t_sort_result *sort_result);

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/12 16:56:21 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/12 18:04:50 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,13 +34,12 @@ SRC_FILES_NAME		=	ft_intswap.c ft_arraydel.c ft_intsort.c ft_intdup.c ft_strtoi.
 						sort_common_1.c sort_common_2.c sort_common_3.c sort_common_4.c memory.c \
 						sort_bubble_v1.c sort_bubble_v2.c sort_bubble_v3.c \
 						sort_insertion_v1.c \
-						sort_random_v1.c sort_random_v2.c sort_random_v3.c \
+						sort_random_v1.c sort_random_v2.c \
 						action_rules_1.c action_rules_2.c action_rules_3.c \
 						print_result.c \
 						split_two_stacks.c \
-						sort_bubble_v2_1.c sort_bubble_v2_2.c sort_bubble_v2_3.c sort_bubble_v2_4.c sort_bubble_v2_5.c \
-						sort_bubble_v3_1.c \
-						sort_less_moves_v1_1.c sort_less_moves_v1_2.c sort_less_moves_v1_3.c sort_less_moves_v1_4.c \
+						sort_bubble_v2_1.c \
+						sort_less_moves_v1_1.c sort_less_moves_v1_2.c sort_less_moves_v1_3.c \
 						sort_less_moves_v2_1.c \
 						sort_less_moves_v3_1.c sort_less_moves_v3_2.c sort_less_moves_v3_3.c sort_less_moves_v3_4.c \
 						sort_less_moves_v4_1.c sort_less_moves_v4_2.c sort_less_moves_v4_3.c sort_less_moves_v4_4.c \
