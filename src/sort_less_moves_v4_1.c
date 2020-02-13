@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:49:14 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 10:51:40 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 14:14:12 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void					less_moves_sort_v4_1(t_sort_result *sort_result,
 	size_t		target_size;
 
 	devide_integers_into_groups(sort_result);
-	move_max_to_top(sort_result, &sort_result->stack_b,
+	roll_max_to_top(sort_result, &sort_result->stack_b,
 												sort_result->stack_b.max, rrb);
 	move_all_to_stack_b_v1(sort_result);
 	percentage = 100;

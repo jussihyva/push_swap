@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 10:43:57 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 14:15:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ void				less_moves_sort_v4_3(t_sort_result *sort_result,
 void				less_moves_sort_v4_4(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void				min_max(t_sort_result *sort_result);
-void				move_max_to_top(t_sort_result *sort_result, t_stack *stack,
+void				roll_max_to_top(t_sort_result *sort_result, t_stack *stack,
 												int max, t_move_action action);
 void				count_move_cost_v1(t_sort_result *sort_result);
 void				count_move_cost_v1_2(t_sort_result *sort_result);
@@ -318,5 +318,7 @@ t_validation_result	read_input_data(t_input_data *input, int *argc,
 t_list				*ft_lstcpy(t_list *elem);
 void				devide_integers_into_groups(t_sort_result *sort_result);
 void				get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size);
+int					next_step(t_sort_result *sort_result, t_list **result_array,
+						size_t *max_actions, t_move_action next_action);
 
 #endif

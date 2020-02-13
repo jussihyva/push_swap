@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 17:10:01 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 11:01:41 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 12:01:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,39 @@ static int	do_next_action(t_sort_result *sort_result,
 		(is_sorted || sort_result->action_list_size < *max_actions))
 	{
 		if (!is_sorted && (valid_actions & sa))
-		{
-			execute_action(sort_result, sa);
-			new_valid_actions = ra | rra;
-			is_sorted = do_next_action(sort_result, new_valid_actions,
-													result_array, max_actions);
-			if (!is_sorted)
-				execute_action(sort_result, sa);
-		}
+			is_sorted = next_step(sort_result, result_array, max_actions, sa);
 		if (!is_sorted && (valid_actions & ra))
-		{
-			execute_action(sort_result, ra);
-			new_valid_actions = sa | ra;
-			is_sorted = do_next_action(sort_result, new_valid_actions,
-													result_array, max_actions);
-			if (!is_sorted)
-				execute_action(sort_result, rra);
-		}
+			is_sorted = next_step(sort_result, result_array, max_actions, ra);
 		if (!is_sorted && (valid_actions & rra))
-		{
+			is_sorted = next_step(sort_result, result_array, max_actions, rra);
+	}
+	return (is_sorted);
+}
+
+int			next_step(t_sort_result *sort_result, t_list **result_array,
+						size_t *max_actions, t_move_action next_action)
+{
+	int				is_sorted;
+	t_move_action	new_valid_actions;
+
+	execute_action(sort_result, next_action);
+	new_valid_actions = 0;
+	if (next_action == sa)
+		new_valid_actions = ra | rra;
+	else if (next_action == ra)
+		new_valid_actions = sa | ra;
+	else if (next_action == rra)
+		new_valid_actions = sa | rra;
+	is_sorted = do_next_action(sort_result, new_valid_actions,
+											result_array, max_actions);
+	if (!is_sorted)
+	{
+		if (next_action == sa)
+			execute_action(sort_result, sa);
+		else if (next_action == ra)
 			execute_action(sort_result, rra);
-			new_valid_actions = sa | rra;
-			is_sorted = do_next_action(sort_result, new_valid_actions,
-													result_array, max_actions);
-			if (!is_sorted)
-				execute_action(sort_result, ra);
-		}
+		else if (next_action == rra)
+			execute_action(sort_result, ra);
 	}
 	return (is_sorted);
 }
