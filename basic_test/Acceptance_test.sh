@@ -29,6 +29,8 @@ run_push_swap_error()
 	$push_swap '- 13'
 	echo "12:"
 	$push_swap - 12
+	echo "13:"
+	$push_swap -l
 	return 1
 }
 
@@ -58,6 +60,8 @@ run_checker_error()
 	$checker '- 13'
 	echo "12:"
 	$checker - 12
+	echo "13:"
+	$checker -l
 	return 1
 }
 

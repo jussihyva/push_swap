@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 20:46:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 22:00:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,17 @@ int							main(int argc, char **argv)
 	input = (t_input_data *)ft_memalloc(sizeof(*input));
 	result = read_input_data(input, &argc, &argv, &opt_attr);
 	if (result != ok)
-	{
 		print_result(result);
-		return (1);
-	}
-	sort_function_list =
+	else
+	{
+		sort_function_list =
 						(t_list **)ft_memalloc(sizeof(*sort_function_list));
-	add_sort_algorithms(sort_function_list);
-	result_array = NULL;
-	execute_algorithms(sort_function_list, input, &result_array, opt_attr);
-	print_action_list(&result_array);
-	releasse_memory(sort_function_list, input, result_array);
+		add_sort_algorithms(sort_function_list);
+		result_array = NULL;
+		execute_algorithms(sort_function_list, input, &result_array, opt_attr);
+		print_action_list(&result_array);
+		releasse_memory(sort_function_list, input, result_array);
+	}
 	if (opt_attr.attr_flags & leaks_pause)
 		system("leaks push_swap");
 	return (0);

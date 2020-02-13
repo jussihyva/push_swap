@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/13 20:42:51 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/13 22:03:42 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,10 +76,12 @@ libft:
 
 clean:
 	@\rm -f $(OBJ_FOLDER)/*.o
+	@make -C $(LIBFT_FOLDER) clean
 
 fclean: clean
 	@\rm -f $(NAME1)
 	@\rm -f $(NAME2)
+	@make -C $(LIBFT_FOLDER) fclean
 
 re: fclean all
 

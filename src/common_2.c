@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:44:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 19:54:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 21:52:54 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,14 @@ int						read_integer_values(t_input_data *input,
 
 	input->int_array_size = 0;
 	input->int_list = NULL;
-	integer_string = merge_args(argv, argc);
-	result = string_to_array(integer_string, input);
-	ft_strdel(&integer_string);
+	if (argc)
+	{
+		integer_string = merge_args(argv, argc);
+		result = string_to_array(integer_string, input);
+		ft_strdel(&integer_string);
+	}
+	else
+		result = no_param;
 	return (result);
 }
 
