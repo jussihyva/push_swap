@@ -6,13 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 10:42:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 10:49:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 19:18:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void			save_next_move(t_next_move *next_move,
+void			save_next_move(t_next_move *next_move,
 					t_move_action source_action, t_move_action target_action,
 														t_move_cost move_cost)
 {
@@ -74,7 +74,7 @@ static void		check_source_rrx_and_target_asc(t_next_move *next_move,
 	return ;
 }
 
-void				get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size)
+void			get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size)
 {
 	size_t			best_num_of_moves;
 	size_t			c;

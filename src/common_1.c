@@ -6,14 +6,14 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:37:12 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 11:29:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 19:53:11 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "checker.h"
 
-char			*merge_args(char **array, int size)
+char						*merge_args(char **array, int size)
 {
 	char		*s;
 	char		*tmp;
@@ -31,7 +31,7 @@ char			*merge_args(char **array, int size)
 	return (s);
 }
 
-static void		add_to_list(t_list **list, int *integer)
+static void					add_to_list(t_list **list, int *integer)
 {
 	t_list		*elem;
 
@@ -42,7 +42,7 @@ static void		add_to_list(t_list **list, int *integer)
 		*list = elem;
 }
 
-static int		is_dublicate(int integer, int *stack, size_t size)
+static int					is_dublicate(int integer, int *stack, size_t size)
 {
 	size_t		c;
 
@@ -77,7 +77,7 @@ static t_validation_result	conv_and_save(t_input_data *input, char **str_array)
 	return (ok);
 }
 
-int				string_to_array(char *s, t_input_data *input)
+int							string_to_array(char *s, t_input_data *input)
 {
 	char						**str_array;
 	t_validation_result			result;

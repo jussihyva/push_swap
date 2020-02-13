@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 17:17:50 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 20:44:43 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,11 +315,24 @@ t_validation_result	read_input_data(t_input_data *input, int *argc,
 											char ***argv, t_opt_attr *opt_attr);
 t_list				*ft_lstcpy(t_list *elem);
 void				devide_integers_into_groups(t_sort_result *sort_result);
-void				get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size);
+void				get_best_move_b_v2(t_sort_result *sort_result,
+															size_t lst_size);
 int					next_step(t_sort_result *sort_result, t_list **result_array,
 						size_t *max_actions, t_move_action next_action);
 void				count_num_of_consecutive(t_sort_result *sort_result);
 int					check_merge_actions(t_sort_result *sort_result,
-								t_move_action last_action, t_move_action action);
+							t_move_action last_action, t_move_action action);
+void				save_next_move(t_next_move *next_move,
+					t_move_action source_action, t_move_action target_action,
+														t_move_cost move_cost);
+void				reset_cost_counters(t_sort_result *sort_result);
+void				source_cost(t_list *start_ptr, t_move_cost *move_cost,
+															size_t lst_size);
+void				source_cost_v3(t_list *start_ptr, t_move_cost *move_cost,
+									size_t lst_size, t_sort_group sort_group);
+void				set_target_asc_cost(t_sort_result *sort_result,
+							t_stack_name stack_name, t_list *ptr, size_t cost);
+void				set_target_dec_cost(t_sort_result *sort_result,
+							t_stack_name stack_name, t_list *ptr, size_t cost);
 
 #endif

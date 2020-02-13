@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 17:13:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 19:39:11 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void		execute_rrx_action(t_sort_result *sort_result,
 	return ;
 }
 
-static void			add_action(t_sort_result *sort_result, t_move_action action)
+static void		add_action(t_sort_result *sort_result, t_move_action action)
 {
 	t_move_action	last_action;
 
