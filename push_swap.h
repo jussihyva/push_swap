@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 14:15:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 17:17:50 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,6 @@ void				random_sort_v2(t_sort_result *sort_result,
 void				random_sort_v3(t_sort_result *sort_result,
 									t_list **result_array, size_t *max_actions);
 void				optimize_last_actions(t_sort_result *sort_result);
-void				add_action(t_sort_result *sort_result,
-														t_move_action action);
 void				print_stack(int *stack, int size);
 void				print_action_list(t_list **result_array);
 void				print_num_of_actions(t_sort_result *sort_result);
@@ -320,5 +318,8 @@ void				devide_integers_into_groups(t_sort_result *sort_result);
 void				get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size);
 int					next_step(t_sort_result *sort_result, t_list **result_array,
 						size_t *max_actions, t_move_action next_action);
+void				count_num_of_consecutive(t_sort_result *sort_result);
+int					check_merge_actions(t_sort_result *sort_result,
+								t_move_action last_action, t_move_action action);
 
 #endif

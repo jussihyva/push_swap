@@ -6,21 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 15:28:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 17:13:03 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-t_move_action	*ft_int_array_dup(t_move_action *array, size_t size)
-{
-	t_move_action	*new_array;
-
-	new_array = (t_move_action *)ft_memalloc(sizeof(*new_array) * size);
-	while (size--)
-		new_array[size] = array[size];
-	return (new_array);
-}
 
 void			init_sort_result(t_sort_result *sort_result)
 {
@@ -65,16 +55,40 @@ static void		execute_sx_action(t_sort_result *sort_result,
 static void		execute_rrx_action(t_sort_result *sort_result,
 														t_move_action action)
 {
-	if (action == rra)
-		step_prt_up(sort_result);
-	else if (action == rrb)
-		step_prt_up_b(sort_result);
-	else if (action == rrr)
-	{
-		step_prt_up(sort_result);
-		step_prt_up_b(sort_result);
-	}
+	if ((action == rra || action == rrr) && sort_result->stack_a.int_lst_size)
+		sort_result->stack_a.top = sort_result->stack_a.top->prev;
+	if ((action == rrb || action == rrr) && sort_result->stack_b.int_lst_size)
+		sort_result->stack_b.top = sort_result->stack_b.top->prev;
 	return ;
+}
+
+static void			add_action(t_sort_result *sort_result, t_move_action action)
+{
+	t_move_action	last_action;
+
+	last_action = !sort_result->action_list_size ? null :
+		sort_result->action_list[sort_result->action_list_size - 1];
+	if (last_action &&
+		((last_action == ra && action == rra) ||
+		(last_action == rra && action == ra) ||
+		(last_action == rb && action == rrb) ||
+		(last_action == rrb && action == rb) ||
+		(last_action == sa && action == sa)))
+	{
+		sort_result->action_list_size--;
+		count_num_of_consecutive(sort_result);
+	}
+	else if (check_merge_actions(sort_result, last_action, action))
+		;
+	else
+	{
+		if (last_action == action)
+			sort_result->seq_action_counter++;
+		else
+			sort_result->seq_action_counter = 1;
+		sort_result->action_list[sort_result->action_list_size] = action;
+		sort_result->action_list_size++;
+	}
 }
 
 void			execute_action(t_sort_result *sort_result, t_move_action action)
@@ -87,21 +101,16 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 	}
 	if (action == sa || action == sb || action == ss)
 		execute_sx_action(sort_result, action);
-	else if (action == pb || action == pa)
+	if (action == pb || action == pa)
 	{
 		move_to_stack(sort_result, action);
 		min_max(sort_result);
 	}
-	else if (action == ra)
-		step_prt_down(sort_result);
-	else if (action == rb)
-		step_prt_down_b(sort_result);
-	else if (action == rr)
-	{
-		step_prt_down(sort_result);
-		step_prt_down_b(sort_result);
-	}
-	else if (action == rra || action == rrb || action == rrr)
+	if ((action == ra || action == rr) && sort_result->stack_a.int_lst_size)
+		sort_result->stack_a.top = sort_result->stack_a.top->next;
+	if ((action == rb || action == rr) && sort_result->stack_b.int_lst_size)
+		sort_result->stack_b.top = sort_result->stack_b.top->next;
+	if (action == rra || action == rrb || action == rrr)
 		execute_rrx_action(sort_result, action);
 	return ;
 }

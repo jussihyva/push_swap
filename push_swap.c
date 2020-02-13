@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 07:52:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 17:33:21 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void					stack_sort(t_input_data *input,
 	sort_result.stack_b.top = NULL;
 	sort_result.sort_group = group1;
 	min_max(&sort_result);
-	count_move_cost_v3_3(&sort_result);
 	((t_sort_function *)function_elem->content)->sort_function(&sort_result,
 													result_array, max_actions);
 	sort_result.stack_a.int_lst->prev->next = NULL;

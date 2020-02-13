@@ -6,36 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:35:59 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 11:17:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 17:21:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void		init_move_cost(t_sort_result *sort_result)
-{
-	t_list			*elem;
-	size_t			nbr;
-
-	sort_result->move_cost =
-			(t_move_cost *)ft_memalloc(sizeof(*sort_result->move_cost) *
-											sort_result->stack_a.int_lst_size);
-	sort_result->move_cost_size = sort_result->stack_a.int_lst_size;
-	elem = sort_result->stack_a.int_lst;
-	while (elem->next)
-	{
-		nbr = *(int *)elem->content;
-		sort_result->move_cost[nbr].integer = elem;
-		sort_result->move_cost[nbr].integer = elem;
-		elem = elem->next;
-	}
-	nbr = *(int *)elem->content;
-	sort_result->move_cost[nbr].integer = elem;
-	sort_result->move_cost[nbr].integer = elem;
-	sort_result->stack_a.int_lst->prev = elem;
-	elem->next = sort_result->stack_a.int_lst;
-	return ;
-}
 
 static int					cmp_elem(t_list *elem1, t_list *elem2)
 {
@@ -45,7 +20,7 @@ static int					cmp_elem(t_list *elem1, t_list *elem2)
 		return (0);
 }
 
-t_list				*ft_lstcpy(t_list *elem)
+t_list						*ft_lstcpy(t_list *elem)
 {
 	t_list		*new_elem;
 
@@ -84,7 +59,7 @@ static t_validation_result	prepare_input_data(t_input_data *input,
 	return (result);
 }
 
-t_validation_result	read_input_data(t_input_data *input, int *argc,
+t_validation_result			read_input_data(t_input_data *input, int *argc,
 											char ***argv, t_opt_attr *opt_attr)
 {
 	t_validation_result		result;

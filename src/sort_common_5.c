@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:34:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 14:35:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 17:38:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,29 @@ void			move_to_stack(t_sort_result *sort_result, t_move_action action)
 		first_integer(source_stack, target_stack);
 	else
 		next_integer(source_stack, target_stack);
+}
+
+void			init_move_cost(t_sort_result *sort_result)
+{
+	t_list			*elem;
+	size_t			nbr;
+
+	sort_result->move_cost =
+			(t_move_cost *)ft_memalloc(sizeof(*sort_result->move_cost) *
+											sort_result->stack_a.int_lst_size);
+	sort_result->move_cost_size = sort_result->stack_a.int_lst_size;
+	elem = sort_result->stack_a.int_lst;
+	while (elem->next)
+	{
+		nbr = *(int *)elem->content;
+		sort_result->move_cost[nbr].integer = elem;
+		sort_result->move_cost[nbr].integer = elem;
+		elem = elem->next;
+	}
+	nbr = *(int *)elem->content;
+	sort_result->move_cost[nbr].integer = elem;
+	sort_result->move_cost[nbr].integer = elem;
+	sort_result->stack_a.int_lst->prev = elem;
+	elem->next = sort_result->stack_a.int_lst;
+	return ;
 }
