@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 09:24:42 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 14:51:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 	stack_a = &sort_result->stack_a;
 	sort_result->total_num_of_actions++;
 	if (sort_result->total_num_of_actions < MAX_ACTIONS)
+	{
 		add_action(sort_result, action);
+		optimize_last_actions(sort_result);
+	}
 	if (action == sa || action == sb || action == ss)
 	{
 		if ((action == sa || action == ss) && stack_a->int_lst_size)

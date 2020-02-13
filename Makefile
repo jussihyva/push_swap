@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/13 14:36:05 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/13 14:42:13 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC_FILES_NAME		=	ft_intswap.c ft_arraydel.c ft_intsort.c ft_intdup.c ft_strtoi.
 						print_result.c \
 						split_two_stacks.c \
 						sort_bubble_v2_1.c \
-						sort_less_moves_v1_1.c sort_less_moves_v1_3.c \
+						sort_less_moves_v1_1.c \
 						sort_less_moves_v4_1.c sort_less_moves_v4_2.c sort_less_moves_v4_3.c sort_less_moves_v4_4.c \
 						group_integers.c \
 						move_cost.c move_next_1.c move_next_2.c \
