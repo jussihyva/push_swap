@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 07:11:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 10:43:57 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,5 +316,7 @@ void				ft_lstsort(t_list **list, int cmp(t_list *elem1,
 t_validation_result	read_input_data(t_input_data *input, int *argc,
 											char ***argv, t_opt_attr *opt_attr);
 t_list				*ft_lstcpy(t_list *elem);
+void				devide_integers_into_groups(t_sort_result *sort_result);
+void				get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size);
 
 #endif

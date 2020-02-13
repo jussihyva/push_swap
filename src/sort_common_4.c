@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:35:59 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 07:28:04 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 11:17:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static t_validation_result	prepare_input_data(t_input_data *input,
 	input->int_array_size = 0;
 	input->int_list = NULL;
 	result = read_integer_values(input, argc, argv);
-	if (result == error)
+	if (result != ok)
 		return (result);
 	sorted_array = ft_intsort(input->int_array, input->int_array_size);
 	input->int_list_sorted = ft_lstmap(input->int_list, ft_lstcpy);

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 13:27:57 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 15:01:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 10:55:30 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void			add_random_algorithms(t_list **sort_function_list)
 	sort_function.sort_function = (void *)random_sort_v1;
 	ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 	// sort_function.sort_function = (void *)random_sort_v2;
-	// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
-	// sort_function.sort_function = (void *)random_sort_v3;
 	// ft_lstadd_e(sort_function_list, ft_lstnew(&sort_function, sizeof(sort_function)));
 	return ;
 }

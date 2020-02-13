@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:37:12 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 12:54:47 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 11:29:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int		is_dublicate(int integer, int *stack, size_t size)
 	return (0);
 }
 
-static int		conv_and_save(t_input_data *input, char **str_array)
+static t_validation_result	conv_and_save(t_input_data *input, char **str_array)
 {
 	size_t		i;
 	int			*stack;
@@ -70,25 +70,30 @@ static int		conv_and_save(t_input_data *input, char **str_array)
 		stack[i] = ft_strtoi(s, &endptr, 10);
 		if (errno || (endptr && *endptr) || is_dublicate(stack[i],
 								&stack[i + 1], input->int_array_size - i - 1))
-			return (1);
+			return (error);
 		add_to_list(&input->int_list, stack + i);
 		input->int_array = stack;
 	}
-	return (0);
+	return (ok);
 }
 
 int				string_to_array(char *s, t_input_data *input)
 {
-	char		**str_array;
-	int			result;
+	char						**str_array;
+	t_validation_result			result;
 
-	result = 0;
+	result = ok;
 	input->int_array = NULL;
 	if ((str_array = ft_strsplit(s, ' ')))
 	{
-		while (*(str_array + input->int_array_size))
-			input->int_array_size++;
-		result = conv_and_save(input, str_array);
+		if (*str_array)
+		{
+			while (*(str_array + input->int_array_size))
+				input->int_array_size++;
+			result = conv_and_save(input, str_array);
+		}
+		else
+			result = no_param;
 		ft_arraydel(str_array);
 	}
 	return (result);

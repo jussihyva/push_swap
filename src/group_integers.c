@@ -6,11 +6,21 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 18:09:18 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/08 14:08:15 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 10:39:20 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void			devide_integers_into_groups(t_sort_result *sort_result)
+{
+	int			c;
+
+	c = -1;
+	while (++c < sort_result->move_cost_size)
+		sort_result->move_cost->sort_group = none;
+	return ;
+}
 
 void			devide_integers_into_groups_v1(t_sort_result *sort_result)
 {
