@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 17:04:47 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 07:52:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,7 @@ int							main(int argc, char **argv)
 		print_action_list(&result_array);
 		releasse_memory(sort_function_list, input, result_array);
 	}
+	if (opt_attr.attr_flags & leaks_pause)
+		system("leaks push_swap");
 	return (0);
 }

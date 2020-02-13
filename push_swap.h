@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:57:41 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 17:41:21 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 07:11:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 typedef enum		e_attr_flags
 {
 	instruction_file = 0x01,
-	verbose = 0x02
+	verbose = 0x02,
+	leaks_pause = 0x04
 }					t_attr_flags;
 
 typedef enum		e_validation_result

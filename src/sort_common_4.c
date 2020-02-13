@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:35:59 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 17:04:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 07:28:04 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_validation_result	read_input_data(t_input_data *input, int *argc,
 	t_validation_result		result;
 	int						valid_opt_flags;
 
-	valid_opt_flags = verbose;
+	valid_opt_flags = verbose | leaks_pause;
 	--(*argc);
 	++(*argv);
 	if (read_optional_attributes(valid_opt_flags, argc, argv, opt_attr))

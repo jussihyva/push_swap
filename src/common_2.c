@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:44:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/12 12:05:27 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 07:10:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void					activate_linked_list_loop(t_list *int_lst)
 	return ;
 }
 
-static int				read_verbose_attr(int *argc, char ***argv)
+static int				next_attr(t_attr_flags opt, int *argc, char ***argv)
 {
 	(*argc)--;
 	(*argv)++;
-	return (verbose);
+	return (opt);
 }
 
 int						read_optional_attributes(int valid_opt_flags, int *argc,
@@ -46,22 +46,20 @@ int						read_optional_attributes(int valid_opt_flags, int *argc,
 	if ((valid_opt_flags & instruction_file) && *argc &&
 													ft_strequ(*argv[0], "-f"))
 	{
-		(*argc)--;
-		(*argv)++;
+		opt_attr->attr_flags |= next_attr(0, argc, argv);;
 		if (*argc > 0)
 		{
 			opt_attr->instruction_file = ft_strdup(*argv[0]);
 			opt_attr->attr_flags |= instruction_file;
-			(*argc)--;
-			(*argv)++;
+			opt_attr->attr_flags |= next_attr(0, argc, argv);;
 		}
 		else
 			result = 0;
 	}
 	if ((valid_opt_flags & verbose) && *argc && ft_strequ(*argv[0], "-v"))
-		opt_attr->attr_flags |= read_verbose_attr(argc, argv);
-	if ((valid_opt_flags & verbose) && *argc && ft_strequ(*argv[0], "-l"))
-		opt_attr->attr_flags |= leak_pause;
+		opt_attr->attr_flags |= next_attr(verbose, argc, argv);
+	if ((valid_opt_flags & leaks_pause) && *argc && ft_strequ(*argv[0], "-l"))
+		opt_attr->attr_flags |= next_attr(leaks_pause, argc, argv);;
 	return (result);
 }
 
