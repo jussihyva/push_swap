@@ -143,14 +143,27 @@ static void		get_best_move(t_sort_result *sort_result, size_t lst_size)
 	return ;
 }
 
-static size_t			save_next_move(size_t moves, t_next_move *next_move,
+static void			save_next_move(t_next_move *next_move,
 					t_move_action source_action, t_move_action target_action,
 														t_move_cost move_cost)
 {
 	next_move->integer = move_cost.integer;
 	next_move->source_stack_action = source_action;
 	next_move->target_stack_action = target_action;
-	return (moves);
+	return ;
+}
+
+static void		check_source_rx_and_targer_asc(t_next_move *next_move, t_move_cost move_cost, size_t *best_num_of_moves)
+{
+	if (move_cost.target_asc_rx != -1)
+ 	{
+ 		if (*best_num_of_moves > (moves = ft_max(move_cost.source_rx, move_cost.target_asc_rx)))
+		{
+ 			save_next_move(next_move, rb, ra, move_cost);
+			*best_num_of_moves = moves;
+		}
+ 	}
+	return ;
 }
 
 static void		get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size)
@@ -167,11 +180,8 @@ static void		get_best_move_b_v2(t_sort_result *sort_result, size_t lst_size)
 	next_move = &sort_result->next_move;
 	while (++c < lst_size)
 	{
- 		if (move_cost[c].source_rx != -1 && move_cost[c].target_asc_rx != -1)
- 		{
- 			if (best_num_of_moves > (moves = ft_max(move_cost[c].source_rx, move_cost[c].target_asc_rx)))
- 				best_num_of_moves = save_next_move(moves, next_move, rb, ra, move_cost[c]);
- 		}
+ 		if (move_cost[c].source_rx != -1)
+			check_source_rx_and_targer_asc(next_move, move_cost, &best_num_of_moves);
 		// if (sort_result->move_cost[c].source_rx != -1 &&
 		// 	sort_result->move_cost[c].target_asc_rx != -1)
 		// {
