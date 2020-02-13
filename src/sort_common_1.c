@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:08:42 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 14:51:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/13 15:28:44 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,44 @@ void			init_sort_result(t_sort_result *sort_result)
 	return ;
 }
 
-void			execute_action(t_sort_result *sort_result, t_move_action action)
+static void		execute_sx_action(t_sort_result *sort_result,
+														t_move_action action)
 {
 	t_stack			*stack_b;
 	t_stack			*stack_a;
-	t_list			*tmp_ptr;
 
 	stack_b = &sort_result->stack_b;
 	stack_a = &sort_result->stack_a;
+	if ((action == sa || action == ss) && stack_a->int_lst_size)
+	{
+		ft_lstswap(stack_a->top, stack_a->top->next);
+		stack_a->top = stack_a->top->prev;
+	}
+	if ((action == sb || action == ss) && stack_b->int_lst_size)
+	{
+		ft_lstswap(stack_b->top, stack_b->top->next);
+		stack_b->top = stack_b->top->prev;
+	}
+	return ;
+}
+
+static void		execute_rrx_action(t_sort_result *sort_result,
+														t_move_action action)
+{
+	if (action == rra)
+		step_prt_up(sort_result);
+	else if (action == rrb)
+		step_prt_up_b(sort_result);
+	else if (action == rrr)
+	{
+		step_prt_up(sort_result);
+		step_prt_up_b(sort_result);
+	}
+	return ;
+}
+
+void			execute_action(t_sort_result *sort_result, t_move_action action)
+{
 	sort_result->total_num_of_actions++;
 	if (sort_result->total_num_of_actions < MAX_ACTIONS)
 	{
@@ -56,30 +86,7 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 		optimize_last_actions(sort_result);
 	}
 	if (action == sa || action == sb || action == ss)
-	{
-		if ((action == sa || action == ss) && stack_a->int_lst_size)
-		{
-			stack_a->top->next->next->prev = stack_a->top; /* -1 */
-			tmp_ptr = stack_a->top->next->next; /* 0 */
-			stack_a->top->next->next = stack_a->top; /* 1 */
-			stack_a->top = stack_a->top->next; /* 2 */
-			stack_a->top->next->next = tmp_ptr; /* 0 */
-			stack_a->top->prev->prev->next = stack_a->top; /* 3 */
-			stack_a->top->prev = stack_a->top->next->prev; /* 5 */
-			stack_a->top->next->prev = stack_a->top; /* 4 */
-		}
-		if ((action == sb || action == ss) && stack_b->int_lst_size)
-		{
-			stack_b->top->next->next->prev = stack_b->top; /* -1 */
-			tmp_ptr = stack_b->top->next->next; /* 0 */
-			stack_b->top->next->next = stack_b->top; /* 1 */
-			stack_b->top = stack_b->top->next; /* 2 */
-			stack_b->top->next->next = tmp_ptr; /* 0 */
-			stack_b->top->prev->prev->next = stack_b->top; /* 3 */
-			stack_b->top->prev = stack_b->top->next->prev; /* 5 */
-			stack_b->top->next->prev = stack_b->top; /* 4 */
-		}
-	}
+		execute_sx_action(sort_result, action);
 	else if (action == pb || action == pa)
 	{
 		move_to_stack(sort_result, action);
@@ -94,13 +101,7 @@ void			execute_action(t_sort_result *sort_result, t_move_action action)
 		step_prt_down(sort_result);
 		step_prt_down_b(sort_result);
 	}
-	else if (action == rra)
-		step_prt_up(sort_result);
-	else if (action == rrb)
-		step_prt_up_b(sort_result);
-	else if (action == rrr)
-	{
-		step_prt_up(sort_result);
-		step_prt_up_b(sort_result);
-	}
+	else if (action == rra || action == rrb || action == rrr)
+		execute_rrx_action(sort_result, action);
+	return ;
 }
