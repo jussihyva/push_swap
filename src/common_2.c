@@ -60,6 +60,8 @@ int						read_optional_attributes(int valid_opt_flags, int *argc,
 	}
 	if ((valid_opt_flags & verbose) && *argc && ft_strequ(*argv[0], "-v"))
 		opt_attr->attr_flags |= read_verbose_attr(argc, argv);
+	if ((valid_opt_flags & verbose) && *argc && ft_strequ(*argv[0], "-l"))
+		opt_attr->attr_flags |= leak_pause;
 	return (result);
 }
 
