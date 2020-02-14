@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:03 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/14 08:47:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/14 13:58:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static t_validation_result		read_input_data_checker(
 	else
 		result = error;
 	activate_linked_list_loop(sort_result->stack_a.int_lst);
-	if (result == ok && validate_result(sort_result) != ok)
+	if (result == ok)
 		result = read_instructions(sort_result, *opt_attr);
 	if (opt_attr->attr_flags & instruction_file)
 		free(opt_attr->instruction_file);
