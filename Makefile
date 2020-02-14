@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/12 15:45:19 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/13 22:03:42 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/14 07:48:02 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT_FOLDER		=	libft
 LIBFTPRINTF			=	ftprintf
 LIBFTPRINTF_FOLDER	=	libftprintf
 
-I_FLAGS				=	-I $(HEADER_FOLDER) -I $(LIBFT_FOLDER) -I $(LIBFTPRINTF_FOLDER)
+I_FLAGS				=	-I $(HEADER_FOLDER) -I $(LIBFT_FOLDER) -I $(LIBFTPRINTF_FOLDER)/src
 CC_FLAGS			=	-g -Wall -Werror -Wextra
 
 SRC_FOLDER			=	src
@@ -51,7 +51,7 @@ OBJ_FILES			=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(SRC_FILES_NAME)
 TEST_ARG			=	`ruby -e "puts (1..10000).to_a.shuffle.join(' ')"`
 
 
-all: libft $(NAME1) $(NAME2)
+all: $(LIBFT_FOLDER) $(LIBFTPRINTF_FOLDER) $(NAME1) $(NAME2)
 
 $(NAME1): $(OBJ_FILES) $(NAME1).c
 	$(CC) $(CC_FLAGS) $(I_FLAGS) -o $@ $@.c $(OBJ_FILES) -L $(LIBFT_FOLDER) -l $(LIBFT) -L $(LIBFTPRINTF_FOLDER) -l $(LIBFTPRINTF)
@@ -71,8 +71,11 @@ $(TEST_FOLDER):
 $(OBJ_FOLDER):
 	@mkdir $(OBJ_FOLDER)
 
-libft:
+$(LIBFT_FOLDER):
 	@make -C $(LIBFT_FOLDER)
+
+$(LIBFTPRINTF_FOLDER):
+	@make -C $(LIBFTPRINTF_FOLDER)
 
 clean:
 	@\rm -f $(OBJ_FOLDER)/*.o
@@ -93,4 +96,4 @@ test: | $(TEST_FOLDER)
 	./push_swap $(TEST_ARG)
 	./push_swap 1 2 8 4 -5
 
-.PHONY: all test clean fclean re libft norm
+.PHONY: all test clean fclean re norm $(LIBFT_FOLDER) $(LIBFTPRINTF_FOLDER)
