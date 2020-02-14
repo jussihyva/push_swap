@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 14:34:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 17:38:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/14 11:18:20 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void			move_to_stack(t_sort_result *sort_result, t_move_action action)
 		target_stack = &sort_result->stack_b;
 		source_stack = &sort_result->stack_a;
 	}
+	else
+		return ;
 	source_stack->int_lst_size--;
 	target_stack->int_lst_size++;
 	source_stack->top->prev->next = source_stack->top->next;
