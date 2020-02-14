@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:44:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/14 08:46:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/14 09:01:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,12 @@ int						print_result(t_validation_result result)
 	if (result == no_param)
 		;
 	else if (result == ok)
-		ft_dprintf(1, "OK\n");
+		ft_putstr("OK\n");
 	else if (result == ko)
-		ft_dprintf(1, "KO\n");
+		ft_putstr("KO\n");
 	else if (result == error)
 	{
-		ft_dprintf(2, "Error\n");
+		ft_putstr_fd("Error\n", 2);
 		return_code = 1;
 	}
 	return (0);
