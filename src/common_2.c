@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 14:44:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 21:52:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/14 08:46:37 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int						read_integer_values(t_input_data *input,
 	char					*integer_string;
 
 	input->int_array_size = 0;
+	input->int_array = NULL;
 	input->int_list = NULL;
 	if (argc)
 	{

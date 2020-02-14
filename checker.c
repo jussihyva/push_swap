@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:03 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/13 07:54:05 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/14 08:47:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static void						save_to_sort_result(t_input_data *input,
 	sort_result->stack_a.int_lst = input->int_list;
 	sort_result->stack_a.int_lst_size = input->int_array_size;
 	sort_result->stack_a.top = sort_result->stack_a.int_lst;
-	free(input->int_array);
+	if (input->int_array)
+		free(input->int_array);
 	free(input);
 	return ;
 }
