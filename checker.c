@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 16:22:03 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/14 13:58:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/14 14:02:29 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static t_validation_result		read_instructions(t_sort_result *sort_result,
 	{
 		fd = open(opt_attr.instruction_file, O_RDONLY);
 	}
+	result = ok;
 	line = NULL;
 	while ((chars = ft_get_next_line(fd, &line)) > 0)
 	{
