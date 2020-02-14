@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/04 11:34:07 by jkauppi           #+#    #+#              #
-#    Updated: 2020/02/14 07:49:04 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/02/14 08:00:33 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ ${OBJ_PATHS}:${OBJ_FOLDER}/%.o: ${SRC_FOLDER}/%.c ${SRC_FOLDER}/${HEADER_FILE} |
 $(OBJ_FOLDER):
 	mkdir $(OBJ_FOLDER)
 
-libft:
+${LIBFT_FOLDER}:
 	@make -C $(LIBFT_FOLDER)
 
 clean:
@@ -69,5 +69,5 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: re fclean clean all
+.PHONY: re fclean clean all ${LIBFT_FOLDER}
 
