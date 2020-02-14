@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/14 12:00:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/14 12:02:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void					execute_algorithms(t_list **sort_function_list,
 		while (elem)
 		{
 			max_actions = ((t_sort_function *)elem->content)->num_of_actions;
-			ft_putstr_fd(2, "       ", 2);
+			ft_putstr_fd("       ", 2);
 			ft_putstr_fd(ft_itoa(max_actions), 2);
 			elem = elem->next;
 		}
