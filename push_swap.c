@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 17:56:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/02/14 12:02:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/02/14 13:43:15 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static void					execute_algorithms(t_list **sort_function_list,
 		}
 		ft_putstr_fd("\n", 2);
 	}
-	return ;
 }
 
 int							main(int argc, char **argv)
